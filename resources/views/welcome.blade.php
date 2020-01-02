@@ -6,11 +6,13 @@
 
         <title>Laravel</title>
 
-        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="/css/app.css" type="text/css">
     </head>
     <body>
-        <div id="app"></div>
+        <div class="container mt-4">
+            <div id="app"></div>
+        </div>
         
-        <script src="js/app.js"></script>
+        <script src="/js/app.js"></script>
     </body>
 </html>
