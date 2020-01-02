@@ -28,6 +28,6 @@ $router->get('user/{id}', ['uses' => 'UserController@showOneUser']);
 
 // $router->put('authors/{id}', ['uses' => 'UserController@update']);
 
+$router->get('skill-index', ['uses' => 'SkillController@skillIndex']);
 $router->get('skill/{skillName}', ['uses' => 'SkillController@searchUserWithSkill']);
-
 $router->get('show-all-related-skills/{skillName}', ['uses' => 'SkillController@showAllRelatedSkills']);

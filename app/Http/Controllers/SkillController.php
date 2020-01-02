@@ -16,6 +16,13 @@ class SkillController extends Controller
     {
         //
     }
+
+    public function skillIndex()
+    {
+        $skills = Skill::all();
+        return response()->json($skills);
+    }
+
     public function showAllRelatedSkills(Request $request)
     {
         $skillName = $request->skillName;
@@ -24,6 +31,7 @@ class SkillController extends Controller
         // return response()->json($querySkill);
         return $querySkill;
     }
+
     public function searchUserWithSkill(Request $request)
     {
         $querySkill = $this->showAllRelatedSkills($request);

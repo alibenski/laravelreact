@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+
+import Skill from './Skill';
 
 function Index() {
     return (
         <div className="container">
             <div className="row justify-content-center">
                 This is the index page!!!
-                <SearchSkill />
-                
+                <Skill />
             </div>
         </div>
     );

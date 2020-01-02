@@ -9,10 +9,8 @@
         <link rel="stylesheet" href="/css/app.css" type="text/css">
     </head>
     <body>
-        <div class="container mt-4">
-            <div id="app"></div>
-        </div>
-        
+        <div id="app"></div>
+
         <script src="/js/app.js"></script>
     </body>
 </html>
