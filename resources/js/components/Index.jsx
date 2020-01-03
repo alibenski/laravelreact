@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Skill from './Skill';
-
 function Index() {
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                This is the index page!!!
-                <Skill />
-            </div>
-        </div>
+		<main className="page bg-white" id="home">
+	        <div className="container">
+	            <div className="row justify-content-center">
+	              <div className="col-md-12 bg-white">
+	                	<h2 className="text-center">This is the Conecta Home Page</h2>
+	              </div>
+	            </div>
+	        </div>
+        </main>
     );
 }
 

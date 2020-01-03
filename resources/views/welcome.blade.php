@@ -11,6 +11,8 @@
     <body>
         <div id="app"></div>
 
+        <div id="skills-wrapper"></div>
+
         <script src="/js/app.js"></script>
     </body>
 </html>

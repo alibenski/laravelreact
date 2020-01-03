@@ -13,3 +13,4 @@ require('./bootstrap');
  */
 
 require('./components/Index');
+require('./components/skills/SkillsGroup');
