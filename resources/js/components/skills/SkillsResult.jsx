@@ -9,6 +9,12 @@ const SkillsResult = ({ skillUserRecords }) => {
                     {skillUserRecords.map(user => (
                         <li key={user.id} className={user.id}>
                             {user.lastname}, {user.firstname}
+                            <ul>
+                                Skills:
+                                {user.skills.map(skill => (
+                                    <li key={skill.id}>{skill.skillname}</li>
+                                ))}
+                            </ul>
                         </li>
                     ))}
                 </ul>

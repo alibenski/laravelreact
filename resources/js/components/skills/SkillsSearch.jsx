@@ -3,7 +3,7 @@ import React from "react";
 const SkillsSearch = ({ handleQuerySkill }) => {
     let skillName = "";
     return (
-        <div className="card">
+        <div className="card d-none">
             <div className="card-header">Search Skill</div>
             <div className="card-body">
                 <input

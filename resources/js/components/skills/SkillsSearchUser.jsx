@@ -1,6 +1,6 @@
 import React from "react";
 
-const SkillsSearchUser = ({ handleQueryUser }) => {
+const SkillsSearchUser = ({ handleQueryUser, triggerDisplayState }) => {
     let skillName = "";
     return (
         <div className="card">
@@ -12,7 +12,12 @@ const SkillsSearchUser = ({ handleQueryUser }) => {
                 ></input>
             </div>
             <div className="card-footer">
-                <button onClick={e => handleQueryUser(skillName)}>
+                <button
+                    onClick={e => {
+                        handleQueryUser(skillName);
+                        triggerDisplayState();
+                    }}
+                >
                     Search
                 </button>
             </div>

@@ -15,11 +15,13 @@ class SkillsGroup extends Component {
         super(props);
         this.state = {
             skills: [],
-            users: []
+            users: [],
+            isShown: true
         };
 
         this.handleQuerySkill = this.handleQuerySkill.bind(this);
         this.handleQueryUser = this.handleQueryUser.bind(this);
+        this.triggerDisplayState = this.triggerDisplayState.bind(this);
     }
 
     componentDidMount() {
@@ -57,11 +59,17 @@ class SkillsGroup extends Component {
                 this.setState({
                     users: response.data
                 });
-                console.log(response.data);
             })
             .catch(errors => {
                 console.log(errors);
             });
+    }
+
+    triggerDisplayState() {
+        this.setState({
+            ...this.state,
+            isShown: false
+        });
     }
 
     render() {
@@ -72,17 +80,20 @@ class SkillsGroup extends Component {
             <div className="container mt-4">
                 <div className="row justify-content-center">
                     <div className="col-md-8">
+                        {this.state.isShown && (
+                            <SkillsSearchUser
+                                handleQueryUser={this.handleQueryUser}
+                                triggerDisplayState={this.triggerDisplayState}
+                            />
+                        )}
+                        <SkillsResult skillUserRecords={filteredUsers} />
+
                         <SkillsSearch
                             handleQuerySkill={this.handleQuerySkill}
                         />
 
                         {/* <SkillsList skillRecords={this.state.skills} /> */}
                         <SkillsList skillRecords={filteredSkills} />
-
-                        <SkillsSearchUser
-                            handleQueryUser={this.handleQueryUser}
-                        />
-                        <SkillsResult skillUserRecords={filteredUsers} />
                     </div>
                 </div>
             </div>

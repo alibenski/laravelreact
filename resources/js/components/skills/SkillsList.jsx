@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const SkillsList = ({ skillRecords }) => {
     return (
-        <div className="container mt-4">
+        <div className="container mt-4 d-none">
             <div className="row justify-content-center">
                 <ul>
                     {skillRecords.map(skill => (
