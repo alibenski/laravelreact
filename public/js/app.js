@@ -69895,7 +69895,7 @@ function (_Component) {
     _this.state = {
       skills: [],
       users: [],
-      isShown: true
+      searchFieldIsShown: true
     };
     _this.handleQuerySkill = _this.handleQuerySkill.bind(_assertThisInitialized(_this));
     _this.handleQueryUser = _this.handleQueryUser.bind(_assertThisInitialized(_this));
@@ -69949,7 +69949,8 @@ function (_Component) {
     key: "triggerDisplayState",
     value: function triggerDisplayState() {
       this.setState(_objectSpread({}, this.state, {
-        isShown: false
+        searchFieldIsShown: false,
+        searchResultIsShown: true
       }));
     }
   }, {
@@ -69963,10 +69964,10 @@ function (_Component) {
         className: "row justify-content-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-8"
-      }, this.state.isShown && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsSearchUser__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, this.state.searchFieldIsShown && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsSearchUser__WEBPACK_IMPORTED_MODULE_6__["default"], {
         handleQueryUser: this.handleQueryUser,
         triggerDisplayState: this.triggerDisplayState
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsResult__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }), this.state.searchResultIsShown && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsResult__WEBPACK_IMPORTED_MODULE_5__["default"], {
         skillUserRecords: filteredUsers
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsSearch__WEBPACK_IMPORTED_MODULE_4__["default"], {
         handleQuerySkill: this.handleQuerySkill
@@ -70057,6 +70058,12 @@ var SkillsResult = function SkillsResult(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container mt-4"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row justify-content-center"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "btn btn-warning"
+  }, "Reset")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "text-center mt-4"
+  }, "Result"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row justify-content-center"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, skillUserRecords.map(function (user) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {

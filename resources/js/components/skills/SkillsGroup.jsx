@@ -16,7 +16,7 @@ class SkillsGroup extends Component {
         this.state = {
             skills: [],
             users: [],
-            isShown: true
+            searchFieldIsShown: true
         };
 
         this.handleQuerySkill = this.handleQuerySkill.bind(this);
@@ -68,7 +68,8 @@ class SkillsGroup extends Component {
     triggerDisplayState() {
         this.setState({
             ...this.state,
-            isShown: false
+            searchFieldIsShown: false,
+            searchResultIsShown: true
         });
     }
 
@@ -80,13 +81,15 @@ class SkillsGroup extends Component {
             <div className="container mt-4">
                 <div className="row justify-content-center">
                     <div className="col-md-8">
-                        {this.state.isShown && (
+                        {this.state.searchFieldIsShown && (
                             <SkillsSearchUser
                                 handleQueryUser={this.handleQueryUser}
                                 triggerDisplayState={this.triggerDisplayState}
                             />
                         )}
-                        <SkillsResult skillUserRecords={filteredUsers} />
+                        {this.state.searchResultIsShown && (
+                            <SkillsResult skillUserRecords={filteredUsers} />
+                        )}
 
                         <SkillsSearch
                             handleQuerySkill={this.handleQuerySkill}

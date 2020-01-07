@@ -5,6 +5,10 @@ const SkillsResult = ({ skillUserRecords }) => {
     return (
         <div className="container mt-4">
             <div className="row justify-content-center">
+                <button className="btn btn-warning">Reset</button>
+            </div>
+            <h3 className="text-center mt-4">Result</h3>
+            <div className="row justify-content-center">
                 <ul>
                     {skillUserRecords.map(user => (
                         <li key={user.id} className={user.id}>
