@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SkillsResult = ({ skillRecords }) => {
+const SkillsResult = ({ skillUserRecords }) => {
     return (
         <div className="container mt-4">
             <div className="row justify-content-center">
                 <ul>
-                    {skillRecords.map(skill => (
-                        <li key={skill.id} className={skill.id}>
-                            {skill.skillname}
+                    {skillUserRecords.map(user => (
+                        <li key={user.id} className={user.id}>
+                            {user.lastname}, {user.firstname}
                         </li>
                     ))}
                 </ul>

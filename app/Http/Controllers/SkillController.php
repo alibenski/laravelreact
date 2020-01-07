@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Skill;
+use App\User;
 
 class SkillController extends Controller
 {
@@ -39,10 +40,14 @@ class SkillController extends Controller
 
         foreach ($querySkill as $skill) {
             foreach ($skill->users as $user) {
-                $userName[] = $user;
+                $userName[] = $user['id'];
             }
         }
 
-        return response()->json($userName);
+        $userName = array_unique($userName);
+        $userData = User::whereIn('id', $userName)->with('skills')->get();
+
+        // return response()->json($userName);
+        return response()->json($userData);
     }
 }

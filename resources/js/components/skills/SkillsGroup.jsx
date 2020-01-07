@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import SkillsList from "./SkillsList";
 import SkillsSearch from "./SkillsSearch";
+import SkillsResult from "./SkillsResult";
+import SkillsSearchUser from "./SkillsSearchUser";
 
 class SkillsGroup extends Component {
     // static propTypes = {
@@ -12,10 +14,12 @@ class SkillsGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            skills: []
+            skills: [],
+            users: []
         };
 
         this.handleQuerySkill = this.handleQuerySkill.bind(this);
+        this.handleQueryUser = this.handleQueryUser.bind(this);
     }
 
     componentDidMount() {
@@ -46,8 +50,23 @@ class SkillsGroup extends Component {
             });
     }
 
+    handleQueryUser(skillName) {
+        axios
+            .get("api/skill/" + skillName)
+            .then(response => {
+                this.setState({
+                    users: response.data
+                });
+                console.log(response.data);
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+    }
+
     render() {
         let filteredSkills = this.state.skills;
+        let filteredUsers = this.state.users;
 
         return (
             <div className="container mt-4">
@@ -59,6 +78,11 @@ class SkillsGroup extends Component {
 
                         {/* <SkillsList skillRecords={this.state.skills} /> */}
                         <SkillsList skillRecords={filteredSkills} />
+
+                        <SkillsSearchUser
+                            handleQueryUser={this.handleQueryUser}
+                        />
+                        <SkillsResult skillUserRecords={filteredUsers} />
                     </div>
                 </div>
             </div>

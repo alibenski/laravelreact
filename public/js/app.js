@@ -69844,6 +69844,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _SkillsList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SkillsList */ "./resources/js/components/skills/SkillsList.jsx");
 /* harmony import */ var _SkillsSearch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SkillsSearch */ "./resources/js/components/skills/SkillsSearch.jsx");
+/* harmony import */ var _SkillsResult__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SkillsResult */ "./resources/js/components/skills/SkillsResult.jsx");
+/* harmony import */ var _SkillsSearchUser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SkillsSearchUser */ "./resources/js/components/skills/SkillsSearchUser.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69868,6 +69870,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var SkillsGroup =
 /*#__PURE__*/
 function (_Component) {
@@ -69883,9 +69887,11 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SkillsGroup).call(this, props));
     _this.state = {
-      skills: []
+      skills: [],
+      users: []
     };
     _this.handleQuerySkill = _this.handleQuerySkill.bind(_assertThisInitialized(_this));
+    _this.handleQueryUser = _this.handleQueryUser.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -69919,9 +69925,25 @@ function (_Component) {
       });
     }
   }, {
+    key: "handleQueryUser",
+    value: function handleQueryUser(skillName) {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/skill/" + skillName).then(function (response) {
+        _this4.setState({
+          users: response.data
+        });
+
+        console.log(response.data);
+      })["catch"](function (errors) {
+        console.log(errors);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var filteredSkills = this.state.skills;
+      var filteredUsers = this.state.users;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container mt-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -69932,6 +69954,10 @@ function (_Component) {
         handleQuerySkill: this.handleQuerySkill
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
         skillRecords: filteredSkills
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsSearchUser__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        handleQueryUser: this.handleQueryUser
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsResult__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        skillUserRecords: filteredUsers
       }))));
     }
   }]);
@@ -69992,6 +70018,51 @@ SkillsList.propTypes = (_SkillsList$propTypes = {
 
 /***/ }),
 
+/***/ "./resources/js/components/skills/SkillsResult.jsx":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/skills/SkillsResult.jsx ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+var _SkillsResult$propTyp;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var SkillsResult = function SkillsResult(_ref) {
+  var skillUserRecords = _ref.skillUserRecords;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container mt-4"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row justify-content-center"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, skillUserRecords.map(function (user) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: user.id,
+      className: user.id
+    }, user.lastname, ", ", user.firstname);
+  }))));
+};
+
+SkillsResult.displayName = "SkillsResult";
+SkillsResult.propTypes = (_SkillsResult$propTyp = {
+  skillRecords: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.array.isRequired
+}, _defineProperty(_SkillsResult$propTyp, "skillRecords", prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object)), _defineProperty(_SkillsResult$propTyp, "skillRecords", prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
+  id: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number,
+  skillname: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
+}))), _SkillsResult$propTyp);
+/* harmony default export */ __webpack_exports__["default"] = (SkillsResult);
+
+/***/ }),
+
 /***/ "./resources/js/components/skills/SkillsSearch.jsx":
 /*!*********************************************************!*\
   !*** ./resources/js/components/skills/SkillsSearch.jsx ***!
@@ -70029,6 +70100,46 @@ var SkillsSearch = function SkillsSearch(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SkillsSearch);
+
+/***/ }),
+
+/***/ "./resources/js/components/skills/SkillsSearchUser.jsx":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/skills/SkillsSearchUser.jsx ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var SkillsSearchUser = function SkillsSearchUser(_ref) {
+  var handleQueryUser = _ref.handleQueryUser;
+  var skillName = "";
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-header"
+  }, "Search Skill"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    className: "col-md-12",
+    onChange: function onChange(e) {
+      return skillName = e.target.value;
+    }
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-footer"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: function onClick(e) {
+      return handleQueryUser(skillName);
+    }
+  }, "Search")));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (SkillsSearchUser);
 
 /***/ }),
 
