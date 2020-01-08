@@ -16,12 +16,14 @@ class SkillsGroup extends Component {
         this.state = {
             skills: [],
             users: [],
+            isLoading: true,
             searchFieldIsShown: true
         };
 
         this.handleQuerySkill = this.handleQuerySkill.bind(this);
         this.handleQueryUser = this.handleQueryUser.bind(this);
         this.triggerDisplayState = this.triggerDisplayState.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
 
     componentDidMount() {
@@ -57,7 +59,8 @@ class SkillsGroup extends Component {
             .get("api/skill/" + skillName)
             .then(response => {
                 this.setState({
-                    users: response.data
+                    users: response.data,
+                    isLoading: false
                 });
             })
             .catch(errors => {
@@ -70,6 +73,16 @@ class SkillsGroup extends Component {
             ...this.state,
             searchFieldIsShown: false,
             searchResultIsShown: true
+        });
+    }
+
+    refreshPage() {
+        // window.location.reload();
+        this.setState({
+            ...this.state,
+            isLoading: true,
+            searchFieldIsShown: true,
+            searchResultIsShown: false
         });
     }
 
@@ -88,7 +101,11 @@ class SkillsGroup extends Component {
                             />
                         )}
                         {this.state.searchResultIsShown && (
-                            <SkillsResult skillUserRecords={filteredUsers} />
+                            <SkillsResult
+                                skillUserRecords={filteredUsers}
+                                refreshPage={this.refreshPage}
+                                isLoading={this.state.isLoading}
+                            />
                         )}
 
                         <SkillsSearch

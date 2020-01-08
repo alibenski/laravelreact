@@ -4,7 +4,7 @@ const SkillsSearchUser = ({ handleQueryUser, triggerDisplayState }) => {
     let skillName = "";
     return (
         <div className="card">
-            <div className="card-header">Search Skill</div>
+            <div className="card-header">Input Skill</div>
             <div className="card-body">
                 <input
                     className="col-md-12"

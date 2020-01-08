@@ -69895,11 +69895,13 @@ function (_Component) {
     _this.state = {
       skills: [],
       users: [],
+      isLoading: true,
       searchFieldIsShown: true
     };
     _this.handleQuerySkill = _this.handleQuerySkill.bind(_assertThisInitialized(_this));
     _this.handleQueryUser = _this.handleQueryUser.bind(_assertThisInitialized(_this));
     _this.triggerDisplayState = _this.triggerDisplayState.bind(_assertThisInitialized(_this));
+    _this.refreshPage = _this.refreshPage.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -69939,7 +69941,8 @@ function (_Component) {
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/skill/" + skillName).then(function (response) {
         _this4.setState({
-          users: response.data
+          users: response.data,
+          isLoading: false
         });
       })["catch"](function (errors) {
         console.log(errors);
@@ -69951,6 +69954,16 @@ function (_Component) {
       this.setState(_objectSpread({}, this.state, {
         searchFieldIsShown: false,
         searchResultIsShown: true
+      }));
+    }
+  }, {
+    key: "refreshPage",
+    value: function refreshPage() {
+      // window.location.reload();
+      this.setState(_objectSpread({}, this.state, {
+        isLoading: true,
+        searchFieldIsShown: true,
+        searchResultIsShown: false
       }));
     }
   }, {
@@ -69968,7 +69981,9 @@ function (_Component) {
         handleQueryUser: this.handleQueryUser,
         triggerDisplayState: this.triggerDisplayState
       }), this.state.searchResultIsShown && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsResult__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        skillUserRecords: filteredUsers
+        skillUserRecords: filteredUsers,
+        refreshPage: this.refreshPage,
+        isLoading: this.state.isLoading
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsSearch__WEBPACK_IMPORTED_MODULE_4__["default"], {
         handleQuerySkill: this.handleQuerySkill
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -70054,13 +70069,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var SkillsResult = function SkillsResult(_ref) {
-  var skillUserRecords = _ref.skillUserRecords;
+  var skillUserRecords = _ref.skillUserRecords,
+      refreshPage = _ref.refreshPage,
+      isLoading = _ref.isLoading;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container mt-4"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, !isLoading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row justify-content-center"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "btn btn-warning"
+    className: "btn btn-warning",
+    onClick: function onClick(e) {
+      refreshPage();
+    }
   }, "Reset")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "text-center mt-4"
   }, "Result"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -70074,7 +70094,7 @@ var SkillsResult = function SkillsResult(_ref) {
         key: skill.id
       }, skill.skillname);
     })));
-  }))));
+  })))) : "Loading...");
 };
 
 SkillsResult.displayName = "SkillsResult";
@@ -70149,7 +70169,7 @@ var SkillsSearchUser = function SkillsSearchUser(_ref) {
     className: "card"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-header"
-  }, "Search Skill"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Input Skill"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-body"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     className: "col-md-12",
