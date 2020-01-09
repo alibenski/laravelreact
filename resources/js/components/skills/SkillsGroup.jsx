@@ -24,6 +24,7 @@ class SkillsGroup extends Component {
         this.handleQueryUser = this.handleQueryUser.bind(this);
         this.triggerDisplayState = this.triggerDisplayState.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
+        this.keyPress = this.keyPress.bind(this);
     }
 
     componentDidMount() {
@@ -86,6 +87,14 @@ class SkillsGroup extends Component {
         });
     }
 
+    keyPress(e) {
+        const skillName = e.target.value;
+        if (e.keyCode === 13) {
+            this.handleQueryUser(skillName);
+            this.triggerDisplayState();
+        }
+    }
+
     render() {
         let filteredSkills = this.state.skills;
         let filteredUsers = this.state.users;
@@ -98,6 +107,7 @@ class SkillsGroup extends Component {
                             <SkillsSearchUser
                                 handleQueryUser={this.handleQueryUser}
                                 triggerDisplayState={this.triggerDisplayState}
+                                keyPress={this.keyPress}
                             />
                         )}
                         {this.state.searchResultIsShown && (

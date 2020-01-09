@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Skill;
+use App\Parentskill;
+use App\Childskill;
 use App\User;
 
 class SkillController extends Controller
@@ -20,14 +21,17 @@ class SkillController extends Controller
 
     public function skillIndex()
     {
-        $skills = Skill::all();
+        $skills = Parentskill::all();
         return response()->json($skills);
     }
 
     public function showAllRelatedSkills(Request $request)
     {
         $skillName = $request->skillName;
-        $querySkill = Skill::where('skillname', 'like', '%' . $skillName . '%')->get();
+        $queryParentSkill = Parentskill::where('skillname', 'like', '%' . $skillName . '%')->with('childskills')->get();
+        $queryChildSkill = Childskill::where('skillname', 'like', '%' . $skillName . '%')->with('parentskills')->get();
+
+        $querySkill = $queryChildSkill->merge($queryParentSkill);
 
         // return response()->json($querySkill);
         return $querySkill;
@@ -35,6 +39,7 @@ class SkillController extends Controller
 
     public function searchUserWithSkill(Request $request)
     {
+        $skillName = $request->skillName;
         $querySkill = $this->showAllRelatedSkills($request);
         $userName = [];
 
@@ -45,7 +50,18 @@ class SkillController extends Controller
         }
 
         $userName = array_unique($userName);
-        $userData = User::whereIn('id', $userName)->with('skills')->get();
+        $userData = User::whereIn('id', $userName)
+            ->with(['parentskills' => function ($q1) use ($skillName) {
+                $q1->where('skillname', 'like', '%' . $skillName . '%')
+                    // ->with('childskills')
+                    ->get();
+            }])
+            ->with(['childskills' => function ($q2) use ($skillName) {
+                $q2->where('skillname', 'like', '%' . $skillName . '%')
+                    ->with('parentskills')
+                    ->get();
+            }])
+            ->get();
 
         // return response()->json($userName);
         return response()->json($userData);

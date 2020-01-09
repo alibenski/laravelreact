@@ -10,9 +10,14 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    public function skills()
+    public function parentskills()
     {
-        return $this->belongsToMany('App\Skill');
+        return $this->belongsToMany('App\Parentskill');
+    }
+
+    public function childskills()
+    {
+        return $this->belongsToMany('App\Childskill');
     }
 
     /**

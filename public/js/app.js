@@ -69902,6 +69902,7 @@ function (_Component) {
     _this.handleQueryUser = _this.handleQueryUser.bind(_assertThisInitialized(_this));
     _this.triggerDisplayState = _this.triggerDisplayState.bind(_assertThisInitialized(_this));
     _this.refreshPage = _this.refreshPage.bind(_assertThisInitialized(_this));
+    _this.keyPress = _this.keyPress.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -69967,6 +69968,16 @@ function (_Component) {
       }));
     }
   }, {
+    key: "keyPress",
+    value: function keyPress(e) {
+      var skillName = e.target.value;
+
+      if (e.keyCode === 13) {
+        this.handleQueryUser(skillName);
+        this.triggerDisplayState();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var filteredSkills = this.state.skills;
@@ -69979,7 +69990,8 @@ function (_Component) {
         className: "col-md-8"
       }, this.state.searchFieldIsShown && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsSearchUser__WEBPACK_IMPORTED_MODULE_6__["default"], {
         handleQueryUser: this.handleQueryUser,
-        triggerDisplayState: this.triggerDisplayState
+        triggerDisplayState: this.triggerDisplayState,
+        keyPress: this.keyPress
       }), this.state.searchResultIsShown && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SkillsResult__WEBPACK_IMPORTED_MODULE_5__["default"], {
         skillUserRecords: filteredUsers,
         refreshPage: this.refreshPage,
@@ -70089,10 +70101,10 @@ var SkillsResult = function SkillsResult(_ref) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: user.id,
       className: user.id
-    }, user.lastname, ", ", user.firstname, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, "Skills:", user.skills.map(function (skill) {
+    }, user.lastname, ", ", user.firstname, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, user.parentskills.map(function (parentskill) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        key: skill.id
-      }, skill.skillname);
+        key: parentskill.id
+      }, parentskill.skillname);
     })));
   })))) : "Loading...");
 };
@@ -70163,7 +70175,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var SkillsSearchUser = function SkillsSearchUser(_ref) {
   var handleQueryUser = _ref.handleQueryUser,
-      triggerDisplayState = _ref.triggerDisplayState;
+      triggerDisplayState = _ref.triggerDisplayState,
+      keyPress = _ref.keyPress;
   var skillName = "";
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card"
@@ -70175,6 +70188,9 @@ var SkillsSearchUser = function SkillsSearchUser(_ref) {
     className: "col-md-12",
     onChange: function onChange(e) {
       return skillName = e.target.value;
+    },
+    onKeyDown: function onKeyDown(e) {
+      return keyPress(e);
     }
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-footer"

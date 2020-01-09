@@ -23,10 +23,9 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                 <li key={user.id} className={user.id}>
                                     {user.lastname}, {user.firstname}
                                     <ul>
-                                        Skills:
-                                        {user.skills.map(skill => (
-                                            <li key={skill.id}>
-                                                {skill.skillname}
+                                        {user.parentskills.map(parentskill => (
+                                            <li key={parentskill.id}>
+                                                {parentskill.skillname}
                                             </li>
                                         ))}
                                     </ul>

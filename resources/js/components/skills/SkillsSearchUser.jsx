@@ -1,6 +1,10 @@
 import React from "react";
 
-const SkillsSearchUser = ({ handleQueryUser, triggerDisplayState }) => {
+const SkillsSearchUser = ({
+    handleQueryUser,
+    triggerDisplayState,
+    keyPress
+}) => {
     let skillName = "";
     return (
         <div className="card">
@@ -9,6 +13,7 @@ const SkillsSearchUser = ({ handleQueryUser, triggerDisplayState }) => {
                 <input
                     className="col-md-12"
                     onChange={e => (skillName = e.target.value)}
+                    onKeyDown={e => keyPress(e)}
                 ></input>
             </div>
             <div className="card-footer">
