@@ -28,10 +28,7 @@ class SkillController extends Controller
     public function showAllRelatedSkills(Request $request)
     {
         $skillName = $request->skillName;
-        $queryParentSkill = Parentskill::where('skillname', 'like', '%' . $skillName . '%')->with('childskills')->get();
-        $queryChildSkill = Childskill::where('skillname', 'like', '%' . $skillName . '%')->with('parentskills')->get();
-
-        $querySkill = $queryChildSkill->merge($queryParentSkill);
+        $querySkill = Childskill::where('skillname', 'like', '%' . $skillName . '%')->with('parentskills')->get();
 
         // return response()->json($querySkill);
         return $querySkill;
@@ -39,28 +36,25 @@ class SkillController extends Controller
 
     public function searchUserWithSkill(Request $request)
     {
-        $skillName = $request->skillName;
         $querySkill = $this->showAllRelatedSkills($request);
         $userName = [];
+        $userName2 = [];
 
         foreach ($querySkill as $skill) {
             foreach ($skill->users as $user) {
                 $userName[] = $user['id'];
             }
+            foreach ($skill->parentskills as $parentskill) {
+                foreach ($parentskill->users as $user) {
+                    $userName2[] = $user['id'];
+                }
+            }
         }
 
-        $userName = array_unique($userName);
-        $userData = User::whereIn('id', $userName)
-            ->with(['parentskills' => function ($q1) use ($skillName) {
-                $q1->where('skillname', 'like', '%' . $skillName . '%')
-                    // ->with('childskills')
-                    ->get();
-            }])
-            ->with(['childskills' => function ($q2) use ($skillName) {
-                $q2->where('skillname', 'like', '%' . $skillName . '%')
-                    ->with('parentskills')
-                    ->get();
-            }])
+        $userNameMerge = array_merge($userName, $userName2);
+        $userNameUnique = array_unique($userNameMerge);
+        $userData = User::whereIn('id', $userNameUnique)
+            ->with('childskills')
             ->get();
 
         // return response()->json($userName);

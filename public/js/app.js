@@ -70101,10 +70101,10 @@ var SkillsResult = function SkillsResult(_ref) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: user.id,
       className: user.id
-    }, user.lastname, ", ", user.firstname, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, user.parentskills.map(function (parentskill) {
+    }, user.lastname, ", ", user.firstname, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, user.childskills.map(function (childskill) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        key: parentskill.id
-      }, parentskill.skillname);
+        key: childskill.id
+      }, childskill.skillname);
     })));
   })))) : "Loading...");
 };
