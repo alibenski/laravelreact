@@ -69741,6 +69741,8 @@ __webpack_require__(/*! ./components/Index */ "./resources/js/components/Index.j
 
 __webpack_require__(/*! ./components/skills/SkillsGroup */ "./resources/js/components/skills/SkillsGroup.jsx");
 
+__webpack_require__(/*! ./components/form/userForm */ "./resources/js/components/form/userForm.jsx");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -69823,6 +69825,179 @@ function Index() {
 
 if (document.getElementById("app")) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Index, null), document.getElementById("app"));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/form/FormUserDetails.jsx":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/form/FormUserDetails.jsx ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var FormUserDetails = function FormUserDetails(_ref) {
+  var nextStep = _ref.nextStep,
+      handleChange = _ref.handleChange,
+      values = _ref.values,
+      continueNext = _ref.continueNext;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Form User Details");
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FormUserDetails);
+
+/***/ }),
+
+/***/ "./resources/js/components/form/userForm.jsx":
+/*!***************************************************!*\
+  !*** ./resources/js/components/form/userForm.jsx ***!
+  \***************************************************/
+/*! exports provided: UserForm, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserForm", function() { return UserForm; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _FormUserDetails__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormUserDetails */ "./resources/js/components/form/FormUserDetails.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var UserForm =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(UserForm, _Component);
+
+  function UserForm() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, UserForm);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(UserForm)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      step: 1,
+      firstName: "",
+      lastName: "",
+      email: "",
+      organization: "",
+      city: "",
+      bio: ""
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "nextStep", function () {
+      var step = _this.state.step;
+
+      _this.setState({
+        step: step + 1
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "prevStep", function () {
+      var step = _this.state.step;
+
+      _this.setState({
+        step: step - 1
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleChange", function (input) {
+      return function (e) {
+        _this.setState(_defineProperty({}, input, e.target.value));
+      };
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "continue", function (e) {
+      e.preventDefault();
+
+      _this.nextStep();
+    });
+
+    return _this;
+  }
+
+  _createClass(UserForm, [{
+    key: "render",
+    value: function render() {
+      var step = this.state.step;
+      var _this$state = this.state,
+          firstName = _this$state.firstName,
+          lastName = _this$state.lastName,
+          email = _this$state.email,
+          organization = _this$state.organization,
+          city = _this$state.city,
+          bio = _this$state.bio;
+      var values = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        organization: organization,
+        city: city,
+        bio: bio
+      };
+
+      switch (step) {
+        case 1:
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormUserDetails__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            nextStep: this.nextStep,
+            handleChange: this.handleChange,
+            continueNext: this["continue"],
+            values: values
+          });
+
+        case 2:
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "case 2");
+
+        case 3:
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "case 3");
+
+        case 4:
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "case 4");
+      }
+    }
+  }]);
+
+  return UserForm;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+/* harmony default export */ __webpack_exports__["default"] = (UserForm);
+
+if (document.getElementById("user-form-wrapper")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UserForm, null), document.getElementById("user-form-wrapper"));
 }
 
 /***/ }),
