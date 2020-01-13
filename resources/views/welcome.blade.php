@@ -11,11 +11,11 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </head>
     <body>
-        {{-- <div id="app"></div> --}}
+        <div id="app"></div>
 
         {{-- <div id="skills-wrapper"></div> --}}
 
-        <div id="user-form-wrapper"></div>
+        {{-- <div id="user-form-wrapper"></div> --}}
 
         <script src="/js/app.js"></script>
     </body>

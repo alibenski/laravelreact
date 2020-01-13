@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import FormUserDetails from "./FormUserDetails";
+import FormPersonalDetails from "./FormPersonalDetails";
 
 export class UserForm extends Component {
     state = {
@@ -13,14 +14,16 @@ export class UserForm extends Component {
         bio: ""
     };
 
-    nextStep = () => {
+    nextStep = e => {
+        e.preventDefault();
         const { step } = this.state;
         this.setState({
             step: step + 1
         });
     };
 
-    prevStep = () => {
+    prevStep = e => {
+        e.preventDefault();
         const { step } = this.state;
         this.setState({
             step: step - 1
@@ -31,11 +34,6 @@ export class UserForm extends Component {
         this.setState({
             [input]: e.target.value
         });
-    };
-
-    continue = e => {
-        e.preventDefault();
-        this.nextStep();
     };
 
     render() {
@@ -62,12 +60,18 @@ export class UserForm extends Component {
                     <FormUserDetails
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
-                        continueNext={this.continue}
                         values={values}
                     />
                 );
             case 2:
-                return <h1>case 2</h1>;
+                return (
+                    <FormPersonalDetails
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        values={values}
+                    />
+                );
             case 3:
                 return <h1>case 3</h1>;
             case 4:
