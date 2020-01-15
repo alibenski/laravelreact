@@ -10,8 +10,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 
 function Copyright() {
     return (
@@ -27,9 +25,6 @@ function Copyright() {
 }
 
 const useStyles = makeStyles(theme => ({
-    appbar: {
-        alignItems: "center"
-    },
     paper: {
         marginTop: theme.spacing(8),
         display: "flex",
@@ -54,18 +49,15 @@ const FormUserDetails = ({ nextStep, handleChange, values }) => {
 
     return (
         <React.Fragment>
-            <AppBar
-                title="Enter User Details"
-                position="static"
-                color="primary"
-                className={classes.appbar}
-            >
-                <Toolbar>
-                    <Typography variant="h5">Enter User Details</Typography>
-                </Toolbar>
-            </AppBar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
+                <Typography
+                    variant="h5"
+                    align="center"
+                    className={classes.submit}
+                >
+                    Enter User Details
+                </Typography>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />

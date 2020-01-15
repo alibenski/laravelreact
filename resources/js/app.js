@@ -14,4 +14,4 @@ require("./bootstrap");
 
 require("./components/Index");
 require("./components/skills/SkillsGroup");
-require("./components/form/userForm");
+require("./components/form/UserForm");
