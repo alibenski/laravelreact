@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </head>
     <body>
-        <div id="app"></div>
+        <div id="index"></div>
 
         {{-- <div id="skills-wrapper"></div> --}}
 
