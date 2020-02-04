@@ -10,12 +10,12 @@ function Index() {
         <Fragment>
             <TopBar />
             <Router>
-                <Switch>
-                    {/* <div className="app"> */}
+                <div className="app">
+                    <Link to="/skill-index">Skill</Link>
+                    <Link to="/user-form">Form</Link>
                     <Route exact path="/skill-index" component={SkillsGroup} />
                     <Route exact path="/user-form" component={UserForm} />
-                    {/* </div> */}
-                </Switch>
+                </div>
             </Router>
         </Fragment>
     );

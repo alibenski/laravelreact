@@ -79,7 +79,7 @@ function TopBar() {
                                     to="/"
                                     onClick={handleClose}
                                 >
-                                    My Profile
+                                    Home
                                 </MenuItem>
                                 <MenuItem
                                     component={LinkBehavior}

@@ -11,10 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::view('/{path?}', 'welcome')
-    ->where('path', '.*')
-    ->name('react');
+Route::get('/{path}', function () {
+    return view('welcome');
+})->where('path', '.*');
