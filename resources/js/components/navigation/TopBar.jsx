@@ -10,10 +10,10 @@ import {
 import orange from "@material-ui/core/colors/orange";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import Button from "@material-ui/core/Button";
-import { BrowserRouter as Router, Link as RouterLink } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { Link as RouterLink } from "react-router-dom";
 
 const theme = createMuiTheme({
     palette: {
@@ -34,10 +34,11 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function TopBar() {
+const TopBar = () => {
     const LinkBehavior = React.forwardRef((props, ref) => (
         <RouterLink ref={ref} to="/skill-index" {...props} />
     ));
+
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = event => {
@@ -73,22 +74,21 @@ function TopBar() {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <Router>
-                                <MenuItem
-                                    component={RouterLink}
-                                    to="/"
-                                    onClick={handleClose}
-                                >
-                                    Home
-                                </MenuItem>
-                                <MenuItem
-                                    component={LinkBehavior}
-                                    onClick={handleClose}
-                                >
-                                    Skill Search
-                                </MenuItem>
-                            </Router>
+                            <MenuItem
+                                component={RouterLink}
+                                to="/user-form"
+                                onClick={handleClose}
+                            >
+                                Profile
+                            </MenuItem>
+                            <MenuItem
+                                component={LinkBehavior}
+                                onClick={handleClose}
+                            >
+                                Skill Search
+                            </MenuItem>
                         </Menu>
+
                         <Typography variant="h6" className={classes.title}>
                             Conecta
                         </Typography>
@@ -97,6 +97,6 @@ function TopBar() {
             </div>
         </ThemeProvider>
     );
-}
+};
 
 export default TopBar;
