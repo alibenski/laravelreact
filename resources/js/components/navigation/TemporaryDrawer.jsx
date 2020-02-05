@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import {
-    createMuiTheme,
-    makeStyles,
-    ThemeProvider
-} from "@material-ui/core/styles";
-import orange from "@material-ui/core/colors/orange";
-import blueGrey from "@material-ui/core/colors/blueGrey";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link as RouterLink } from "react-router-dom";
@@ -25,13 +19,6 @@ import InboxIcon from "@material-ui/icons/Inbox";
 import MailIcon from "@material-ui/icons/Mail";
 import Box from "@material-ui/core/Box";
 
-const theme = createMuiTheme({
-    palette: {
-        primary: orange,
-        secondary: blueGrey
-    }
-});
-
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1
@@ -47,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const TemporaryDrawer = () => {
+const TemporaryDrawer = ({ theme }) => {
     const classes = useStyles();
 
     const [state, setState] = useState({
@@ -127,37 +114,35 @@ const TemporaryDrawer = () => {
     );
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className={classes.root}>
-                <AppBar position="static" color="primary">
-                    <Toolbar>
-                        <Button
-                            edge="start"
-                            className={classes.menuButton}
-                            color="inherit"
-                            aria-label="menu"
-                            aria-controls="simple-menu"
-                            aria-haspopup="true"
-                            onClick={toggleDrawer("left", true)}
-                        >
-                            <MenuIcon />
-                        </Button>
-                        <Typography
-                            component="div"
-                            variant="h6"
-                            className={classes.title}
-                        >
-                            <Box fontWeight="fontWeightBold" textAlign="center">
-                                Conecta
-                            </Box>
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
-                    {sideList("left")}
-                </Drawer>
-            </div>
-        </ThemeProvider>
+        <div className={classes.root}>
+            <AppBar position="static" color="primary">
+                <Toolbar>
+                    <Button
+                        edge="start"
+                        className={classes.menuButton}
+                        color="inherit"
+                        aria-label="menu"
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                        onClick={toggleDrawer("left", true)}
+                    >
+                        <MenuIcon />
+                    </Button>
+                    <Typography
+                        component="div"
+                        variant="h6"
+                        className={classes.title}
+                    >
+                        <Box fontWeight="fontWeightBold" textAlign="center">
+                            Conecta
+                        </Box>
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
+                {sideList("left")}
+            </Drawer>
+        </div>
     );
 };
 
