@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -36,9 +36,21 @@ const SkillsSearchUser = ({
     keyPress,
     theme
 }) => {
-    let skillName = "";
     const classes = useStyles();
-
+    const [state, setState] = useState({
+        skillName: "",
+        isDisabled: true
+    });
+    const handleTextChange = e => {
+        if (e.target.value.length > 0) {
+            setState({
+                skillname: e.target.value,
+                isDisabled: false
+            });
+        } else {
+            setState({ skillName: "", isDisabled: true });
+        }
+    };
     return (
         <React.Fragment>
             <Card className={classes.root}>
@@ -56,19 +68,20 @@ const SkillsSearchUser = ({
                             id="outlined-basic"
                             label="Enter Skill"
                             variant="outlined"
-                            onChange={e => (skillName = e.target.value)}
+                            onChange={e => handleTextChange(e)}
                             onKeyDown={e => keyPress(e)}
                         />
                     </FormControl>
                 </CardContent>
                 <CardActions>
                     <Button
+                        disabled={state.isDisabled}
                         variant="contained"
                         color="primary"
                         className={classes.button}
                         startIcon={<SearchIcon />}
                         onClick={e => {
-                            handleQueryUser(skillName);
+                            handleQueryUser(state.skillName);
                             triggerDisplayState();
                         }}
                     >
