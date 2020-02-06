@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -73,11 +74,11 @@ const TemporaryDrawer = ({ theme }) => {
         );
     }
 
-    // ListItemLink.propTypes = {
-    //     icon: PropTypes.element,
-    //     primary: PropTypes.string.isRequired,
-    //     to: PropTypes.string.isRequired
-    // };
+    ListItemLink.propTypes = {
+        icon: PropTypes.element,
+        primary: PropTypes.string.isRequired,
+        to: PropTypes.string.isRequired
+    };
 
     const sideList = side => (
         <div

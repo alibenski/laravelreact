@@ -33,8 +33,7 @@ const useStyles = makeStyles(theme => ({
 const SkillsSearchUser = ({
     handleQueryUser,
     triggerDisplayState,
-    keyPress,
-    theme
+    keyPress
 }) => {
     const classes = useStyles();
     const [state, setState] = useState({
@@ -42,7 +41,7 @@ const SkillsSearchUser = ({
         isDisabled: true
     });
     const handleTextChange = e => {
-        if (e.target.value.length > 0) {
+        if (e.target.value.length > 2) {
             setState({
                 skillname: e.target.value,
                 isDisabled: false

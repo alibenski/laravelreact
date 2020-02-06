@@ -89,7 +89,7 @@ class SkillsGroup extends Component {
 
     keyPress(e) {
         const skillName = e.target.value;
-        if (skillName.length > 0) {
+        if (skillName.length > 2) {
             if (e.keyCode === 13) {
                 this.handleQueryUser(skillName);
                 this.triggerDisplayState();
