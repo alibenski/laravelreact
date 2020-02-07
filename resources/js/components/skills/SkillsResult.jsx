@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -35,54 +36,41 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                             Reset
                         </Button>
                     </div>
-                    {/* <h3 className="text-center mt-4">Result</h3>
-                    <div className="row justify-content-center">
-                        <ul>
-                            {skillUserRecords.map(user => (
-                                <li key={user.id} className={user.id}>
-                                    {user.lastname}, {user.firstname}
-                                    <ul>
-                                        {user.childskills.map(childskill => (
-                                            <li key={childskill.id}>
-                                                {childskill.skillname}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </li>
-                            ))}
-                        </ul>
-                    </div> */}
+
                     <div className={classes.root}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
-                                {/* <ul> */}
                                 {skillUserRecords.map(user => (
                                     <Paper
                                         className={classes.paper}
                                         key={user.id}
                                     >
-                                        <li key={user.id} className={user.id}>
+                                        <Typography
+                                            key={user.id}
+                                            className={classes.paper}
+                                            component={"span"}
+                                            variant="h5"
+                                        >
                                             <span>
                                                 <strong>
                                                     {user.lastname},{" "}
                                                     {user.firstname}
                                                 </strong>
                                             </span>
-                                            <ul>
-                                                {user.childskills.map(
-                                                    childskill => (
-                                                        <li key={childskill.id}>
-                                                            {
-                                                                childskill.skillname
-                                                            }
-                                                        </li>
-                                                    )
-                                                )}
-                                            </ul>
-                                        </li>
+
+                                            {user.childskills.map(
+                                                childskill => (
+                                                    <Typography
+                                                        key={childskill.id}
+                                                        variant="subtitle1"
+                                                    >
+                                                        {childskill.skillname}
+                                                    </Typography>
+                                                )
+                                            )}
+                                        </Typography>
                                     </Paper>
                                 ))}
-                                {/* </ul> */}
                             </Grid>
                         </Grid>
                     </div>
