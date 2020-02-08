@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Parentskill;
 use App\Childskill;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class SkillController extends Controller
 {
@@ -28,8 +29,11 @@ class SkillController extends Controller
     public function showAllRelatedSkills(Request $request)
     {
         $skillName = $request->skillName;
-        $querySkill = Childskill::where('skillname', 'like', '%' . $skillName . '%')->with('parentskills')->get();
-
+        // $querySkill = Childskill::where('skillname', 'like', '%' . $skillName . '%')->with('parentskills')->get();
+        DB::statement('ALTER TABLE childskills ADD FULLTEXT  (skillname)');
+        $querySkill = Childskill::search($skillName)
+            ->with('parentskills')
+            ->get();
         // return response()->json($querySkill);
         return $querySkill;
     }
@@ -53,7 +57,9 @@ class SkillController extends Controller
 
         $userNameMerge = array_merge($userName, $userName2);
         $userNameUnique = array_unique($userNameMerge);
+        $implodeArray = implode(',', $userNameUnique);
         $userData = User::whereIn('id', $userNameUnique)
+            ->orderByRaw(DB::raw("FIELD(id, $implodeArray)"))
             ->with('childskills')
             ->get();
 

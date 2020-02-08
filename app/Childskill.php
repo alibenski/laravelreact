@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Childskill extends Model
 {
+    use FullTextSearch;
     /**
      * The parentskills that belong to the childskills.
      */
@@ -18,4 +19,11 @@ class Childskill extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
+    /**
+     * The columns of the full text index
+     */
+    protected $searchable = [
+        'skillname'
+    ];
 }
