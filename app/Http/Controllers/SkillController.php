@@ -29,11 +29,11 @@ class SkillController extends Controller
     public function showAllRelatedSkills(Request $request)
     {
         $skillName = $request->skillName;
-        // $querySkill = Childskill::where('skillname', 'like', '%' . $skillName . '%')->with('parentskills')->get();
-        DB::statement('ALTER TABLE childskills ADD FULLTEXT  (skillname)');
+        // DB::statement('ALTER TABLE childskills ADD FULLTEXT skillname (skillname)');
         $querySkill = Childskill::search($skillName)
             ->with('parentskills')
             ->get();
+
         // return response()->json($querySkill);
         return $querySkill;
     }

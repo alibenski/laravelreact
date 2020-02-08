@@ -43,13 +43,14 @@ const SkillsSearchUser = ({
     const handleTextChange = e => {
         if (e.target.value.length > 2) {
             setState({
-                skillname: e.target.value,
+                skillName: e.target.value,
                 isDisabled: false
             });
         } else {
             setState({ skillName: "", isDisabled: true });
         }
     };
+
     return (
         <React.Fragment>
             <Card className={classes.root}>

@@ -20,6 +20,10 @@ const useStyles = makeStyles(theme => ({
 
 const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
     const classes = useStyles();
+    let userResult = true;
+    if (skillUserRecords.length == 0) {
+        userResult = false;
+    }
 
     return (
         <div className="container mt-4">
@@ -36,44 +40,48 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                             Reset
                         </Button>
                     </div>
-
-                    <div className={classes.root}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                {skillUserRecords.map(user => (
-                                    <Paper
-                                        className={classes.paper}
-                                        key={user.id}
-                                    >
-                                        <Typography
-                                            key={user.id}
+                    {!userResult && "No result..."}
+                    {userResult && (
+                        <div className={classes.root}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12}>
+                                    {skillUserRecords.map(user => (
+                                        <Paper
                                             className={classes.paper}
-                                            component={"span"}
-                                            variant="h5"
+                                            key={user.id}
                                         >
-                                            <span>
-                                                <strong>
-                                                    {user.lastname},{" "}
-                                                    {user.firstname}
-                                                </strong>
-                                            </span>
+                                            <Typography
+                                                key={user.id}
+                                                className={classes.paper}
+                                                component={"span"}
+                                                variant="h5"
+                                            >
+                                                <span>
+                                                    <strong>
+                                                        {user.lastname},{" "}
+                                                        {user.firstname}
+                                                    </strong>
+                                                </span>
 
-                                            {user.childskills.map(
-                                                childskill => (
-                                                    <Typography
-                                                        key={childskill.id}
-                                                        variant="subtitle1"
-                                                    >
-                                                        {childskill.skillname}
-                                                    </Typography>
-                                                )
-                                            )}
-                                        </Typography>
-                                    </Paper>
-                                ))}
+                                                {user.childskills.map(
+                                                    childskill => (
+                                                        <Typography
+                                                            key={childskill.id}
+                                                            variant="subtitle1"
+                                                        >
+                                                            {
+                                                                childskill.skillname
+                                                            }
+                                                        </Typography>
+                                                    )
+                                                )}
+                                            </Typography>
+                                        </Paper>
+                                    ))}
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </div>
+                        </div>
+                    )}
                 </React.Fragment>
             ) : (
                 "Loading..."
