@@ -55,13 +55,16 @@ class SkillController extends Controller
             }
         }
 
+        $userData = [];
         $userNameMerge = array_merge($userName, $userName2);
-        $userNameUnique = array_unique($userNameMerge);
-        $implodeArray = implode(',', $userNameUnique);
-        $userData = User::whereIn('id', $userNameUnique)
-            ->orderByRaw(DB::raw("FIELD(id, $implodeArray)"))
-            ->with('childskills')
-            ->get();
+        if (!empty($userNameMerge)) {
+            $userNameUnique = array_unique($userNameMerge);
+            $implodeArray = implode(',', $userNameUnique);
+            $userData = User::whereIn('id', $userNameUnique)
+                ->orderByRaw(DB::raw("FIELD(id, $implodeArray)"))
+                ->with('childskills')
+                ->get();
+        }
 
         // return response()->json($userName);
         return response()->json($userData);
