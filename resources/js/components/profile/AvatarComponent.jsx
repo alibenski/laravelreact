@@ -2,13 +2,17 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     root: {
         display: "flex",
         "& > *": {
             margin: theme.spacing(1)
-        }
+        },
+        minWidth: 275
     },
     orange: {
         color: theme.palette.getContrastText(deepOrange[500]),
@@ -23,21 +27,15 @@ const useStyles = makeStyles(theme => ({
 function AvatarComponent() {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
-            <Avatar
-                alt="Remy Sharp"
-                src="/broken-image.jpg"
-                className={classes.orange}
-            >
-                B
-            </Avatar>
-            <Avatar
-                alt="Remy Sharp"
-                src="/broken-image.jpg"
-                className={(classes.orange, classes.large)}
-            />
-            <Avatar src="/broken-image.jpg" className={classes.large} />
-        </div>
+        <React.Fragment>
+            <Card className={classes.root}>
+                <CardContent>
+                    <Avatar src="/broken-image.jpg" className={classes.large} />
+                    <Typography>User detail component here </Typography>
+                    <Typography>User-Skill component here </Typography>
+                </CardContent>
+            </Card>
+        </React.Fragment>
     );
 }
 
