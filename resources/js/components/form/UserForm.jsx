@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import FormUserDetails from "./FormUserDetails";
 import FormPersonalDetails from "./FormPersonalDetails";
 import Confirm from "./Confirm";
@@ -89,7 +88,3 @@ export class UserForm extends Component {
 }
 
 export default UserForm;
-
-if (document.getElementById("user-form-wrapper")) {
-    ReactDOM.render(<UserForm />, document.getElementById("user-form-wrapper"));
-}

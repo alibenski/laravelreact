@@ -90,8 +90,13 @@ const TemporaryDrawer = ({ theme }) => {
             <List>
                 <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
                 <ListItemLink
-                    to="/user-form"
+                    to="/profile"
                     primary="Profile"
+                    icon={<AccountBoxIcon />}
+                />
+                <ListItemLink
+                    to="/user-form"
+                    primary="Form"
                     icon={<AccountBoxIcon />}
                 />
                 <ListItemLink

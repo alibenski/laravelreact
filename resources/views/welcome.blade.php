@@ -13,10 +13,6 @@
     <body>
         <div id="index"></div>
 
-        {{-- <div id="skills-wrapper"></div> --}}
-
-        {{-- <div id="user-form-wrapper"></div> --}}
-
         <script src="/js/app.js"></script>
     </body>
 </html>

@@ -13,6 +13,3 @@ require("./bootstrap");
  */
 
 require("./components/Index");
-require("./components/skills/SkillsGroup");
-require("./components/form/UserForm");
-require("./components/navigation/TopBar");

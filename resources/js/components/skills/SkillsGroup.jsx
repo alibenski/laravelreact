@@ -135,7 +135,3 @@ class SkillsGroup extends Component {
 }
 
 export default SkillsGroup;
-
-if (document.getElementById("skills-wrapper")) {
-    ReactDOM.render(<SkillsGroup />, document.getElementById("skills-wrapper"));
-}

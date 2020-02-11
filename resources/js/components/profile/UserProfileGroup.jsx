@@ -1,9 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
+import AvatarComponent from "./AvatarComponent";
 
-export class UserProfileGroup extends Component {
-    render() {
-        return <div></div>;
-    }
+function UserProfileGroup() {
+    return (
+        <div>
+            <AvatarComponent />
+        </div>
+    );
 }
 
 export default UserProfileGroup;

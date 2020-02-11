@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 // import TopBar from "./navigation/TopBar";
 import TemporaryDrawer from "./navigation/TemporaryDrawer";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import SkillsGroup from "./skills/SkillsGroup";
 import UserForm from "./form/UserForm";
+import UserProfileGroup from "./profile/UserProfileGroup";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import orange from "@material-ui/core/colors/orange";
 import blueGrey from "@material-ui/core/colors/blueGrey";
@@ -30,6 +31,11 @@ function Index() {
                             component={SkillsGroup}
                         />
                         <Route exact path="/user-form" component={UserForm} />
+                        <Route
+                            exact
+                            path="/profile"
+                            component={UserProfileGroup}
+                        />
                     </div>
                 </Router>
             </ThemeProvider>
