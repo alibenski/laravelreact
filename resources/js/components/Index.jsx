@@ -6,6 +6,7 @@ import TemporaryDrawer from "./navigation/TemporaryDrawer";
 import SkillsGroup from "./skills/SkillsGroup";
 import UserForm from "./form/UserForm";
 import UserProfileGroup from "./profile/UserProfileGroup";
+import CreateProfileGroup from "./profile/CreateProfileGroup";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import orange from "@material-ui/core/colors/orange";
 import blueGrey from "@material-ui/core/colors/blueGrey";
@@ -35,6 +36,11 @@ function Index() {
                             exact
                             path="/profile"
                             component={UserProfileGroup}
+                        />
+                        <Route
+                            exact
+                            path="/create-profile"
+                            component={CreateProfileGroup}
                         />
                     </div>
                 </Router>

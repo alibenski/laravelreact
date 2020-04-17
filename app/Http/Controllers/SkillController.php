@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Parentskill;
 use App\Childskill;
+use App\Parentskill;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SkillController extends Controller
@@ -23,6 +23,14 @@ class SkillController extends Controller
     public function skillIndex()
     {
         $skills = Parentskill::all();
+        return response()->json($skills);
+    }
+
+
+    public function skillTree()
+    {
+        $skills = DB::select('SELECT p.skillname as parentskill, c.id, c.skillname FROM childskills as c, parentskills as p, childskill_parentskill as l WHERE l.parentskill_id = p.id AND l.childskill_id = c.id');
+
         return response()->json($skills);
     }
 
@@ -66,7 +74,6 @@ class SkillController extends Controller
                 ->get();
         }
 
-        // return response()->json($userName);
         return response()->json($userData);
     }
 }

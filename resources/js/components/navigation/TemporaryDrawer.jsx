@@ -104,6 +104,11 @@ const TemporaryDrawer = ({ theme }) => {
                     primary="Search Skill"
                     icon={<SearchIcon />}
                 />
+                <ListItemLink
+                    to="/create-profile"
+                    primary="Create profile"
+                    icon={<AccountBoxIcon />}
+                />
             </List>
             <Divider />
             <List>

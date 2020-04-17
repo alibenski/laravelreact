@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // $router->get('authors',  ['uses' => 'UserController@showAllAuthors']);
 
 $router->get('user/{id}', ['uses' => 'UserController@showOneUser']);
+$router->post('user', ['uses' => 'UserController@insertUser']);
 
 // $router->post('authors', ['uses' => 'UserController@create']);
 
@@ -29,5 +30,6 @@ $router->get('user/{id}', ['uses' => 'UserController@showOneUser']);
 // $router->put('authors/{id}', ['uses' => 'UserController@update']);
 
 $router->get('skill-index', ['uses' => 'SkillController@skillIndex']);
+$router->get('skill-tree', ['uses' => 'SkillController@skillTree']);
 $router->get('show-all-related-skills/{skillName}', ['uses' => 'SkillController@showAllRelatedSkills']);
 $router->get('skill/{skillName}', ['uses' => 'SkillController@searchUserWithSkill']);
