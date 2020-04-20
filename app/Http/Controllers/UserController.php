@@ -32,8 +32,10 @@ class UserController extends Controller
             $name = ($request->firstName) . " " . ($request->familyName);
 
             DB::insert('INSERT INTO users (id, name,firstname,lastname,gender,email,created_at,password)
-            VALUES (?,?,?,?,?,?,now(),?)', [$userId, $name, $request->firstName, $request->familyName,
-                $request->userGender, $request->email, 'notManagedYet']);
+            VALUES (?,?,?,?,?,?,now(),?)', [
+                $userId, $name, $request->firstName, $request->familyName,
+                $request->userGender, $request->email, 'notManagedYet'
+            ]);
 
             foreach ($request->state["checked"] as $skillId) {
 
@@ -41,6 +43,5 @@ class UserController extends Controller
                     VALUES (?,?)', [$userId, $skillId]);
             }
         });
-
     }
 }
