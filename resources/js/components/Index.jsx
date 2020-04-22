@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import TopBar from "./navigation/TopBar";
+import LoginForm from "./authentication/LoginForm";
 import TemporaryDrawer from "./navigation/TemporaryDrawer";
 import SkillsGroup from "./skills/SkillsGroup";
 import UserForm from "./form/UserForm";
@@ -26,6 +27,7 @@ function Index() {
                     {/* <TopBar /> */}
                     <TemporaryDrawer />
                     <div className="app">
+                        <Route exact path="/" component={LoginForm} />
                         <Route
                             exact
                             path="/skill-index"

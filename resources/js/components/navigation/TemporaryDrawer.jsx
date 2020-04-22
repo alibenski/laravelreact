@@ -144,9 +144,10 @@ const TemporaryDrawer = ({ theme }) => {
                         variant="h6"
                         className={classes.title}
                     >
-                        <Box fontWeight="fontWeightBold" textAlign="center">
-                            Conecta
-                        </Box>
+                        <Box
+                            fontWeight="fontWeightBold"
+                            textAlign="center"
+                        ></Box>
                     </Typography>
                 </Toolbar>
             </AppBar>
