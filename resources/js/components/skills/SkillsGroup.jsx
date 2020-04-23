@@ -29,9 +29,7 @@ class SkillsGroup extends Component {
 
     componentDidMount() {
         axios
-            .get("api/skill-index", {
-                headers: { Authorization: "Bearer ${localStorage.userToken}" }
-            })
+            .get("api/skill-index")
             .then(response => {
                 this.setState({
                     skills: response.data

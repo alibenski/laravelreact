@@ -110,7 +110,7 @@ const TemporaryDrawer = ({ theme }) => {
                     icon={<AccountBoxIcon />}
                 />
             </List>
-            <Divider />
+            {/* <Divider />
             <List>
                 {["S1", "S2", "S3"].map((text, index) => (
                     <ListItem button key={text}>
@@ -120,7 +120,7 @@ const TemporaryDrawer = ({ theme }) => {
                         <ListItemText primary={text} />
                     </ListItem>
                 ))}
-            </List>
+            </List> */}
         </div>
     );
 

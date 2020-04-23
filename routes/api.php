@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Laravel\Passport\Http\Controllers\AccessTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +14,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'LoginController@login');
-Route::post('register', 'LoginController@register');
+// Route::post('login', 'AuthController@login');
+Route::post('login', [AccessTokenController::class, 'issueToken'])
+    ->middleware(['api-login', 'throttle']);
+Route::post('register', 'AuthController@register');
 
 Route::group(['middleware' => 'auth:api'], function () use ($router) {
-    $router->post('details', 'LoginController@details');
+    $router->get('logout', 'AuthController@logout');
+    $router->post('details', 'AuthController@details');
     $router->get('/user', function (Request $request) {
         return $request->user();
     });
@@ -25,8 +29,9 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('user/{id}', ['uses' => 'UserController@showOneUser']);
     $router->post('user', ['uses' => 'UserController@insertUser']);
 
-    $router->get('skill-index', ['uses' => 'SkillController@skillIndex']);
     $router->get('skill-tree', ['uses' => 'SkillController@skillTree']);
     $router->get('show-all-related-skills/{skillName}', ['uses' => 'SkillController@showAllRelatedSkills']);
     $router->get('skill/{skillName}', ['uses' => 'SkillController@searchUserWithSkill']);
 });
+
+$router->get('skill-index', ['uses' => 'SkillController@skillIndex']);

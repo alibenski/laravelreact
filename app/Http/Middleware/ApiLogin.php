@@ -24,7 +24,8 @@ class ApiLogin
         $request->merge([
             'grant_type' => 'password',
             'client_id' => 2,
-            'client_secret' => $secret
+            'client_secret' => $secret,
+            'scope' => '',
         ]);
 
         return $next($request);

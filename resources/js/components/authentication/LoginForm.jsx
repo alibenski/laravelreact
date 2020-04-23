@@ -10,7 +10,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Redirect } from "react-router";
+import logoConecta from "../images/logoConecta.png";
+import bgConecta from "../images/bgConecta.jpg";
 
 function Copyright() {
     return (
@@ -27,10 +28,13 @@ function Copyright() {
 
 const useStyles = makeStyles(theme => ({
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(1),
         display: "flex",
         flexDirection: "column",
         alignItems: "center"
+    },
+    logo: {
+        width: "100%"
     },
     avatar: {
         margin: theme.spacing(1),
@@ -45,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const LoginForm = () => {
+const LoginForm = props => {
     const classes = useStyles();
 
     const [state, setState] = useState({
@@ -62,7 +66,7 @@ const LoginForm = () => {
 
     const handleSubmit = properties => {
         let $request = {
-            email: email.value,
+            username: email.value,
             password: password.value
         };
 
@@ -73,10 +77,11 @@ const LoginForm = () => {
                 if (response) {
                     localStorage.setItem(
                         "userToken",
-                        response.data.success.token
+                        response.data.access_token
                     );
                     console.log(localStorage);
-                    return <Redirect to="/skill-index" />;
+                    // redirect if successful
+                    props.history.push("/skill-index");
                 }
             })
             .catch(errors => {
@@ -89,13 +94,17 @@ const LoginForm = () => {
         <React.Fragment>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
+                <img
+                    src={logoConecta}
+                    alt="conecta logo"
+                    className={classes.logo}
+                />
+
                 <Typography
                     variant="h5"
                     align="center"
                     className={classes.submit}
-                >
-                    Conecta Login Page
-                </Typography>
+                ></Typography>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
@@ -124,7 +133,7 @@ const LoginForm = () => {
                                     fullWidth
                                     type="password"
                                     id="password"
-                                    label="password"
+                                    label="Password"
                                     name="password"
                                     autoComplete="pword"
                                     onChange={handleChange("password")}

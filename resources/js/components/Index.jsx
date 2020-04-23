@@ -27,7 +27,7 @@ function Index() {
                     {/* <TopBar /> */}
                     <TemporaryDrawer />
                     <div className="app">
-                        <Route exact path="/" component={LoginForm} />
+                        <Route exact path="/login" component={LoginForm} />
                         <Route
                             exact
                             path="/skill-index"
