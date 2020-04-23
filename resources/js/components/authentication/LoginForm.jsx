@@ -11,7 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import logoConecta from "../images/logoConecta.png";
-import bgConecta from "../images/bgConecta.jpg";
 
 function Copyright() {
     return (
