@@ -28,13 +28,15 @@ class SkillsGroup extends Component {
     }
 
     componentDidMount() {
+        const token = localStorage.userToken;
+        console.log(token);
         axios
             .get("api/skill-index")
             .then(response => {
                 this.setState({
                     skills: response.data
                 });
-                // console.log(response.data);
+                console.log(response.data);
             })
             .catch(errors => {
                 console.log(errors);
@@ -56,8 +58,15 @@ class SkillsGroup extends Component {
     }
 
     handleQueryUser(skillName) {
+        const token = localStorage.userToken;
+
         axios
-            .get("api/skill/" + skillName)
+            .get("api/skill/" + skillName, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            })
             .then(response => {
                 this.setState({
                     users: response.data,

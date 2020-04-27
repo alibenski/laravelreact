@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Link as RouterLink } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
@@ -19,6 +19,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import InboxIcon from "@material-ui/icons/Inbox";
 import MailIcon from "@material-ui/icons/Mail";
 import Box from "@material-ui/core/Box";
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const TemporaryDrawer = ({ theme }) => {
+const TemporaryDrawer = ({ handleLogout, theme }) => {
     const classes = useStyles();
 
     const [state, setState] = useState({
@@ -110,8 +111,8 @@ const TemporaryDrawer = ({ theme }) => {
                     icon={<AccountBoxIcon />}
                 />
             </List>
-            {/* <Divider />
-            <List>
+            <Divider />
+            {/* <List>
                 {["S1", "S2", "S3"].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>
@@ -144,11 +145,13 @@ const TemporaryDrawer = ({ theme }) => {
                         variant="h6"
                         className={classes.title}
                     >
-                        <Box
-                            fontWeight="fontWeightBold"
-                            textAlign="center"
-                        ></Box>
+                        <Box fontWeight="fontWeightBold" textAlign="center">
+                            Conecta
+                        </Box>
                     </Typography>
+                    <Button onClick={handleLogout}>
+                        <PowerSettingsNewIcon />
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Drawer open={state.left} onClose={toggleDrawer("left", false)}>

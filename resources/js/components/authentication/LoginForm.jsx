@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import logoConecta from "../images/logoConecta.png";
+import { useAppContext } from "../libs/contextLib";
+import LoaderButton from "../components/LoaderButton";
 
 function Copyright() {
     return (
@@ -48,14 +51,17 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const LoginForm = props => {
+const LoginForm = () => {
     const classes = useStyles();
+    const history = useHistory();
+    const { userHasAuthenticated } = useAppContext();
 
     const [state, setState] = useState({
         email: "",
         password: "",
         error: {}
     });
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = input => e => {
         setState({
@@ -63,7 +69,9 @@ const LoginForm = props => {
         });
     };
 
-    const handleSubmit = properties => {
+    const handleSubmit = () => {
+        setIsLoading(true);
+
         let $request = {
             username: email.value,
             password: password.value
@@ -73,21 +81,27 @@ const LoginForm = props => {
             .post("api/login", $request)
             .then(response => {
                 console.log(response);
+
+                userHasAuthenticated(true);
                 if (response) {
                     localStorage.setItem(
                         "userToken",
                         response.data.access_token
                     );
-                    console.log(localStorage);
-                    // redirect if successful
-                    props.history.push("/skill-index");
+
+                    history.push("/skill-index"); // redirect if successful
                 }
             })
             .catch(errors => {
                 console.log(errors);
                 alert("Invalid Credentials");
+                setIsLoading(false);
             });
     };
+
+    // function validateForm() {
+    //     return state.email.length > 0 && state.password.length > 0;
+    // }
 
     return (
         <React.Fragment>
@@ -140,15 +154,17 @@ const LoginForm = props => {
                                 />
                             </Grid>
                         </Grid>
-                        <Button
+                        <LoaderButton
                             variant="contained"
                             color="default"
-                            onClick={handleSubmit}
                             className={classes.submit}
                             fullWidth
+                            // disabled={!validateForm()}
+                            isLoading={isLoading}
+                            onClick={handleSubmit}
                         >
-                            Submit
-                        </Button>
+                            Login
+                        </LoaderButton>
                         <Grid container justify="flex-end">
                             <Grid item>
                                 <Link href="#" variant="body2">
