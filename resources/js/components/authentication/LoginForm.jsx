@@ -14,6 +14,7 @@ import Container from "@material-ui/core/Container";
 import logoConecta from "../images/logoConecta.png";
 import { useAppContext } from "../libs/contextLib";
 import LoaderButton from "../components/LoaderButton";
+import { onError } from "../libs/errorLib";
 
 function Copyright() {
     return (
@@ -94,7 +95,7 @@ const LoginForm = () => {
             })
             .catch(errors => {
                 console.log(errors);
-                alert("Invalid Credentials");
+                onError(errors);
                 setIsLoading(false);
             });
     };
