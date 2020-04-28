@@ -10,6 +10,11 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
 import logoConecta from "../images/logoConecta.png";
 import LoaderButton from "../components/LoaderButton";
 import { useAppContext } from "../libs/contextLib";
@@ -25,6 +30,7 @@ export default function Signup() {
     });
     const history = useHistory();
     const [newUser, setNewUser] = useState(null);
+    const [gender, setGender] = useState("");
     const { userHasAuthenticated } = useAppContext();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -63,28 +69,30 @@ export default function Signup() {
         return fields.confirmationCode.length > 0;
     }
 
+    const handleRadioChange = e => {
+        setGender(e.target.value);
+    };
+
     async function handleSubmit(event) {
         event.preventDefault();
         setIsLoading(true);
 
         let $request = {
-            username: fields.email,
-            password: fields.password
+            firstname: fields.firstname,
+            lastname: fields.lastname,
+            email: fields.email,
+            gender: gender,
+            password: fields.password,
+            confirmPassword: fields.confirmPassword
         };
 
         try {
             await axios
-                .get("api/register", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        Accept: "application/json"
-                    },
-                    $request
-                })
+                .post("api/register", $request)
                 .then(response => {
-                    console.log(response);
+                    console.log(response.data);
                     setIsLoading(false);
-                    setNewUser(response);
+                    // setNewUser(response);
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -96,7 +104,7 @@ export default function Signup() {
             setIsLoading(false);
         }
 
-        // setIsLoading(false);
+        setIsLoading(false);
     }
 
     async function handleConfirmationSubmit(event) {
@@ -200,19 +208,77 @@ export default function Signup() {
                     <Typography component="h1" variant="h5"></Typography>
                     <form className={classes.form} noValidate>
                         <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    type="text"
+                                    id="firstname"
+                                    label="First Name"
+                                    name="firstname"
+                                    autoComplete="fname"
+                                    autoFocus
+                                    onChange={handleFieldChange}
+                                    defaultValue={fields.firstname}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    type="pastextsword"
+                                    id="lastname"
+                                    label="Last Name"
+                                    name="lastname"
+                                    autoComplete="lname"
+                                    onChange={handleFieldChange}
+                                    defaultValue={fields.lastname}
+                                />
+                            </Grid>
                             <Grid item xs={12} sm={12}>
                                 <TextField
                                     variant="outlined"
                                     required
                                     fullWidth
                                     id="email"
-                                    label="User Name"
+                                    label="Email"
                                     name="email"
                                     autoComplete="uname"
-                                    autoFocus
                                     onChange={handleFieldChange}
                                     defaultValue={fields.email}
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <FormControl component="fieldset">
+                                    <FormLabel component="legend">
+                                        Gender
+                                    </FormLabel>
+                                    <RadioGroup
+                                        name="gender"
+                                        defaultValue=""
+                                        aria-label="gender"
+                                        onChange={handleRadioChange}
+                                        row
+                                    >
+                                        <FormControlLabel
+                                            value="female"
+                                            control={<Radio />}
+                                            label="Female"
+                                        />
+                                        <FormControlLabel
+                                            value="male"
+                                            control={<Radio />}
+                                            label="Male"
+                                        />
+                                        <FormControlLabel
+                                            value="other"
+                                            control={<Radio />}
+                                            label="Other"
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField

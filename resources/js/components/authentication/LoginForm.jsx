@@ -138,7 +138,7 @@ const LoginForm = () => {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="User Name"
+                                    label="Email"
                                     name="email"
                                     autoComplete="uname"
                                     autoFocus

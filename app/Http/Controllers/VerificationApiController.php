@@ -30,10 +30,11 @@ class VerificationApiController extends Controller
     {
         $userID = $request["id"];
         $user = User::findOrFail($userID);
-        $date = date("Y-m-d g:i:s");
+        $date = date("Y-m-d H:i:s");
         $user->email_verified_at = $date; // to enable the “email_verified_at field of that user be a current time stamp by mimicing the must verify email feature
         $user->save();
-        return response()->json("Email verified!");
+        // return response()->json("Email verified!");
+        return redirect('/login');
     }
 
     /**

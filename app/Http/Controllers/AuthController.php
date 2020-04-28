@@ -41,22 +41,27 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'gender' => 'required',
             'email' => 'required|email',
             'password' => 'required',
-            'c_password' => 'required|same:password',
+            'confirmPassword' => 'required|same:password',
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
 
+        $request->merge([
+            'name' => $request->firstname . ' ' . $request->lastname
+        ]);
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-
         $user = User::create($input);
         $user->sendApiEmailVerificationNotification();
 
-        $success['token'] =  $user->createToken('ConectaApp')->accessToken;
+        // $success['token'] =  $user->createToken('ConectaApp')->accessToken;
         $success['name'] =  $user->name;
         $success['message'] = 'Please confirm yourself by clicking on verify user button sent to you on your email';
 
