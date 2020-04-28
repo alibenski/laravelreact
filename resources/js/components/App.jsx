@@ -28,9 +28,24 @@ const App = () => {
         onLoad();
     }, []);
 
+    const checkSession = () => {
+        axios
+            .get("api/user", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+    };
     async function onLoad() {
         try {
-            // await Auth.currentSession();
+            await checkSession();
             if (token) {
                 userHasAuthenticated(true);
             }

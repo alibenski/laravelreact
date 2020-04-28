@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -15,12 +14,13 @@ import logoConecta from "../images/logoConecta.png";
 import { useAppContext } from "../libs/contextLib";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
+import { useFormFields } from "../libs/hooksLib";
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" href="https://material-ui.com/">
+            <Link color="inherit" href="https://conecta.ungeneva.org/">
                 Conecta
             </Link>{" "}
             {new Date().getFullYear()}
@@ -57,18 +57,24 @@ const LoginForm = () => {
     const history = useHistory();
     const { userHasAuthenticated } = useAppContext();
 
-    const [state, setState] = useState({
-        email: "",
-        password: "",
-        error: {}
-    });
-    const [isLoading, setIsLoading] = useState(false);
+    // const [state, setState] = useState({
+    //     email: "",
+    //     password: "",
+    //     error: {}
+    // });
 
-    const handleChange = input => e => {
-        setState({
-            [input]: e.target.value
-        });
-    };
+    // const handleChange = input => e => {
+    //     setState({
+    //         [input]: e.target.value
+    //     });
+    // };
+
+    const [fields, handleFieldChange] = useFormFields({
+        email: "",
+        password: ""
+    });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = () => {
         setIsLoading(true);
@@ -136,8 +142,8 @@ const LoginForm = () => {
                                     name="email"
                                     autoComplete="uname"
                                     autoFocus
-                                    onChange={handleChange("email")}
-                                    defaultValue={state.email}
+                                    onChange={handleFieldChange}
+                                    defaultValue={fields.email}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -150,8 +156,8 @@ const LoginForm = () => {
                                     label="Password"
                                     name="password"
                                     autoComplete="pword"
-                                    onChange={handleChange("password")}
-                                    defaultValue={state.password}
+                                    onChange={handleFieldChange}
+                                    defaultValue={fields.password}
                                 />
                             </Grid>
                         </Grid>
@@ -168,7 +174,7 @@ const LoginForm = () => {
                         </LoaderButton>
                         <Grid container justify="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/signup" variant="body2">
                                     No account yet? Register now
                                 </Link>
                             </Grid>
