@@ -67,13 +67,30 @@ export default function Signup() {
         event.preventDefault();
         setIsLoading(true);
 
+        let $request = {
+            username: fields.email,
+            password: fields.password
+        };
+
         try {
-            const newUser = await Auth.signUp({
-                username: fields.email,
-                password: fields.password
-            });
-            setIsLoading(false);
-            setNewUser(newUser);
+            await axios
+                .get("api/register", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        Accept: "application/json"
+                    },
+                    $request
+                })
+                .then(response => {
+                    console.log(response);
+                    setIsLoading(false);
+                    setNewUser(response);
+                })
+                .catch(errors => {
+                    console.log(errors);
+                    onError(errors);
+                    setIsLoading(false);
+                });
         } catch (e) {
             onError(e);
             setIsLoading(false);
@@ -231,7 +248,7 @@ export default function Signup() {
                             color="default"
                             className={classes.submit}
                             fullWidth
-                            // disabled={!validateForm()}
+                            disabled={!validateForm()}
                             isLoading={isLoading}
                             onClick={handleSubmit}
                         >

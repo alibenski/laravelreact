@@ -6,9 +6,14 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Auth\Events\Verified;
 
 class AuthController extends Controller
 {
+    use VerifiesEmails;
+
     public $successStatus = 200;
 
     /** 
@@ -44,11 +49,17 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
+
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
+        $input['password'] = Hash::make($input['password']);
+
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
+        $user->sendApiEmailVerificationNotification();
+
+        $success['token'] =  $user->createToken('ConectaApp')->accessToken;
         $success['name'] =  $user->name;
+        $success['message'] = 'Please confirm yourself by clicking on verify user button sent to you on your email';
+
         return response()->json(['success' => $success], $this->successStatus);
     }
 

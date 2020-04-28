@@ -18,8 +18,10 @@ use Laravel\Passport\Http\Controllers\AccessTokenController;
 Route::post('login', [AccessTokenController::class, 'issueToken'])
     ->middleware(['api-login', 'throttle']);
 Route::post('register', 'AuthController@register');
+Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
+Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
 
-Route::group(['middleware' => 'auth:api'], function () use ($router) {
+Route::group(['middleware' => 'auth:api', 'verified'], function () use ($router) {
     $router->get('logout', 'AuthController@logout');
     $router->post('details', 'AuthController@details');
     $router->get('/user', function (Request $request) {

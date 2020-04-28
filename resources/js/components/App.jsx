@@ -43,6 +43,7 @@ const App = () => {
                 console.log(errors);
             });
     };
+
     async function onLoad() {
         try {
             await checkSession();
