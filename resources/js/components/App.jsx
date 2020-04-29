@@ -4,7 +4,7 @@ import TopBar from "./navigation/TopBar";
 import TemporaryDrawer from "./navigation/TemporaryDrawer";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
-import ProtectedRoute from "./authentication/ProtectedRoute";
+import ProtectedRoute from "./authentication/AuthenticatedRoute";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import orange from "@material-ui/core/colors/orange";
 import blueGrey from "@material-ui/core/colors/blueGrey";
@@ -46,7 +46,7 @@ const App = () => {
 
     async function onLoad() {
         try {
-            await checkSession();
+            checkSession();
             if (token) {
                 userHasAuthenticated(true);
             }
@@ -58,7 +58,6 @@ const App = () => {
         setIsAuthenticating(false);
     }
     console.log("isAuthenticating", isAuthenticating);
-    console.log("token", token);
 
     const handleLogout = () => {
         const token = localStorage.userToken;
