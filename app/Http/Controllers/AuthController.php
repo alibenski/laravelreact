@@ -21,15 +21,23 @@ class AuthController extends Controller
      * 
      * @return \Illuminate\Http\Response 
      */
-    public function login()
+    public function login(Request $request)
     {
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+        if (Auth::attempt(['email' => request('username'), 'password' => request('password')])) {
             $user = Auth::user();
             $success['name'] =  $user->name;
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
-        } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
+            // $success['token'] =  $user->createToken('MyApp')->accessToken;
+            $tokenRequest = Request::create('/oauth/token', 'post');
+            $response = \Route::dispatch($tokenRequest);
+
+            $user = User::where('email', $request->username)->first();
+
+            if ($user->email_verified_at !== NULL) {
+                $success['message'] = "Login successfull";
+                return $response;
+            } else {
+                return response()->json(['error' => 'Please Verify Email'], 401);
+            }
         }
     }
 

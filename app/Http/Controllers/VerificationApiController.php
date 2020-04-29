@@ -51,7 +51,7 @@ class VerificationApiController extends Controller
             return response()->json("User already have verified email!", 422);
             // return redirect($this->redirectPath());
         }
-        $request->user()->sendEmailVerificationNotification();
+        $request->user()->sendApiEmailVerificationNotification();
         return response()->json("The notification has been resubmitted");
         // return back()->with("resent", true);
     }

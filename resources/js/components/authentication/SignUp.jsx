@@ -25,8 +25,8 @@ export default function Signup() {
     const [fields, handleFieldChange] = useFormFields({
         email: "",
         password: "",
-        confirmPassword: "",
-        confirmationCode: ""
+        confirmPassword: ""
+        // confirmationCode: ""
     });
     const history = useHistory();
     const [newUser, setNewUser] = useState(null);
@@ -65,9 +65,9 @@ export default function Signup() {
         );
     }
 
-    function validateConfirmationForm() {
-        return fields.confirmationCode.length > 0;
-    }
+    // function validateConfirmationForm() {
+    //     return fields.confirmationCode.length > 0;
+    // }
 
     const handleRadioChange = e => {
         setGender(e.target.value);
@@ -92,7 +92,7 @@ export default function Signup() {
                 .then(response => {
                     console.log(response.data);
                     setIsLoading(false);
-                    // setNewUser(response);
+                    setNewUser(response);
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -146,12 +146,15 @@ export default function Signup() {
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5"></Typography>
+                    <Typography component="h1" variant="h5">
+                        Check Email
+                    </Typography>
                     <br />
-                    <form onSubmit={handleConfirmationSubmit}>
+                    {/* <form onSubmit={handleConfirmationSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12}>
                                 <TextField
+                                    readOnly
                                     variant="outlined"
                                     required
                                     fullWidth
@@ -176,7 +179,7 @@ export default function Signup() {
                         >
                             Verify
                         </LoaderButton>
-                    </form>
+                    </form> */}
                 </div>
                 <Box mt={5}>
                     <Copyright />

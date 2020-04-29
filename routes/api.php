@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use Laravel\Passport\Http\Controllers\AccessTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +13,14 @@ use Laravel\Passport\Http\Controllers\AccessTokenController;
 |
 */
 
-// Route::post('login', 'AuthController@login');
-Route::post('login', [AccessTokenController::class, 'issueToken'])
+Route::post('login', 'AuthController@login')
     ->middleware(['api-login', 'throttle']);
 
 Route::post('register', 'AuthController@register');
 Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
 Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
 
-Route::group(['middleware' => 'auth:api', 'verified'], function () use ($router) {
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('logout', 'AuthController@logout');
     $router->post('details', 'AuthController@details');
     $router->get('/user', function (Request $request) {
@@ -35,5 +33,5 @@ Route::group(['middleware' => 'auth:api', 'verified'], function () use ($router)
     $router->get('skill-tree', ['uses' => 'SkillController@skillTree']);
     $router->get('show-all-related-skills/{skillName}', ['uses' => 'SkillController@showAllRelatedSkills']);
     $router->get('skill/{skillName}', ['uses' => 'SkillController@searchUserWithSkill']);
-    $router->get('skill-index', ['uses' => 'SkillController@skillIndex']);
 });
+$router->get('skill-index', ['uses' => 'SkillController@skillIndex']);
