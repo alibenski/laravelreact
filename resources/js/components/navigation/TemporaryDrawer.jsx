@@ -95,21 +95,21 @@ const TemporaryDrawer = ({ handleLogout, theme }) => {
                     primary="Profile"
                     icon={<AccountBoxIcon />}
                 />
-                <ListItemLink
+                {/* <ListItemLink
                     to="/user-form"
                     primary="Form"
                     icon={<AccountBoxIcon />}
-                />
+                /> */}
                 <ListItemLink
                     to="/skill-index"
                     primary="Search Skill"
                     icon={<SearchIcon />}
                 />
-                <ListItemLink
+                {/* <ListItemLink
                     to="/create-profile"
                     primary="Create profile"
                     icon={<AccountBoxIcon />}
-                />
+                /> */}
             </List>
             <Divider />
             {/* <List>

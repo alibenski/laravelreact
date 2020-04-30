@@ -22,7 +22,7 @@ export default function Routes() {
                 path="/skill-index"
                 component={SkillsGroup}
             />
-            <AuthenticatedRoute exact path="/user-form" component={UserForm} />
+            {/* <AuthenticatedRoute exact path="/user-form" component={UserForm} /> */}
             <AuthenticatedRoute
                 exact
                 path="/profile"

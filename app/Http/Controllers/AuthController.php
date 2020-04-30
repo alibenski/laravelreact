@@ -88,15 +88,4 @@ class AuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
-
-    /** 
-     * details api 
-     * 
-     * @return \Illuminate\Http\Response 
-     */
-    public function details()
-    {
-        $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
-    }
 }

@@ -22,12 +22,12 @@ Route::get('email/resend', 'VerificationApiController@resend')->name('verificati
 
 Route::group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('logout', 'AuthController@logout');
-    $router->post('details', 'AuthController@details');
+    $router->get('details', 'UserController@details');
     $router->get('/user', function (Request $request) {
         return $request->user();
     });
 
-    $router->get('user/{id}', ['uses' => 'UserController@showOneUser']);
+    $router->get('show-user-skills', ['uses' => 'UserController@showUserSkills']);
     $router->post('user', ['uses' => 'UserController@insertUser']);
 
     $router->get('skill-tree', ['uses' => 'SkillController@skillTree']);

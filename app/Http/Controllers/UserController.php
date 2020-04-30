@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public $successStatus = 200;
+
     /**
      * Create a new controller instance.
      *
@@ -18,10 +21,26 @@ class UserController extends Controller
         //
     }
 
-    public function showOneUser($id)
+    public function showUserSkills()
     {
-        $user = User::find($id);
-        return response()->json($user);
+        $user = Auth::user();
+        $userSkills = [];
+
+        foreach ($user->childskills as $childskill) {
+            $userSkills[] = $childskill;
+        }
+        return response()->json($userSkills);
+    }
+
+    /** 
+     * details api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */
+    public function details()
+    {
+        $user = Auth::user();
+        return response()->json(['success' => $user], $this->successStatus);
     }
 
     public function insertUser(Request $request)

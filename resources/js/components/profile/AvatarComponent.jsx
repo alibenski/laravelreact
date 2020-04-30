@@ -2,9 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,17 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 function AvatarComponent() {
     const classes = useStyles();
-    return (
-        <React.Fragment>
-            <Card className={classes.root}>
-                <CardContent>
-                    <Avatar src="/broken-image.jpg" className={classes.large} />
-                    <Typography>User detail component here </Typography>
-                    <Typography>User-Skill component here </Typography>
-                </CardContent>
-            </Card>
-        </React.Fragment>
-    );
+    return <Avatar src="/broken-image.jpg" className={classes.large} />;
 }
 
 export default AvatarComponent;
