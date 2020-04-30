@@ -18,24 +18,25 @@ class CreateProfileGroup extends Component {
     state = {
         nodes: [],
         checked: [],
-        expanded: [],
+        expanded: []
     };
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.handleQuerySkill = this.handleQuerySkill.bind(this);
     }
 
     handleQuerySkill(properties) {
-
-        let $request = {state:this.state,
-                           userGender:this.userGender,
-                           firstName:this.firstName,
-                           familyName:this.familyName,
-                           email:this.email}
+        let $request = {
+            state: this.state,
+            userGender: this.userGender,
+            firstName: this.firstName,
+            familyName: this.familyName,
+            email: this.email
+        };
 
         axios
-            .post("api/user", $request)
+            .post("api/insert-user", $request)
             .then(response => {})
             .catch(errors => {
                 console.log(errors);
@@ -50,71 +51,87 @@ class CreateProfileGroup extends Component {
     render() {
         return (
             <div className="container mt-4">
-
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First name"
-                                    name="firstName"
-                                    autoFocus
-                                    onChange={e => (this.firstName = e.target.value)}
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="firstName"
+                            label="First name"
+                            name="firstName"
+                            autoFocus
+                            onChange={e => (this.firstName = e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="familyName"
+                            label="Family Name"
+                            name="familyName"
+                            onChange={e => (this.familyName = e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email"
+                            name="email"
+                            onChange={e => (this.email = e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <FormControl component="fieldset">
+                            <FormLabel component="legend">Gender</FormLabel>
+                            <RadioGroup
+                                value={this.gender}
+                                defaultValue="female"
+                                aria-label="gender"
+                                name="customized-radios"
+                                onChange={e => this.handleRadioChange(e)}
+                                row
+                            >
+                                <FormControlLabel
+                                    value="female"
+                                    control={<Radio />}
+                                    label="Female"
                                 />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="familyName"
-                                    label="Family Name"
-                                    name="familyName"
-                                    onChange={e => (this.familyName = e.target.value)}
+                                <FormControlLabel
+                                    value="male"
+                                    control={<Radio />}
+                                    label="Male"
                                 />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email"
-                                    name="email"
-                                    onChange={e => (this.email = e.target.value)}
+                                <FormControlLabel
+                                    value="other"
+                                    control={<Radio />}
+                                    label="Other"
                                 />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={12}>
-                                <FormControl component="fieldset">
-                                   <FormLabel component="legend">Gender</FormLabel>
-                                   <RadioGroup value={this.gender} defaultValue="female"  aria-label="gender"
-                                   name="customized-radios" onChange={e => this.handleRadioChange(e)} row>
-                                     <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                     <FormControlLabel value="male" control={<Radio />} label="Male" />
-                                     <FormControlLabel value="other" control={<Radio />} label="Other" />
-                                   </RadioGroup>
-                                 </FormControl>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <SkillsSelector state={this.state} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Button
-                                    variant="contained"
-                                    color="default"
-                                    onClick={e => this.handleQuerySkill(this)}
-                                    fullWidth>
-                                    Create Profile
-                                </Button>
-                            </Grid>
-                        </Grid>
-                </div>
+                            </RadioGroup>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <SkillsSelector state={this.state} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Button
+                            variant="contained"
+                            color="default"
+                            onClick={e => this.handleQuerySkill(this)}
+                            fullWidth
+                        >
+                            Create Profile
+                        </Button>
+                    </Grid>
+                </Grid>
+            </div>
         );
     }
 }
-
-
 
 export default CreateProfileGroup;

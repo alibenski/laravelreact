@@ -63,4 +63,13 @@ class UserController extends Controller
             }
         });
     }
+
+    public function updateUserSkills(Request $request)
+    {
+        $user = Auth::user();
+        $skillId = $request->state["checked"];
+        $user->childskills()->sync($skillId, false);
+        $data = $request->all();
+        return response()->json($data);
+    }
 }
