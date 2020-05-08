@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import TopBar from "./navigation/TopBar";
 import TemporaryDrawer from "./navigation/TemporaryDrawer";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
-import ProtectedRoute from "./authentication/AuthenticatedRoute";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import orange from "@material-ui/core/colors/orange";
 import blueGrey from "@material-ui/core/colors/blueGrey";
@@ -23,10 +21,25 @@ const App = () => {
     const [isAuthenticated, userHasAuthenticated] = useState(false);
 
     const token = localStorage.userToken;
+    console.log("is authenticated? ", isAuthenticated);
 
     useEffect(() => {
         onLoad();
     }, []);
+
+    async function onLoad() {
+        try {
+            checkSession();
+            if (token && token !== "undefined") {
+                userHasAuthenticated(true);
+            }
+        } catch (e) {
+            if (e !== "No current user") {
+                alert(e);
+            }
+        }
+        setIsAuthenticating(false);
+    }
 
     const checkSession = () => {
         axios
@@ -43,21 +56,6 @@ const App = () => {
                 console.log(errors);
             });
     };
-
-    async function onLoad() {
-        try {
-            checkSession();
-            if (token) {
-                userHasAuthenticated(true);
-            }
-        } catch (e) {
-            if (e !== "No current user") {
-                alert(e);
-            }
-        }
-        setIsAuthenticating(false);
-    }
-    console.log("isAuthenticating", isAuthenticating);
 
     const handleLogout = () => {
         const token = localStorage.userToken;

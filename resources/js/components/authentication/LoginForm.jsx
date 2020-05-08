@@ -87,16 +87,18 @@ const LoginForm = () => {
         axios
             .post("api/login", $request)
             .then(response => {
-                console.log(response);
-
-                userHasAuthenticated(true);
                 if (response) {
-                    localStorage.setItem(
-                        "userToken",
-                        response.data.access_token
-                    );
-
-                    history.push("/skill-index"); // redirect if successful
+                    if (response.data["error"] === "Wrong credentials") {
+                        onError(response.data["error"]);
+                        setIsLoading(false);
+                    } else {
+                        userHasAuthenticated(true);
+                        localStorage.setItem(
+                            "userToken",
+                            response.data.access_token
+                        );
+                        history.push("/skill-index"); // redirect if successful
+                    }
                 }
             })
             .catch(errors => {

@@ -39,6 +39,8 @@ class AuthController extends Controller
                 return response()->json(['error' => 'Please Verify Email'], 401);
             }
         }
+
+        return response()->json(['error' => 'Wrong credentials']);
     }
 
     /** 

@@ -246,9 +246,10 @@ export default function Signup() {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email"
+                                    label="Work Email Address"
                                     name="email"
-                                    autoComplete="uname"
+                                    autoComplete="email"
+                                    placeholder="Work Email Address"
                                     onChange={handleFieldChange}
                                     defaultValue={fields.email}
                                 />
