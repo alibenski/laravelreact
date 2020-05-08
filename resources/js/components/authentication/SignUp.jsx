@@ -147,7 +147,7 @@ export default function Signup() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Check Email
+                        Please check your email to verify your registration.
                     </Typography>
                     <br />
                     {/* <form onSubmit={handleConfirmationSubmit}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import TemporaryDrawer from "./navigation/TemporaryDrawer";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";

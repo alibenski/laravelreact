@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -53,6 +53,7 @@ const TemporaryDrawer = ({ handleLogout, theme }) => {
 
         setState({ ...state, [side]: open });
     };
+    const history = useHistory();
 
     function ListItemLink(props) {
         const { icon, primary, to } = props;
@@ -64,7 +65,16 @@ const TemporaryDrawer = ({ handleLogout, theme }) => {
                 )),
             [to]
         );
-
+        if (history.location["pathname"] === to) {
+            return (
+                <li>
+                    <ListItem button>
+                        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+                        <ListItemText primary={primary} />
+                    </ListItem>
+                </li>
+            );
+        }
         return (
             <li>
                 <ListItem button component={renderLink}>
