@@ -3,6 +3,7 @@ import DetailComponent from "./DetailComponent";
 import SkillsSelector from "../skills/SkillsSelector";
 import Grid from "@material-ui/core/Grid";
 import LoaderButton from "../components/LoaderButton";
+import { Container } from "@material-ui/core";
 
 const UserProfileGroup = () => {
     const state = {
@@ -34,14 +35,19 @@ const UserProfileGroup = () => {
     };
     console.log(state);
     return (
-        <div className="container mt-4">
-            <div className="row justify-content-center">
+        <Container fixed>
+            <Grid container
+                direction="column"
+                alignItems="center"
+                justify="center"
+                style={{ minHeight: '100vh' }}
+                spacing={2}
+                className="mt-4">
+
                 <DetailComponent />
-            </div>
-            <br />
-            <div className="row justify-content-center">
+                <br />
                 <Grid item xs={8}>
-                    <SkillsSelector state={state} />
+                    {/* <SkillsSelector state={state} /> */}
                     <br />
                     <LoaderButton
                         variant="contained"
@@ -52,11 +58,11 @@ const UserProfileGroup = () => {
                         // isLoading={isLoading}
                         onClick={handleSubmit}
                     >
-                        Update Skills
+                        Update Profile
                     </LoaderButton>
                 </Grid>
-            </div>
-        </div>
+            </Grid>
+        </Container>
     );
 };
 

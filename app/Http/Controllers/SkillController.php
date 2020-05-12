@@ -26,6 +26,20 @@ class SkillController extends Controller
         return response()->json($skills);
     }
 
+    public function getAllChildSkills()
+    {
+        $skills = Childskill::all();
+        $data=[];
+        foreach ($skills as $skill) {
+            $data[] = [
+                'label' => $skill->skillname,
+                'value' => $skill->id
+            ];  
+        }
+        
+        return response()->json($data);
+    }
+
 
     public function skillTree()
     {

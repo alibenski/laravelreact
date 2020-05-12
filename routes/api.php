@@ -36,3 +36,4 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('skill/{skillName}', ['uses' => 'SkillController@searchUserWithSkill']);
 });
 $router->get('skill-index', ['uses' => 'SkillController@skillIndex']);
+$router->get('get-all-child-skills', ['uses' => 'SkillController@getAllChildSkills']);
