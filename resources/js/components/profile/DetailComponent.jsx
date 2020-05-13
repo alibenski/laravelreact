@@ -160,7 +160,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                         name: "phone",
                                         required: true
                                     }}
-                                    value={phone}
+                                    value={phone || ""}
                                     onChange={handlePhoneChange}
                                 />
                                 <TextField
