@@ -31,7 +31,6 @@ const UserProfileGroup = () => {
     const handleCheck = x => {
         state.checkbox = x
     }
-
     const handleSubmit = () => {
         const token = localStorage.userToken;
 
@@ -48,13 +47,14 @@ const UserProfileGroup = () => {
             })
             .then(response => {
                 console.log(response);
+                window.location.reload();
             })
             .catch(errors => {
                 console.log(errors);
                 alert(errors);
             });
     };
-    console.log(state);
+
     return (
         <Container fixed>
             <Grid container

@@ -75,13 +75,13 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
     const handleCheckBox = event => {
         setCheckBox({ ...checkbox, [event.target.name]: event.target.checked })
     };
-    const [details, setDetails] = useState("");
 
     handleGender(gender)
     handlePhone(phone)
     handleCheck(checkbox)
     handleFields(fields)
 
+    const [details, setDetails] = useState("");
     useEffect(() => {
         loadUser();
     }, []);
