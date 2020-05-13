@@ -88,17 +88,24 @@ class UserController extends Controller
         $user->update([
             'name' => $user->firstname.' '.$user->lastname
         ]);
-        $data = $request->state["selected"];
-        // $data = $request->state["checkbox"];
-        return response()->json($data);
+        $selected = $request->state["selected"];
+        $selectedSkills = [];
+        if ($selected) {
+            foreach ($selected as $skill) {
+                $selectedSkills[] = $skill["value"];
+            }
+        }
+        
+        $data = $this->updateUserSkills($user, $selectedSkills);
+        $userId = Auth::id();
+        $userWithSkills = User::where('id', $userId)->with('childskills')->first();
+        return response()->json($userWithSkills);
     }
 
-    public function updateUserSkills(Request $request)
+    public function updateUserSkills($user, $selectedSkills)
     {
-        $user = Auth::user();
-        $skillId = $request->state["checked"];
+        $skillId = $selectedSkills;
         $user->childskills()->sync($skillId, false);
-        $data = $request->all();
-        return response()->json($data);
+        return $selectedSkills;
     }
 }
