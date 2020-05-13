@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { deepOrange } from "@material-ui/core/colors";
 import { Typography } from "@material-ui/core";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,6 +31,7 @@ const UserSkillsComponent = () => {
     const classes = useStyles();
     const token = localStorage.userToken;
     const [userSkills, setUserSkills] = useState([]);
+
     useEffect(() => {
         loadUserSkills();
     }, []);
@@ -44,14 +51,28 @@ const UserSkillsComponent = () => {
                 console.log(errors);
             });
     };
+
+    const handleDeleteSkill = () => {
+        alert("sorry, delete button is not yet working")
+    }
     return (
-        <Typography>
-            {userSkills.map(skill => (
-                <li key={skill.id} className={skill.skillname}>
-                    {skill.skillname}
-                </li>
-            ))}
-        </Typography>
+        <Fragment>
+            <List >
+                {userSkills.map(skill => (
+                    <ListItem key={skill.id}>
+                        <ListItemText
+                            primary={skill.skillname}
+                            secondary=""
+                        />
+                        <ListItemSecondaryAction>
+                            <IconButton edge="end" aria-label="delete" onClick={handleDeleteSkill}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                ))}
+            </List>
+        </Fragment >
     );
 };
 

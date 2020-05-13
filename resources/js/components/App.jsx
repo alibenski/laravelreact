@@ -50,7 +50,7 @@ const App = () => {
                 }
             })
             .then(response => {
-                console.log(response);
+                console.log('check session', response);
             })
             .catch(errors => {
                 console.log(errors);
@@ -87,8 +87,8 @@ const App = () => {
                 {isAuthenticated ? (
                     <TemporaryDrawer handleLogout={handleLogout} />
                 ) : (
-                    <></>
-                )}
+                        <></>
+                    )}
                 <AppContext.Provider
                     value={{ isAuthenticated, userHasAuthenticated }}
                 >

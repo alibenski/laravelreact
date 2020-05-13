@@ -39,8 +39,9 @@ class UserController extends Controller
      */
     public function details()
     {
-        $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
+        $userId = Auth::id();
+        $userWithSkills = User::where('id', $userId)->with('childskills')->first();
+        return response()->json(['success' => $userWithSkills], $this->successStatus);
     }
 
     public function insertUser(Request $request)

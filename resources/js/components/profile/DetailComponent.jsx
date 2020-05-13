@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected }) => {
+const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected, details }) => {
     const classes = useStyles();
     const token = localStorage.userToken;
     const [fields, handleFieldChange] = useFormFields({
@@ -59,12 +59,12 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
         email: "",
         dob: "",
     });
-    const [gender, setGender] = useState("");
-    const [phone, setPhone] = useState("");
+    const [gender, setGender] = useState(details.gender);
+    const [phone, setPhone] = useState(details.phone);
     const [checkbox, setCheckBox] = useState({
-        shadow: false,
-        mentor: false,
-        host: false
+        shadow: details.shadow,
+        mentor: details.mentor,
+        host: details.host
     });
     const handleRadioChange = e => {
         setGender(e.target.value);
@@ -80,28 +80,6 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
     handlePhone(phone)
     handleCheck(checkbox)
     handleFields(fields)
-
-    const [details, setDetails] = useState("");
-    useEffect(() => {
-        loadUser();
-    }, []);
-
-    const loadUser = () => {
-        axios
-            .get("api/details", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    Accept: "application/json"
-                }
-            })
-            .then(response => {
-                setDetails(response.data.success);
-            })
-            .catch(errors => {
-                console.log(errors);
-            });
-    };
-
 
     return (
         <React.Fragment>
@@ -153,7 +131,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                     <FormLabel component="legend"></FormLabel>
                                     <RadioGroup
                                         name="gender"
-                                        defaultValue=""
+                                        defaultValue={gender}
                                         aria-label="gender"
                                         onChange={handleRadioChange}
                                         row
@@ -182,13 +160,14 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                         name: "phone",
                                         required: true
                                     }}
+                                    value={phone}
                                     onChange={handlePhoneChange}
                                 />
                                 <TextField
                                     id="dob"
                                     label="Birthday"
                                     type="date"
-                                    defaultValue=""
+                                    defaultValue={details.dob}
                                     className={classes.fields}
                                     onChange={handleFieldChange}
                                     InputLabelProps={{
@@ -207,7 +186,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={checkbox.shadow}
+                                                checked={checkbox.shadow == 1 ? true : false}
                                                 onChange={handleCheckBox}
                                                 name="shadow"
                                             />
@@ -217,7 +196,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={checkbox.mentor}
+                                                checked={checkbox.mentor == 1 ? true : false}
                                                 onChange={handleCheckBox}
                                                 name="mentor"
                                             />
@@ -227,7 +206,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={checkbox.host}
+                                                checked={checkbox.host == 1 ? true : false}
                                                 onChange={handleCheckBox}
                                                 name="host"
                                             />
