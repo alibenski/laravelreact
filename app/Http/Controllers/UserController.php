@@ -64,6 +64,35 @@ class UserController extends Controller
         });
     }
 
+    public function updateUserProfile(Request $request)
+    {
+        $user = Auth::user();
+        $input = [
+            'gender' => $request->state["gender"],
+            'phone' => $request->state["phone"],
+            'firstname' => $request->state["fields"]["firstname"],
+            'lastname' => $request->state["fields"]["lastname"],
+            'email' => $request->state["fields"]["email"],
+            'dob' => $request->state["fields"]["dob"],
+            'shadow' => $request->state["checkbox"]["shadow"],
+            'mentor' => $request->state["checkbox"]["mentor"],
+            'host' => $request->state["checkbox"]["host"],
+        ];
+        $filteredInput = array_filter(
+            $input, 
+            function($v){
+                return ! is_null($v);
+            }
+        );
+        $user->update($filteredInput);
+        $user->update([
+            'name' => $user->firstname.' '.$user->lastname
+        ]);
+        $data = $request->state["selected"];
+        // $data = $request->state["checkbox"];
+        return response()->json($data);
+    }
+
     public function updateUserSkills(Request $request)
     {
         $user = Auth::user();

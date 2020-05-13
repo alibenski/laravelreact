@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('show-user-skills', ['uses' => 'UserController@showUserSkills']);
     $router->post('insert-user', ['uses' => 'UserController@insertUser']);
     $router->post('update-user-skills', ['uses' => 'UserController@updateUserSkills']);
+    $router->post('update-user-profile', ['uses' => 'UserController@updateUserProfile']);
 
     $router->get('skill-tree', ['uses' => 'SkillController@skillTree']);
     $router->get('show-all-related-skills/{skillName}', ['uses' => 'SkillController@showAllRelatedSkills']);

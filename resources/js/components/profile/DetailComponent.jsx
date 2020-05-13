@@ -17,6 +17,7 @@ import UserSkillsComponent from "./UserSkillsComponent";
 import SkillMultiSelectSearch from "../skills/SkillMultiSelectSearch";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
+import { useFormFields } from "../libs/hooksLib";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,10 +50,38 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const DetailComponent = () => {
+const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected }) => {
     const classes = useStyles();
     const token = localStorage.userToken;
+    const [fields, handleFieldChange] = useFormFields({
+        firstname: "",
+        lastname: "",
+        email: "",
+        dob: "",
+    });
+    const [gender, setGender] = useState("");
+    const [phone, setPhone] = useState("");
+    const [checkbox, setCheckBox] = useState({
+        shadow: false,
+        mentor: false,
+        host: false
+    });
+    const handleRadioChange = e => {
+        setGender(e.target.value);
+    };
+    const handlePhoneChange = value => {
+        setPhone(value);
+    };
+    const handleCheckBox = event => {
+        setCheckBox({ ...checkbox, [event.target.name]: event.target.checked })
+    };
     const [details, setDetails] = useState("");
+
+    handleGender(gender)
+    handlePhone(phone)
+    handleCheck(checkbox)
+    handleFields(fields)
+
     useEffect(() => {
         loadUser();
     }, []);
@@ -73,6 +102,7 @@ const DetailComponent = () => {
             });
     };
 
+
     return (
         <React.Fragment>
             <Grid item xs={12} className="row justify-content-center">
@@ -90,28 +120,31 @@ const DetailComponent = () => {
                         >
                             <FormGroup>
                                 <TextField
-                                    id="standard-basic"
+                                    id="firstname"
                                     label="First Name"
                                     placeholder={details.firstname}
                                     className={classes.fields}
+                                    onChange={handleFieldChange}
                                     InputLabelProps={{
                                         shrink: true
                                     }}
                                 />
                                 <TextField
-                                    id="filled-basic"
+                                    id="lastname"
                                     label="Last Name"
                                     placeholder={details.lastname}
                                     className={classes.fields}
+                                    onChange={handleFieldChange}
                                     InputLabelProps={{
                                         shrink: true
                                     }}
                                 />
                                 <TextField
-                                    id="outlined-basic"
+                                    id="email"
                                     label="Email"
                                     placeholder={details.email}
                                     className={classes.fields}
+                                    onChange={handleFieldChange}
                                     InputLabelProps={{
                                         shrink: true
                                     }}
@@ -122,7 +155,7 @@ const DetailComponent = () => {
                                         name="gender"
                                         defaultValue=""
                                         aria-label="gender"
-                                        // onChange={handleRadioChange}
+                                        onChange={handleRadioChange}
                                         row
                                     >
                                         <FormControlLabel
@@ -146,17 +179,18 @@ const DetailComponent = () => {
                                     className={classes.fields}
                                     country={"ch"}
                                     inputProps={{
-                                        name: "Phone",
+                                        name: "phone",
                                         required: true
                                     }}
-                                // onChange={handleOnChange}
+                                    onChange={handlePhoneChange}
                                 />
                                 <TextField
-                                    id="date"
+                                    id="dob"
                                     label="Birthday"
                                     type="date"
                                     defaultValue=""
                                     className={classes.fields}
+                                    onChange={handleFieldChange}
                                     InputLabelProps={{
                                         shrink: true
                                     }}
@@ -173,9 +207,9 @@ const DetailComponent = () => {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                            // checked={gilad}
-                                            // onChange={handleChange}
-                                            // name="gilad"
+                                                checked={checkbox.shadow}
+                                                onChange={handleCheckBox}
+                                                name="shadow"
                                             />
                                         }
                                         label="Do you wish to shadow?"
@@ -183,9 +217,9 @@ const DetailComponent = () => {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                            // checked={jason}
-                                            // onChange={handleChange}
-                                            // name="jason"
+                                                checked={checkbox.mentor}
+                                                onChange={handleCheckBox}
+                                                name="mentor"
                                             />
                                         }
                                         label="Do you wish to mentor? "
@@ -193,9 +227,9 @@ const DetailComponent = () => {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                            // checked={antoine}
-                                            // onChange={handleChange}
-                                            // name="antoine"
+                                                checked={checkbox.host}
+                                                onChange={handleCheckBox}
+                                                name="host"
                                             />
                                         }
                                         label="Do you wish to host a shadow?"
@@ -220,7 +254,7 @@ const DetailComponent = () => {
             </Grid>
             <Grid item xs={12} className="row justify-content-center">
                 <Card className={classes.rootSelect}>
-                    <SkillMultiSelectSearch />
+                    <SkillMultiSelectSearch handleSelected={handleSelected} />
                     <Typography>Instructions here if needed</Typography>
                 </Card>
             </Grid>

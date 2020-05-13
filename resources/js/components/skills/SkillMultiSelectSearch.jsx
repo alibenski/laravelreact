@@ -2,9 +2,10 @@ import React, { Fragment, useState, useEffect } from 'react';
 import Select from 'react-select';
 import { CardHeader } from '@material-ui/core';
 
-const SkillMultiSelectSearch = () => {
+const SkillMultiSelectSearch = ({ handleSelected }) => {
     const token = localStorage.userToken;
     const [options, setOptions] = useState("");
+    const [selected, setSelected] = useState("")
 
     useEffect(() => {
         loadUser();
@@ -27,8 +28,11 @@ const SkillMultiSelectSearch = () => {
     };
 
     const handleChange = x => {
-        console.log(x)
+        setSelected(x)
     }
+
+    handleSelected(selected)
+
     return (
         <Fragment>
             <CardHeader title="Add Acquired Skills">

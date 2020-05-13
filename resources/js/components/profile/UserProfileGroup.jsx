@@ -7,10 +7,30 @@ import { Container } from "@material-ui/core";
 
 const UserProfileGroup = () => {
     const state = {
-        nodes: [],
-        checked: [],
-        expanded: []
+        // nodes: [],
+        // checked: [],
+        // expanded: [],
+        phone: [],
+        gender: [],
+        checkbox: [],
+        fields: [],
+        selected: []
     };
+    const handleSelected = x => {
+        state.selected = x
+    };
+    const handleFields = x => {
+        state.fields = x
+    };
+    const handlePhone = x => {
+        state.phone = x;
+    };
+    const handleGender = x => {
+        state.gender = x
+    };
+    const handleCheck = x => {
+        state.checkbox = x
+    }
 
     const handleSubmit = () => {
         const token = localStorage.userToken;
@@ -18,8 +38,9 @@ const UserProfileGroup = () => {
         let $request = {
             state: state
         };
+        console.log($request)
         axios
-            .post("api/update-user-skills", $request, {
+            .post("api/update-user-profile", $request, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     Accept: "application/json"
@@ -44,7 +65,7 @@ const UserProfileGroup = () => {
                 spacing={2}
                 className="mt-4">
 
-                <DetailComponent />
+                <DetailComponent handleFields={handleFields} handlePhone={handlePhone} handleGender={handleGender} handleCheck={handleCheck} handleSelected={handleSelected} />
                 <br />
                 <Grid item xs={8}>
                     {/* <SkillsSelector state={state} /> */}
