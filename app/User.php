@@ -22,6 +22,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany('App\Childskill');
     }
 
+    public function desiredskills()
+    {
+        return $this->belongsToMany('App\Childskill', 'desiredskill_user');
+    }
+
     public function stations()
     {
         return $this->hasOne('App\Station', 'id', 'station_id');

@@ -42,6 +42,7 @@ class UserController extends Controller
         $userId = Auth::id();
         $userWithSkills = User::where('id', $userId)
             ->with('childskills')
+            ->with('desiredskills')
             ->with('stations')
             ->with('organizations')
             ->first();
@@ -95,6 +96,7 @@ class UserController extends Controller
         $user->update([
             'name' => $user->firstname.' '.$user->lastname
         ]);
+
         $selected = $request->state["selected"];
         $selectedSkills = [];
         if ($selected) {
@@ -102,10 +104,24 @@ class UserController extends Controller
                 $selectedSkills[] = $skill["value"];
             }
         }
-        
-        $data = $this->updateUserSkills($user, $selectedSkills);
+        $dataSkills = $this->updateUserSkills($user, $selectedSkills);
+
+        $selectedDesired = $request->state["selectedDesired"];
+        $desiredSkills = [];
+        if ($selectedDesired) {
+            foreach ($selectedDesired as $dskill) {
+                $desiredSkills[] = $dskill["value"];
+            }
+        }
+        $dataDesiredSkills = $this->updateDesiredUserSkills($user, $desiredSkills);
+
         $userId = Auth::id();
-        $userWithSkills = User::where('id', $userId)->with('childskills')->first();
+        $userWithSkills = User::where('id', $userId)
+            ->with('childskills')
+            ->with('desiredskills')
+            ->with('stations')
+            ->with('organizations')
+            ->first();
         return response()->json($userWithSkills);
     }
 
@@ -114,5 +130,12 @@ class UserController extends Controller
         $skillId = $selectedSkills;
         $user->childskills()->sync($skillId, false);
         return $selectedSkills;
+    }
+
+    public function updateDesiredUserSkills($user, $desiredSkills)
+    {
+        $skillId = $desiredSkills;
+        $user->desiredskills()->sync($skillId, false);
+        return $desiredSkills;
     }
 }

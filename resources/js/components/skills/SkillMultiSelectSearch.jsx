@@ -35,7 +35,10 @@ const SkillMultiSelectSearch = ({ handleSelected }) => {
 
     return (
         <Fragment>
-            <CardHeader title="Add Acquired Skills">
+            <CardHeader
+                title="Add Acquired Skills"
+                subheader="Instructions here if needed"
+            >
             </CardHeader>
             <div className="m-2">
                 <Select isSearchable isMulti

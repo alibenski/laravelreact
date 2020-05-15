@@ -241,13 +241,11 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
             <Grid item xs={12} className="row justify-content-center">
                 <Card className={classes.rootSelect}>
                     <SkillMultiSelectSearch handleSelected={handleSelected} />
-                    <Typography>Instructions here if needed</Typography>
                 </Card>
             </Grid>
             <Grid item xs={12} className="row justify-content-center">
                 <Card className={classes.rootSelect}>
-                    <SkillDesiredSearch handleSelectedDesired={handleSelectedDesired} />
-                    <Typography>Instructions here if needed</Typography>
+                    <SkillDesiredSearch handleSelectedDesired={handleSelectedDesired} details={details} />
                 </Card>
             </Grid>
         </React.Fragment>
