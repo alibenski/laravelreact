@@ -82,7 +82,8 @@ const UserProfileGroup = () => {
                 }
             })
             .then(response => {
-                console.log(response);
+                console.log(response.data);
+                setDetails(response.data);
                 setIsLoading(false);
             })
             .catch(errors => {

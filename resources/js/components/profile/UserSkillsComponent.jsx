@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
 const UserSkillsComponent = ({ details }) => {
     const classes = useStyles();
     const token = localStorage.userToken;
-    const [userSkills, setUserSkills] = useState(details.childskills);
+    // const [userSkills, setUserSkills] = useState(details.childskills);
+    const userSkills = details.childskills;
 
     // useEffect(() => {
     //     loadUserSkills();
