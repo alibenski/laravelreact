@@ -22,6 +22,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany('App\Childskill');
     }
 
+    public function stations()
+    {
+        return $this->hasOne('App\Station', 'id', 'station_id');
+    }
+
+    public function organizations()
+    {
+        return $this->hasOne('App\Organization', 'id', 'organization_id');
+    }
+
     public function sendApiEmailVerificationNotification()
     {
         $this->notify(new VerifyApiEmail); // my notification
@@ -34,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'firstname', 'lastname', 'name', 'email', 'password', 'dob', 
-        'gender', 'phone', 'shadow', 'mentor', 'host'
+        'gender', 'phone', 'shadow', 'mentor', 'host', 'organization_id', 'station_id',
     ];
 
     /**

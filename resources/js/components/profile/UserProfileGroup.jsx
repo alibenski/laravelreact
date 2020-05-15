@@ -38,11 +38,23 @@ const UserProfileGroup = () => {
         gender: [],
         checkbox: [],
         fields: [],
-        selected: []
+        selected: [],
+        selectedDesired: [],
+        organization: [],
+        station: []
     };
     const handleSelected = x => {
         state.selected = x
     };
+    const handleSelectedDesired = x => {
+        state.selectedDesired = x
+    };
+    const handleSelectedOrg = x => {
+        state.organization = x
+    }
+    const handleSelectedCountry = x => {
+        state.station = x
+    }
     const handleFields = x => {
         state.fields = x
     };
@@ -90,7 +102,7 @@ const UserProfileGroup = () => {
                     spacing={2}
                     className="mt-4">
 
-                    <DetailComponent handleFields={handleFields} handlePhone={handlePhone} handleGender={handleGender} handleCheck={handleCheck} handleSelected={handleSelected} details={details} />
+                    <DetailComponent handleFields={handleFields} handlePhone={handlePhone} handleGender={handleGender} handleCheck={handleCheck} handleSelected={handleSelected} handleSelectedDesired={handleSelectedDesired} handleSelectedOrg={handleSelectedOrg} handleSelectedCountry={handleSelectedCountry} details={details} />
                     <br />
                     <Grid item xs={8}>
                         {/* <SkillsSelector state={state} /> */}

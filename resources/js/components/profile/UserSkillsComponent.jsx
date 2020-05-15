@@ -27,30 +27,30 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const UserSkillsComponent = () => {
+const UserSkillsComponent = ({ details }) => {
     const classes = useStyles();
     const token = localStorage.userToken;
-    const [userSkills, setUserSkills] = useState([]);
+    const [userSkills, setUserSkills] = useState(details.childskills);
 
-    useEffect(() => {
-        loadUserSkills();
-    }, []);
+    // useEffect(() => {
+    //     loadUserSkills();
+    // }, []);
 
-    const loadUserSkills = () => {
-        axios
-            .get("api/show-user-skills", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    Accept: "application/json"
-                }
-            })
-            .then(response => {
-                setUserSkills(...userSkills, response.data);
-            })
-            .catch(errors => {
-                console.log(errors);
-            });
-    };
+    // const loadUserSkills = () => {
+    //     axios
+    //         .get("api/show-user-skills", {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //                 Accept: "application/json"
+    //             }
+    //         })
+    //         .then(response => {
+    //             setUserSkills(...userSkills, response.data);
+    //         })
+    //         .catch(errors => {
+    //             console.log(errors);
+    //         });
+    // };
 
     const handleDeleteSkill = () => {
         alert("sorry, delete button is not yet working")

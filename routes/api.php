@@ -38,3 +38,5 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
 });
 $router->get('skill-index', ['uses' => 'SkillController@skillIndex']);
 $router->get('get-all-child-skills', ['uses' => 'SkillController@getAllChildSkills']);
+$router->get('get-all-organizations', ['uses' => 'OrganizationController@getAllOrganizations']);
+$router->get('get-all-countries', ['uses' => 'OrganizationController@getAllCountries']);

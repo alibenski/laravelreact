@@ -15,9 +15,12 @@ import Radio from "@material-ui/core/Radio";
 import AvatarComponent from "./AvatarComponent";
 import UserSkillsComponent from "./UserSkillsComponent";
 import SkillMultiSelectSearch from "../skills/SkillMultiSelectSearch";
+import SkillDesiredSearch from "../skills/SkillDesiredSearch";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 import { useFormFields } from "../libs/hooksLib";
+import SelectOrganization from "../components/SelectOrganization";
+import SelectCountries from "../components/SelectCountries";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -50,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected, details }) => {
+const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected, handleSelectedDesired, handleSelectedOrg, handleSelectedCountry, details }) => {
     const classes = useStyles();
     const token = localStorage.userToken;
     const [fields, handleFieldChange] = useFormFields({
@@ -175,6 +178,10 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                     }}
                                 />
                             </FormGroup>
+
+                            <SelectCountries handleSelectedCountry={handleSelectedCountry} details={details} />
+                            <SelectOrganization handleSelectedOrg={handleSelectedOrg} details={details} />
+
                             <FormControl
                                 component="fieldset"
                                 className={classes.formControl}
@@ -227,7 +234,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                         subheader="Skills you’re good at"
                     />
                     <CardContent>
-                        <UserSkillsComponent />
+                        <UserSkillsComponent details={details} />
                     </CardContent>
                 </Card>
             </Grid>
@@ -237,27 +244,12 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                     <Typography>Instructions here if needed</Typography>
                 </Card>
             </Grid>
-            {/* <Grid item xs={12} className="row justify-content-center">
-                <Card className={classes.root}>
-                    <CardHeader
-                        title="Searching for Skills"
-                        subheader="Skills you wish to develop"
-                    />
-                    <CardContent>
-                        <FormGroup>
-                            <TextField
-                                id="search-field"
-                                label="Skills to Develop"
-                                placeholder="video editing"
-                                className={classes.fields}
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                            />
-                        </FormGroup>
-                    </CardContent>
+            <Grid item xs={12} className="row justify-content-center">
+                <Card className={classes.rootSelect}>
+                    <SkillDesiredSearch handleSelectedDesired={handleSelectedDesired} />
+                    <Typography>Instructions here if needed</Typography>
                 </Card>
-            </Grid> */}
+            </Grid>
         </React.Fragment>
     );
 };

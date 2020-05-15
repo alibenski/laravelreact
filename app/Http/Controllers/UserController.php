@@ -40,7 +40,11 @@ class UserController extends Controller
     public function details()
     {
         $userId = Auth::id();
-        $userWithSkills = User::where('id', $userId)->with('childskills')->first();
+        $userWithSkills = User::where('id', $userId)
+            ->with('childskills')
+            ->with('stations')
+            ->with('organizations')
+            ->first();
         return response()->json(['success' => $userWithSkills], $this->successStatus);
     }
 
@@ -78,6 +82,8 @@ class UserController extends Controller
             'shadow' => $request->state["checkbox"]["shadow"],
             'mentor' => $request->state["checkbox"]["mentor"],
             'host' => $request->state["checkbox"]["host"],
+            'organization_id' => $request->state["organization"]["value"],
+            'station_id' => $request->state["station"]["value"],
         ];
         $filteredInput = array_filter(
             $input, 
