@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,7 @@ class UserController extends Controller
         $userWithSkills = User::where('id', $userId)
             ->with('childskills')
             ->with('desiredskills')
+            ->with('tagskills')
             ->with('stations')
             ->with('organizations')
             ->first();
@@ -119,6 +121,7 @@ class UserController extends Controller
         $userWithSkills = User::where('id', $userId)
             ->with('childskills')
             ->with('desiredskills')
+            ->with('tagskills')
             ->with('stations')
             ->with('organizations')
             ->first();
@@ -127,8 +130,28 @@ class UserController extends Controller
 
     public function updateUserSkills($user, $selectedSkills)
     {
-        $skillId = $selectedSkills;
+        $integerSkillValue = [];
+        $stringSkillValue = [];
+        foreach ($selectedSkills as $skillValue) {
+            if (is_int($skillValue)) {
+                $integerSkillValue[] = $skillValue;
+            } else {
+                $stringSkillValue[] = ['skillname' => $skillValue];
+            }
+        }
+        
+        $skillId = $integerSkillValue;
         $user->childskills()->sync($skillId, false);
+        
+        $idTag =[];
+        foreach ($stringSkillValue as $arrayValue) {
+            // check if entry is duplicate before inserting
+            $idTag[] = Tag::insertGetId($arrayValue);
+        }
+
+        $skillTagId = $idTag;
+        $user->tagskills()->sync($skillTagId, false);
+
         return $selectedSkills;
     }
 

@@ -32,6 +32,7 @@ const UserSkillsComponent = ({ details }) => {
     const token = localStorage.userToken;
     // const [userSkills, setUserSkills] = useState(details.childskills);
     const userSkills = details.childskills;
+    const tagSkills = details.tagskills;
 
     // useEffect(() => {
     //     loadUserSkills();
@@ -63,6 +64,19 @@ const UserSkillsComponent = ({ details }) => {
                     <ListItem key={skill.id}>
                         <ListItemText
                             primary={skill.skillname}
+                            secondary=""
+                        />
+                        <ListItemSecondaryAction>
+                            <IconButton edge="end" aria-label="delete" onClick={handleDeleteSkill}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                ))}
+                {tagSkills.map(tskill => (
+                    <ListItem key={tskill.id}>
+                        <ListItemText
+                            primary={tskill.skillname}
                             secondary=""
                         />
                         <ListItemSecondaryAction>

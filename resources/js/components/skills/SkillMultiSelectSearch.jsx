@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Select from 'react-select';
 import { CardHeader } from '@material-ui/core';
+import CreatableSelect from 'react-select/creatable';
 
 const SkillMultiSelectSearch = ({ handleSelected }) => {
     const token = localStorage.userToken;
@@ -41,7 +42,9 @@ const SkillMultiSelectSearch = ({ handleSelected }) => {
             >
             </CardHeader>
             <div className="m-2">
-                <Select isSearchable isMulti
+                <CreatableSelect
+                    isSearchable
+                    isMulti
                     onChange={handleChange}
                     options={options}
                 />
