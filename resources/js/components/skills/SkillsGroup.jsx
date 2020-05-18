@@ -68,6 +68,7 @@ class SkillsGroup extends Component {
                 }
             })
             .then(response => {
+                console.log(response.data)
                 this.setState({
                     users: response.data,
                     isLoading: false

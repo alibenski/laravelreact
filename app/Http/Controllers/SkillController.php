@@ -85,6 +85,10 @@ class SkillController extends Controller
             $userData = User::whereIn('id', $userNameUnique)
                 ->orderByRaw(DB::raw("FIELD(id, $implodeArray)"))
                 ->with('childskills')
+                ->with('desiredskills')
+                ->with('tagskills')
+                ->with('stations')
+                ->with('organizations')
                 ->get();
         }
 

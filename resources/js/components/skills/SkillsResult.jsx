@@ -62,7 +62,10 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                                         {user.firstname}
                                                     </strong>
                                                 </span>
-
+                                                <Typography variant="h6">
+                                                    <p>Organization: {user.organizations ? user.organizations.name : "n/a"}</p>
+                                                    <p>Duty Station: {user.stations ? user.stations.name : "n/a"}</p>
+                                                </Typography>
                                                 {user.childskills.map(
                                                     childskill => (
                                                         <Typography
@@ -84,8 +87,8 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                     )}
                 </React.Fragment>
             ) : (
-                "Loading..."
-            )}
+                    "Loading..."
+                )}
         </div>
     );
 };
