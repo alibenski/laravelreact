@@ -55,7 +55,6 @@ const useStyles = makeStyles(theme => ({
 
 const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected, handleSelectedDesired, handleSelectedOrg, handleSelectedCountry, details }) => {
     const classes = useStyles();
-    const token = localStorage.userToken;
     const [fields, handleFieldChange] = useFormFields({
         firstname: "",
         lastname: "",
@@ -67,6 +66,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
     const [checkbox, setCheckBox] = useState({
         shadow: details.shadow,
         mentor: details.mentor,
+        mentee: details.mentee,
         host: details.host
     });
     const handleRadioChange = e => {
@@ -209,6 +209,16 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                             />
                                         }
                                         label="Do you wish to mentor? "
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={checkbox.mentee == 1 ? true : false}
+                                                onChange={handleCheckBox}
+                                                name="mentee"
+                                            />
+                                        }
+                                        label="Do you wish to be a mentee? "
                                     />
                                     <FormControlLabel
                                         control={

@@ -87,6 +87,7 @@ class UserController extends Controller
             'dob' => $request->state["fields"]["dob"],
             'shadow' => $request->state["checkbox"]["shadow"],
             'mentor' => $request->state["checkbox"]["mentor"],
+            'mentee' => $request->state["checkbox"]["mentee"],
             'host' => $request->state["checkbox"]["host"],
             'organization_id' => $request->state["organization"]["value"],
             'station_id' => $request->state["station"]["value"],
