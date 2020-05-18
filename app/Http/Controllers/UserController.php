@@ -55,7 +55,10 @@ class UserController extends Controller
     {
         DB::transaction(function () use ($request) {
 
-            $userId = User::max('id') + 1;
+            $userId = 1;
+            if (User::count() > 0) {
+                $userId = User::max('id') + 1;
+            }
             $name = ($request->firstName) . " " . ($request->familyName);
 
             DB::insert('INSERT INTO users (id, name,firstname,lastname,gender,email,created_at,password)

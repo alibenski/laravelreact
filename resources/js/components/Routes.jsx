@@ -6,6 +6,7 @@ import SkillsGroup from "./skills/SkillsGroup";
 import UserForm from "./form/UserForm";
 import UserProfileGroup from "./profile/UserProfileGroup";
 import CreateProfileGroup from "./profile/CreateProfileGroup";
+import CreateProjectGroup from "./project/CreateProjectGroup";
 import NotFound from "./pages/NotFound";
 import Signup from "./authentication/SignUp";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
@@ -32,6 +33,11 @@ export default function Routes() {
                 exact
                 path="/create-profile"
                 component={CreateProfileGroup}
+            />
+            <AuthenticatedRoute
+                exact
+                path="/create-project"
+                component={CreateProjectGroup}
             />
             <NotFound />
         </Switch>

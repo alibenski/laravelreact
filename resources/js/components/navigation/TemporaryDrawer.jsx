@@ -105,6 +105,11 @@ const TemporaryDrawer = ({ handleLogout, theme }) => {
                     primary="Profile"
                     icon={<AccountBoxIcon />}
                 />
+                <ListItemLink
+                    to="/create-project"
+                    primary="Create project"
+                    icon={<AccountBoxIcon />}
+                />
                 {/* <ListItemLink
                     to="/user-form"
                     primary="Form"
