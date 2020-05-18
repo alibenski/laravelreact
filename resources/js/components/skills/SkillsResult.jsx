@@ -43,6 +43,7 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                     {!userResult && "No result..."}
                     {userResult && (
                         <div className={classes.root}>
+                            <Typography variant="h6" className={classes.paper}>Well, hello world! <br />Conecta found the following staff members you might want to contact:</Typography>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
                                     {skillUserRecords.map(user => (
@@ -66,18 +67,43 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                                     <p>Organization: {user.organizations ? user.organizations.name : "n/a"}</p>
                                                     <p>Duty Station: {user.stations ? user.stations.name : "n/a"}</p>
                                                 </Typography>
-                                                {user.childskills.map(
-                                                    childskill => (
-                                                        <Typography
-                                                            key={childskill.id}
-                                                            variant="subtitle1"
-                                                        >
-                                                            {
-                                                                childskill.skillname
-                                                            }
-                                                        </Typography>
-                                                    )
-                                                )}
+                                                <Grid container>
+                                                    <Grid item xs={6}>
+                                                        <Typography variant="h6">Acquired:</Typography>
+                                                        {user.childskills.map(
+                                                            childskill => (
+                                                                <Typography
+                                                                    key={childskill.id}
+                                                                    variant="subtitle1"
+                                                                >
+                                                                    {
+                                                                        childskill.skillname
+                                                                    }
+                                                                </Typography>
+                                                            )
+                                                        )}
+
+                                                    </Grid>
+
+                                                    <Grid item xs={6}>
+                                                        <Typography variant="h6">Desired:</Typography>
+                                                        {user.desiredskills.map(
+                                                            desiredskill => (
+                                                                <Typography
+                                                                    key={desiredskill.id}
+                                                                    variant="subtitle1"
+                                                                >
+                                                                    {
+                                                                        desiredskill.skillname
+                                                                    }
+                                                                </Typography>
+                                                            )
+                                                        )}
+
+                                                    </Grid>
+
+                                                </Grid>
+
                                             </Typography>
                                         </Paper>
                                     ))}

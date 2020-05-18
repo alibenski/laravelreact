@@ -68,6 +68,7 @@ const SkillsSearchUser = ({
                             id="outlined-basic"
                             label="Enter Skill"
                             variant="outlined"
+                            autoFocus
                             onChange={e => handleTextChange(e)}
                             onKeyDown={e => keyPress(e)}
                         />
