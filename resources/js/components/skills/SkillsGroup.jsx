@@ -5,6 +5,9 @@ import SkillsList from "./SkillsList";
 import SkillsSearch from "./SkillsSearch";
 import SkillsResult from "./SkillsResult";
 import SkillsSearchUser from "./SkillsSearchUser";
+import { Card, CardMedia } from "@material-ui/core";
+import logoVector from "../images/logoVector.png";
+import { Fragment } from "react";
 
 class SkillsGroup extends Component {
     // static propTypes = {
@@ -115,13 +118,32 @@ class SkillsGroup extends Component {
         return (
             <div className="container mt-4">
                 <div className="row justify-content-center">
-                    <div className="col-md-8">
+                    <div className="col-md-10">
                         {this.state.searchFieldIsShown && (
-                            <SkillsSearchUser
-                                handleQueryUser={this.handleQueryUser}
-                                triggerDisplayState={this.triggerDisplayState}
-                                keyPress={this.keyPress}
-                            />
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <SkillsSearchUser
+                                        handleQueryUser={this.handleQueryUser}
+                                        triggerDisplayState={this.triggerDisplayState}
+                                        keyPress={this.keyPress}
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <Card>
+                                        <div className="card-header">Coming Soon... Search for Projects</div>
+                                        <div className="card-body">
+                                            <input disabled
+                                                className="col-md-12"
+                                            ></input>
+                                        </div>
+                                        <div className="card-footer">
+                                            <button disabled>
+                                                Search Projects
+                                    </button>
+                                        </div>
+                                    </Card>
+                                </div>
+                            </div>
                         )}
                         {this.state.searchResultIsShown && (
                             <SkillsResult

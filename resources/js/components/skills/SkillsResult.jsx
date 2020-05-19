@@ -48,7 +48,7 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                     {!userResult && "No result..."}
                     {userResult && (
                         <div className={classes.root}>
-                            <Typography variant="h6" className={classes.paper}>Well, hello world! <br />Conecta found the following staff members you might want to contact:</Typography>
+                            <Typography variant="h6" className={classes.paper}>Well, hello world! <br />Conecta recommends the following profile(s):</Typography>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
                                     {skillUserRecords.map(user => (
