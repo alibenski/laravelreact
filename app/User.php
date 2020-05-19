@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\PasswordResetNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,9 +54,20 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'name', 'email', 'password', 'dob', 
+        'firstname', 'lastname', 'name', 'email', 'password', 'dob',
         'gender', 'phone', 'shadow', 'mentor', 'mentee', 'host', 'organization_id', 'station_id',
     ];
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordResetNotification($token));
+    }
 
     /**
      * The attributes that should be hidden for arrays.
