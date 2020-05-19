@@ -5,6 +5,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -15,6 +17,9 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         textAlign: "center",
         color: theme.palette.text.secondary
+    },
+    role: {
+        alignItems: 'center'
     }
 }));
 
@@ -64,12 +69,20 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                                     </strong>
                                                 </span>
                                                 <Typography variant="h6">
+                                                    <p>Email: {user.email} </p>
                                                     <p>Organization: {user.organizations ? user.organizations.name : "n/a"}</p>
                                                     <p>Duty Station: {user.stations ? user.stations.name : "n/a"}</p>
+                                                    <p>I want to: {user.shadow ? <span className={classes.role}>
+                                                        <CheckCircleIcon style={{ color: green[500] }} /> shadow </span> : ""}
+                                                        {user.mentor ? <span className={classes.role}><CheckCircleIcon style={{ color: green[500] }} /> be a mentor </span> : ""}
+                                                        {user.mentee ? <span className={classes.role}><CheckCircleIcon style={{ color: green[500] }} /> be a mentee </span> : ""}
+                                                        {user.host ? <span className={classes.role}><CheckCircleIcon style={{ color: green[500] }} /> host a shadow </span> : ""}
+                                                    </p>
+                                                    <hr />
                                                 </Typography>
                                                 <Grid container>
                                                     <Grid item xs={6}>
-                                                        <Typography variant="h6">Acquired:</Typography>
+                                                        <Typography variant="h6">My Strong Skills:</Typography>
                                                         {user.childskills.map(
                                                             childskill => (
                                                                 <Typography
@@ -86,7 +99,7 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                                     </Grid>
 
                                                     <Grid item xs={6}>
-                                                        <Typography variant="h6">Desired:</Typography>
+                                                        <Typography variant="h6">I Want to Develop:</Typography>
                                                         {user.desiredskills.map(
                                                             desiredskill => (
                                                                 <Typography
@@ -110,12 +123,13 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                 </Grid>
                             </Grid>
                         </div>
-                    )}
-                </React.Fragment>
+                    )
+                    }
+                </React.Fragment >
             ) : (
                     "Loading..."
                 )}
-        </div>
+        </div >
     );
 };
 
