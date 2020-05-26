@@ -6,7 +6,7 @@
 @if ($level === 'error')
 # @lang('Whoops!')
 @else
-# @lang('Hello and thank you for signing up with Conecta!')
+# @lang('Hello and thank you for using Conecta!')
 @endif
 @endif
 

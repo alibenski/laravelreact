@@ -11,12 +11,16 @@ import NotFound from "./pages/NotFound";
 import Signup from "./authentication/SignUp";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import UnauthenticatedRoute from "./authentication/UnauthenticatedRoute";
+import ForgotPassword from "./authentication/ForgotPassword";
+import ResetPasswordForm from "./authentication/ResetPasswordForm";
 
 export default function Routes() {
     return (
         <Switch>
             <UnauthenticatedRoute exact path="/login" component={LoginForm} />
             <UnauthenticatedRoute exact path="/signup" component={Signup} />
+            <UnauthenticatedRoute exact path="/forgot-password" component={ForgotPassword} />
+            <UnauthenticatedRoute exact path="/reset-password-form" component={ResetPasswordForm} />
             <AuthenticatedRoute exact path="/" component={Home} />
             <AuthenticatedRoute
                 exact
