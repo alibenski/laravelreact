@@ -174,7 +174,12 @@ const LoginForm = () => {
                         >
                             Login
                         </LoaderButton>
-                        <Grid container justify="flex-end">
+                        <Grid container spacing={2} justify="flex-end">
+                            <Grid item>
+                                <Link href="/forgot-password" variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
                             <Grid item>
                                 <Link href="/signup" variant="body2">
                                     No account yet? Register now
