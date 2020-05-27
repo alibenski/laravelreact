@@ -102,7 +102,7 @@ const TemporaryDrawer = ({ handleLogout, theme }) => {
                 <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
                 <ListItemLink
                     to="/profile"
-                    primary="Profile"
+                    primary="My Profile"
                     icon={<AccountBoxIcon />}
                 />
                 <ListItemLink

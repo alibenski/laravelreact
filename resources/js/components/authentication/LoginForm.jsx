@@ -97,7 +97,7 @@ const LoginForm = () => {
                             "userToken",
                             response.data.access_token
                         );
-                        history.push("/profile"); // redirect if successful
+                        history.push("/"); // redirect if successful
                     }
                 }
             })
