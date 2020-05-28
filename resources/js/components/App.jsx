@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import TemporaryDrawer from "./navigation/TemporaryDrawer";
+import ClippedDrawer from "./navigation/ClippedDrawer";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -85,14 +86,17 @@ const App = () => {
         !isAuthenticating && (
             <ThemeProvider theme={theme}>
                 {isAuthenticated ? (
-                    <TemporaryDrawer handleLogout={handleLogout} />
+                    // <TemporaryDrawer handleLogout={handleLogout} />
+                    <ClippedDrawer handleLogout={handleLogout} />
                 ) : (
                         <></>
                     )}
                 <AppContext.Provider
                     value={{ isAuthenticated, userHasAuthenticated }}
                 >
-                    <Routes />
+                    <div className="mt-2">
+                        <Routes />
+                    </div>
                 </AppContext.Provider>
             </ThemeProvider>
         )

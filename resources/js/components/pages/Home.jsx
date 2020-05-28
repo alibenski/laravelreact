@@ -37,8 +37,18 @@ export default function Home() {
                     className={classes.logo}
                 />
                 <Typography variant="body1" align="justify">
-                    Welcome to Conecta! Put your text here
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    <p>
+                        Hello! Welcome to conecta! Here you can also search for skills and projects and start connecting with colleagues!
+                    </p>
+                    <p>
+                        Use “My profile” to make any changes to your profile. In the “Search” tab  you will get a list of suggested profiles based on the skills you have searched. In the profiles you can see if colleagues are interested in volunteering for projects, job shawdowing and mentoring and you can contact them by email to start a conversation.
+                    </p>
+                    <p>
+                        In the “Projects” tab you can see a list of projects that need help, search for projects based on skills and filter by duty station. You can also create your own project!
+                    </p>
+                    <p>
+                        Please <a href="mailto:conecta@un.org">contact us</a> if you have questions or suggestions, We will be happy to hear from you!
+                    </p>
                 </Typography>
             </Container>
         </Fragment>
