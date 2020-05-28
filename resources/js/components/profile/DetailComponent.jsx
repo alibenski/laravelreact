@@ -67,7 +67,8 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
         shadow: details.shadow,
         mentor: details.mentor,
         mentee: details.mentee,
-        host: details.host
+        host: details.host,
+        volunteer: details.volunteer
     });
     const handleRadioChange = e => {
         setGender(e.target.value);

@@ -116,7 +116,7 @@ class SkillsGroup extends Component {
         let filteredUsers = this.state.users;
 
         return (
-            <div className="container mt-4">
+            <div className="container mt-4" style={{ marginLeft: "13rem" }}>
                 <div className="row justify-content-center">
                     <div className="col-md-10">
                         {this.state.searchFieldIsShown && (

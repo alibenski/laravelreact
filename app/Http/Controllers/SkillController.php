@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Childskill;
 use App\Parentskill;
+use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,14 +30,14 @@ class SkillController extends Controller
     public function getAllChildSkills()
     {
         $skills = Childskill::all();
-        $data=[];
+        $data = [];
         foreach ($skills as $skill) {
             $data[] = [
                 'label' => $skill->skillname,
                 'value' => $skill->id
-            ];  
+            ];
         }
-        
+
         return response()->json($data);
     }
 
@@ -52,17 +53,23 @@ class SkillController extends Controller
     {
         $skillName = $request->skillName;
         // DB::statement('ALTER TABLE childskills ADD FULLTEXT skillname (skillname)');
-        $querySkill = Childskill::search($skillName)
-            ->with('parentskills')
-            ->get();
+        $querySkill = Childskill::search($skillName)->with('parentskills')->get();
 
         // return response()->json($querySkill);
         return $querySkill;
     }
 
+    public function queryTagSkill(Request $request)
+    {
+        $skillName = $request->skillName;
+        $queryTagSkill = Tag::search($skillName)->get();
+        return $queryTagSkill;
+    }
+
     public function searchUserWithSkill(Request $request)
     {
         $querySkill = $this->showAllRelatedSkills($request);
+        $queryTagSkill = $this->queryTagSkill($request);
         $userName = [];
         $userName2 = [];
 
@@ -77,8 +84,15 @@ class SkillController extends Controller
             }
         }
 
+        $userName3 = [];
+        foreach ($queryTagSkill as $tskill) {
+            foreach ($tskill->users as $tuser) {
+                $userName3[] = $tuser['id'];
+            }
+        }
+
         $userData = [];
-        $userNameMerge = array_merge($userName, $userName2);
+        $userNameMerge = array_merge($userName, $userName2, $userName3);
         if (!empty($userNameMerge)) {
             $userNameUnique = array_unique($userNameMerge);
             $implodeArray = implode(',', $userNameUnique);
