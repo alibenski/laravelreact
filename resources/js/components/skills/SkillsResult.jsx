@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -20,16 +20,24 @@ const useStyles = makeStyles(theme => ({
     },
     role: {
         alignItems: 'center'
-    }
+    },
+    link: {
+        color: '#FFF'
+    },
 }));
 
 const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
     const classes = useStyles();
     let userResult = true;
+    const [hover, setHover] = useState(false);
+    const hoverOn = () => {
+        setHover(true)
+    }
+
     if (skillUserRecords.length == 0) {
         userResult = false;
     }
-
+    const linkStyle = hover ? { textDecoration: 'none', color: "#fff" } : {};
     return (
         <div className="container mt-4">
             {!isLoading ? (
@@ -70,6 +78,14 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                                 </span>
                                                 <Typography variant="h6">
                                                     <p>Email: {user.email} </p>
+                                                    <Button variant="contained"
+                                                        color="primary"
+                                                        className="m-2"
+                                                    >
+                                                        <a href={"mailto:" + user.email} style={linkStyle} className={classes.link} onMouseEnter={hoverOn} >
+                                                            Connect
+                                                        </a>
+                                                    </Button>
                                                     <p>Organization: {user.organizations ? user.organizations.name : "n/a"}</p>
                                                     <p>Duty Station: {user.stations ? user.stations.name : "n/a"}</p>
                                                     <p>I want to: {user.shadow ? <span className={classes.role}>
