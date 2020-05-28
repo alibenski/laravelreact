@@ -95,7 +95,18 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                                                 </Typography>
                                                             )
                                                         )}
-
+                                                        {user.tagskills.map(
+                                                            tagskill => (
+                                                                <Typography
+                                                                    key={tagskill.id}
+                                                                    variant="subtitle1"
+                                                                >
+                                                                    {
+                                                                        tagskill.skillname
+                                                                    }
+                                                                </Typography>
+                                                            )
+                                                        )}
                                                     </Grid>
 
                                                     <Grid item xs={6}>
