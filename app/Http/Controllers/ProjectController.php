@@ -29,10 +29,13 @@ class ProjectController extends Controller
 
 
             DB::insert('INSERT INTO projects (id, project_owner, project_description, current_team,
-                remaining_tasks, stage, people_needed, is_on_premise, location, contact, created_at)
-            VALUES (?,?,?,?,?,?,?,?,?,?,now())', [$projectId, $request->projectOwner, $request->projectDescription,
-                $request->currentTeam, $request->tasksNeeded, $request->stage, $request->peopleNeeded,
-                $request->isOnPremiseValue, $request->location, $request->contact]);
+                remaining_tasks, tasks_done, stage, people_needed, is_on_premise, location, contact, created_at)
+            VALUES (?,?,?,?,?,?,?,?,?,?,now())', [
+                $projectId, $request->projectOwner, $request->projectDescription,
+                $request->currentTeam, $request->tasksNeeded,
+                $request->tasksDone, $request->stage, $request->peopleNeeded,
+                $request->isOnPremiseValue, $request->location, $request->contact
+            ]);
 
             foreach ($request->state["checked"] as $skillId) {
 
@@ -40,6 +43,5 @@ class ProjectController extends Controller
                     VALUES (?,?)', [$projectId, $skillId]);
             }
         });
-
     }
 }
