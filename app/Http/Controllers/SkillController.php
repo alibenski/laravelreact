@@ -34,11 +34,30 @@ class SkillController extends Controller
         foreach ($skills as $skill) {
             $data[] = [
                 'label' => $skill->skillname,
-                'value' => $skill->id
+                'value' => $skill->id,
+                'type' => 'child'
             ];
         }
 
-        return response()->json($data);
+        $tagSkills = $this->getAllTagSkills();
+
+        $merge = array_merge($data, $tagSkills);
+        return response()->json($merge);
+    }
+
+    public function getAllTagSkills()
+    {
+        $skills = Tag::all();
+        $data = [];
+        foreach ($skills as $skill) {
+            $data[] = [
+                'label' => $skill->skillname,
+                'value' => $skill->id,
+                'type' => 'tag'
+            ];
+        }
+
+        return $data;
     }
 
 
