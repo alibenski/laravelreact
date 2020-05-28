@@ -45,6 +45,7 @@ class UserController extends Controller
             ->with('childskills')
             ->with('desiredskills')
             ->with('tagskills')
+            ->with('desiredtagskills')
             ->with('stations')
             ->with('organizations')
             ->first();
@@ -127,6 +128,7 @@ class UserController extends Controller
             ->with('childskills')
             ->with('desiredskills')
             ->with('tagskills')
+            ->with('desiredtagskills')
             ->with('stations')
             ->with('organizations')
             ->first();
@@ -162,8 +164,29 @@ class UserController extends Controller
 
     public function updateDesiredUserSkills($user, $desiredSkills)
     {
-        $skillId = $desiredSkills;
+        $integerDesiredSkillValue = [];
+        $stringDesiredSkillValue = [];
+        foreach ($desiredSkills as $desiredSkillValue) {
+            if (is_int($desiredSkillValue)) {
+                $integerDesiredSkillValue[] = $desiredSkillValue;
+            } else {
+                $stringDesiredSkillValue[] = ['skillname' => $desiredSkillValue];
+            }
+        }
+
+
+        $skillId = $integerDesiredSkillValue;
         $user->desiredskills()->sync($skillId, false);
+
+        $idTag = [];
+        foreach ($stringDesiredSkillValue as $arrayValue) {
+            // check if entry is duplicate before inserting
+            $idTag[] = Tag::insertGetId($arrayValue);
+        }
+
+        $skillTagId = $idTag;
+        $user->desiredtagskills()->sync($skillTagId, false);
+
         return $desiredSkills;
     }
 }

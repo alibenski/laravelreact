@@ -2,12 +2,14 @@ import React, { Fragment, useState, useEffect } from 'react';
 import Select from 'react-select';
 import { CardHeader, CardContent, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CreatableSelect from 'react-select/creatable';
 
 const SkillDesiredSearch = ({ handleSelectedDesired, details }) => {
     const token = localStorage.userToken;
     const [options, setOptions] = useState("");
     const [selected, setSelected] = useState("")
     const userSkills = details.desiredskills;
+    const userTagSkills = details.desiredtagskills;
 
     useEffect(() => {
         loadUser();
@@ -46,7 +48,9 @@ const SkillDesiredSearch = ({ handleSelectedDesired, details }) => {
                 subheader="Instructions here if needed">
             </CardHeader>
             <div className="m-2">
-                <Select isSearchable isMulti
+                <CreatableSelect
+                    isSearchable
+                    isMulti
                     onChange={handleChange}
                     options={options}
                 />
@@ -58,6 +62,19 @@ const SkillDesiredSearch = ({ handleSelectedDesired, details }) => {
                         <ListItem key={skill.id}>
                             <ListItemText
                                 primary={skill.skillname}
+                                secondary=""
+                            />
+                            <ListItemSecondaryAction>
+                                <IconButton edge="end" aria-label="delete" onClick={handleDeleteSkill}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    ))}
+                    {userTagSkills.map(tagSkill => (
+                        <ListItem key={tagSkill.id}>
+                            <ListItemText
+                                primary={tagSkill.skillname}
                                 secondary=""
                             />
                             <ListItemSecondaryAction>

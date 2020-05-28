@@ -28,6 +28,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany('App\Childskill', 'desiredskill_user');
     }
 
+    public function desiredtagskills()
+    {
+        return $this->belongsToMany('App\Tag', 'desiredtagskill_user');
+    }
+
     public function tagskills()
     {
         return $this->belongsToMany('App\Tag');
