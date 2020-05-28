@@ -89,18 +89,19 @@ class UserController extends Controller
             'mentor' => $request->state["checkbox"]["mentor"],
             'mentee' => $request->state["checkbox"]["mentee"],
             'host' => $request->state["checkbox"]["host"],
+            'volunteer' => $request->state["checkbox"]["volunteer"],
             'organization_id' => $request->state["organization"]["value"],
             'station_id' => $request->state["station"]["value"],
         ];
         $filteredInput = array_filter(
-            $input, 
-            function($v){
-                return ! is_null($v);
+            $input,
+            function ($v) {
+                return !is_null($v);
             }
         );
         $user->update($filteredInput);
         $user->update([
-            'name' => $user->firstname.' '.$user->lastname
+            'name' => $user->firstname . ' ' . $user->lastname
         ]);
 
         $selected = $request->state["selected"];
@@ -143,11 +144,11 @@ class UserController extends Controller
                 $stringSkillValue[] = ['skillname' => $skillValue];
             }
         }
-        
+
         $skillId = $integerSkillValue;
         $user->childskills()->sync($skillId, false);
-        
-        $idTag =[];
+
+        $idTag = [];
         foreach ($stringSkillValue as $arrayValue) {
             // check if entry is duplicate before inserting
             $idTag[] = Tag::insertGetId($arrayValue);

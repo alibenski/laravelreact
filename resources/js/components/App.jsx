@@ -94,7 +94,7 @@ const App = () => {
                 <AppContext.Provider
                     value={{ isAuthenticated, userHasAuthenticated }}
                 >
-                    <div className="mt-2">
+                    <div style={{ marginTop: "5rem" }}>
                         <Routes />
                     </div>
                 </AppContext.Provider>

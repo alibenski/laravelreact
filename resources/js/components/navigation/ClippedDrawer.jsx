@@ -18,6 +18,8 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import CreateIcon from '@material-ui/icons/Create';
 
 const drawerWidth = 200;
 
@@ -112,8 +114,8 @@ export default function ClippedDrawer({ handleLogout }) {
                 />
                 <ListItemLink
                     to="/create-project"
-                    primary="Create project"
-                    icon={<AccountBoxIcon />}
+                    primary="Project"
+                    icon={<GroupWorkIcon />}
                 />
                 {/* <ListItemLink
                     to="/user-form"
@@ -128,7 +130,7 @@ export default function ClippedDrawer({ handleLogout }) {
                 <ListItemLink
                     to="/"
                     primary="How-to"
-                    icon={<AccountBoxIcon />}
+                    icon={<CreateIcon />}
                 />
             </List>
             <Divider />
@@ -148,7 +150,7 @@ export default function ClippedDrawer({ handleLogout }) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="static" color="primary" className={classes.appBar}>
+            <AppBar position="fixed" color="primary" className={classes.appBar}>
                 <Toolbar>
                     <Typography
                         component="div"

@@ -187,7 +187,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                 className={classes.formControl}
                             >
                                 <FormLabel component="legend">
-                                    Assign Role
+                                    Do you wish to...
                                 </FormLabel>
                                 <FormGroup>
                                     <FormControlLabel
@@ -198,7 +198,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                                 name="shadow"
                                             />
                                         }
-                                        label="Do you wish to shadow?"
+                                        label="shadow"
                                     />
                                     <FormControlLabel
                                         control={
@@ -208,7 +208,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                                 name="mentor"
                                             />
                                         }
-                                        label="Do you wish to mentor? "
+                                        label="mentor "
                                     />
                                     <FormControlLabel
                                         control={
@@ -218,7 +218,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                                 name="mentee"
                                             />
                                         }
-                                        label="Do you wish to be a mentee? "
+                                        label="mentee "
                                     />
                                     <FormControlLabel
                                         control={
@@ -228,7 +228,17 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                                 name="host"
                                             />
                                         }
-                                        label="Do you wish to host a shadow?"
+                                        label="host a shadow"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={checkbox.volunteer == 1 ? true : false}
+                                                onChange={handleCheckBox}
+                                                name="volunteer"
+                                            />
+                                        }
+                                        label="volunteer for a project"
                                     />
                                 </FormGroup>
                             </FormControl>
