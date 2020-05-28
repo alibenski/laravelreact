@@ -20,6 +20,7 @@ import Box from "@material-ui/core/Box";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import CreateIcon from '@material-ui/icons/Create';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const drawerWidth = 200;
 
@@ -114,14 +115,14 @@ export default function ClippedDrawer({ handleLogout }) {
                 />
                 <ListItemLink
                     to="/create-project"
-                    primary="Project"
+                    primary="Create Project"
+                    icon={<CreateIcon />}
+                />
+                <ListItemLink
+                    to="/view-projects"
+                    primary="View Projects"
                     icon={<GroupWorkIcon />}
                 />
-                {/* <ListItemLink
-                    to="/user-form"
-                    primary="Form"
-                    icon={<AccountBoxIcon />}
-                /> */}
                 <ListItemLink
                     to="/skill-index"
                     primary="Search"
@@ -130,7 +131,7 @@ export default function ClippedDrawer({ handleLogout }) {
                 <ListItemLink
                     to="/"
                     primary="How-to"
-                    icon={<CreateIcon />}
+                    icon={<HelpOutlineIcon />}
                 />
             </List>
             <Divider />

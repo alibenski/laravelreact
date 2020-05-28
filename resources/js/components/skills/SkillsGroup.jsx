@@ -121,27 +121,12 @@ class SkillsGroup extends Component {
                     <div className="col-md-10">
                         {this.state.searchFieldIsShown && (
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-md-10">
                                     <SkillsSearchUser
                                         handleQueryUser={this.handleQueryUser}
                                         triggerDisplayState={this.triggerDisplayState}
                                         keyPress={this.keyPress}
                                     />
-                                </div>
-                                <div className="col-md-6">
-                                    <Card>
-                                        <div className="card-header">Coming Soon... Search for Projects</div>
-                                        <div className="card-body">
-                                            <input disabled
-                                                className="col-md-12"
-                                            ></input>
-                                        </div>
-                                        <div className="card-footer">
-                                            <button disabled>
-                                                Search Projects
-                                    </button>
-                                        </div>
-                                    </Card>
                                 </div>
                             </div>
                         )}
