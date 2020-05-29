@@ -66,7 +66,8 @@ const SkillDesiredSearch = ({ handleSelectedDesired, handleDeleteSkill, details 
                                 secondary=""
                             />
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete" onClick={handleClickDeleteSkill}>
+                                <IconButton edge="end" aria-label="delete"
+                                    onClick={e => handleClickDeleteSkill([skill.id, 'dcskill'])}>
                                     <DeleteIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
@@ -79,7 +80,8 @@ const SkillDesiredSearch = ({ handleSelectedDesired, handleDeleteSkill, details 
                                 secondary=""
                             />
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete" onClick={handleClickDeleteSkill}>
+                                <IconButton edge="end" aria-label="delete"
+                                    onClick={e => handleClickDeleteSkill([tagSkill.id, 'dtskill'])}>
                                     <DeleteIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>

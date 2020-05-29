@@ -200,6 +200,12 @@ class UserController extends Controller
         if ($request->skillType === 'tskill') {
             $user->tagskills()->detach($skillId);
         }
+        if ($request->skillType === 'dcskill') {
+            $user->desiredskills()->detach($skillId);
+        }
+        if ($request->skillType === 'dtskill') {
+            $user->desiredtagskills()->detach($skillId);
+        }
         $userId = Auth::id();
         $data = User::where('id', $userId)
             ->with('childskills')
