@@ -4,7 +4,7 @@ import { CardHeader, CardContent, List, ListItem, ListItemText, ListItemSecondar
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreatableSelect from 'react-select/creatable';
 
-const SkillDesiredSearch = ({ handleSelectedDesired, details }) => {
+const SkillDesiredSearch = ({ handleSelectedDesired, handleDeleteSkill, details }) => {
     const token = localStorage.userToken;
     const [options, setOptions] = useState("");
     const [selected, setSelected] = useState("")
@@ -35,11 +35,12 @@ const SkillDesiredSearch = ({ handleSelectedDesired, details }) => {
         setSelected(x)
     }
 
-    const handleDeleteSkill = () => {
-        alert("sorry, delete button is not yet working")
+    const handleClickDeleteSkill = skill => {
+        handleDeleteSkill(skill);
     }
 
     handleSelectedDesired(selected)
+
 
     return (
         <Fragment>
@@ -65,7 +66,7 @@ const SkillDesiredSearch = ({ handleSelectedDesired, details }) => {
                                 secondary=""
                             />
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete" onClick={handleDeleteSkill}>
+                                <IconButton edge="end" aria-label="delete" onClick={handleClickDeleteSkill}>
                                     <DeleteIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
@@ -78,7 +79,7 @@ const SkillDesiredSearch = ({ handleSelectedDesired, details }) => {
                                 secondary=""
                             />
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete" onClick={handleDeleteSkill}>
+                                <IconButton edge="end" aria-label="delete" onClick={handleClickDeleteSkill}>
                                     <DeleteIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>

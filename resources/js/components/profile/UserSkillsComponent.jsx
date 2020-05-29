@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { deepOrange } from "@material-ui/core/colors";
 import { Typography } from "@material-ui/core";
@@ -27,36 +27,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const UserSkillsComponent = ({ details }) => {
+const UserSkillsComponent = ({ handleDeleteSkill, details }) => {
     const classes = useStyles();
     const token = localStorage.userToken;
     // const [userSkills, setUserSkills] = useState(details.childskills);
     const userSkills = details.childskills;
     const tagSkills = details.tagskills;
 
-    // useEffect(() => {
-    //     loadUserSkills();
-    // }, []);
-
-    // const loadUserSkills = () => {
-    //     axios
-    //         .get("api/show-user-skills", {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //                 Accept: "application/json"
-    //             }
-    //         })
-    //         .then(response => {
-    //             setUserSkills(...userSkills, response.data);
-    //         })
-    //         .catch(errors => {
-    //             console.log(errors);
-    //         });
-    // };
-
-    const handleDeleteSkill = () => {
-        alert("sorry, delete button is not yet working")
+    const handleClickDeleteSkill = skill => {
+        handleDeleteSkill(skill);
     }
+
+
     return (
         <Fragment>
             <List >
@@ -67,7 +49,9 @@ const UserSkillsComponent = ({ details }) => {
                             secondary=""
                         />
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete" onClick={handleDeleteSkill}>
+                            <IconButton edge="end" aria-label="delete-cskill"
+                                onClick={e => handleClickDeleteSkill([skill.id, 'cskill'])}
+                            >
                                 <DeleteIcon />
                             </IconButton>
                         </ListItemSecondaryAction>
@@ -80,7 +64,9 @@ const UserSkillsComponent = ({ details }) => {
                             secondary=""
                         />
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete" onClick={handleDeleteSkill}>
+                            <IconButton edge="end" aria-label="delete-tskill"
+                                onClick={e => handleClickDeleteSkill([tskill.id, 'tskill'])}
+                            >
                                 <DeleteIcon />
                             </IconButton>
                         </ListItemSecondaryAction>

@@ -189,4 +189,26 @@ class UserController extends Controller
 
         return $desiredSkills;
     }
+
+    public function deleteUserSkill(Request $request)
+    {
+        $user = Auth::user();
+        $skillId = $request->skillId;
+        if ($request->skillType === 'cskill') {
+            $user->childskills()->detach($skillId);
+        }
+        if ($request->skillType === 'tskill') {
+            $user->tagskills()->detach($skillId);
+        }
+        $userId = Auth::id();
+        $data = User::where('id', $userId)
+            ->with('childskills')
+            ->with('desiredskills')
+            ->with('tagskills')
+            ->with('desiredtagskills')
+            ->with('stations')
+            ->with('organizations')
+            ->first();
+        return response()->json($data);
+    }
 }

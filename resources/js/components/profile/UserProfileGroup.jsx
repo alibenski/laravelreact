@@ -91,6 +91,26 @@ const UserProfileGroup = () => {
                 onError(errors);
             });
     };
+
+    const handleDeleteSkill = x => {
+        let $request = {
+            skillId: x['0'],
+            skillType: x['1']
+        };
+        axios
+            .post("api/delete-user-skill", $request, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            })
+            .then(response => {
+                setDetails(response.data);
+            })
+            .catch(errors => {
+                console.log(errors.response);
+            });
+    }
     return (
         !details.firstname ?
             <div>Loading...</div> :
@@ -103,7 +123,7 @@ const UserProfileGroup = () => {
                     spacing={2}
                     className="mt-4">
 
-                    <DetailComponent handleFields={handleFields} handlePhone={handlePhone} handleGender={handleGender} handleCheck={handleCheck} handleSelected={handleSelected} handleSelectedDesired={handleSelectedDesired} handleSelectedOrg={handleSelectedOrg} handleSelectedCountry={handleSelectedCountry} details={details} />
+                    <DetailComponent handleFields={handleFields} handlePhone={handlePhone} handleGender={handleGender} handleCheck={handleCheck} handleSelected={handleSelected} handleSelectedDesired={handleSelectedDesired} handleSelectedOrg={handleSelectedOrg} handleSelectedCountry={handleSelectedCountry} handleDeleteSkill={handleDeleteSkill} details={details} />
                     <br />
                     <Grid item xs={8}>
                         {/* <SkillsSelector state={state} /> */}

@@ -6,6 +6,7 @@ use App\Childskill;
 use App\Parentskill;
 use App\Tag;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

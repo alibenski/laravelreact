@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected, handleSelectedDesired, handleSelectedOrg, handleSelectedCountry, details }) => {
+const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected, handleSelectedDesired, handleSelectedOrg, handleSelectedCountry, handleDeleteSkill, details }) => {
     const classes = useStyles();
     const [fields, handleFieldChange] = useFormFields({
         firstname: "",
@@ -255,7 +255,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                         subheader="Skills you’re good at"
                     />
                     <CardContent>
-                        <UserSkillsComponent details={details} />
+                        <UserSkillsComponent handleDeleteSkill={handleDeleteSkill} details={details} />
                     </CardContent>
                 </Card>
             </Grid>
@@ -266,7 +266,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
             </Grid>
             <Grid item xs={12} className="row justify-content-center">
                 <Card className={classes.rootSelect}>
-                    <SkillDesiredSearch handleSelectedDesired={handleSelectedDesired} details={details} />
+                    <SkillDesiredSearch handleSelectedDesired={handleSelectedDesired} handleDeleteSkill={handleDeleteSkill} details={details} />
                 </Card>
             </Grid>
         </React.Fragment>
