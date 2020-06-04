@@ -109,7 +109,17 @@ class UserController extends Controller
         $selectedSkills = [];
         if ($selected) {
             foreach ($selected as $skill) {
-                $selectedSkills[] = $skill["value"];
+                if (array_key_exists("type", $skill)) {
+                    $selectedSkills[] = [
+                        'value' => $skill["value"],
+                        'type' => $skill["type"],
+                    ];
+                } else {
+                    $selectedSkills[] = [
+                        'value' => $skill["value"],
+                        'type' => 'tag',
+                    ];
+                }
             }
         }
         $dataSkills = $this->updateUserSkills($user, $selectedSkills);
@@ -118,7 +128,17 @@ class UserController extends Controller
         $desiredSkills = [];
         if ($selectedDesired) {
             foreach ($selectedDesired as $dskill) {
-                $desiredSkills[] = $dskill["value"];
+                if (array_key_exists("type", $dskill)) {
+                    $desiredSkills[] = [
+                        'value' => $dskill["value"],
+                        'type' => $dskill["type"],
+                    ];
+                } else {
+                    $desiredSkills[] = [
+                        'value' => $dskill["value"],
+                        'type' => 'tag',
+                    ];
+                }
             }
         }
         $dataDesiredSkills = $this->updateDesiredUserSkills($user, $desiredSkills);
@@ -140,15 +160,26 @@ class UserController extends Controller
         $integerSkillValue = [];
         $stringSkillValue = [];
         foreach ($selectedSkills as $skillValue) {
-            if (is_int($skillValue)) {
-                $integerSkillValue[] = $skillValue;
+            if (is_int($skillValue["value"])) {
+                $integerSkillValue[] = [
+                    "id" => $skillValue["value"],
+                    "type" => $skillValue["type"],
+                ];
             } else {
-                $stringSkillValue[] = ['skillname' => $skillValue];
+                $stringSkillValue[] = ["skillname" => $skillValue["value"]];
             }
         }
 
-        $skillId = $integerSkillValue;
-        $user->childskills()->sync($skillId, false);
+        foreach ($integerSkillValue as $v) {
+            if ($v["type"] === "child") {
+                $skillId = $v["id"];
+                $user->childskills()->sync($skillId, false);
+            }
+            if ($v["type"] === "tag") {
+                $tagSkillId = $v["id"];
+                $user->tagskills()->sync($tagSkillId, false);
+            }
+        }
 
         $idTag = [];
         foreach ($stringSkillValue as $arrayValue) {
@@ -167,16 +198,26 @@ class UserController extends Controller
         $integerDesiredSkillValue = [];
         $stringDesiredSkillValue = [];
         foreach ($desiredSkills as $desiredSkillValue) {
-            if (is_int($desiredSkillValue)) {
-                $integerDesiredSkillValue[] = $desiredSkillValue;
+            if (is_int($desiredSkillValue["value"])) {
+                $integerDesiredSkillValue[] = [
+                    "id" => $desiredSkillValue["value"],
+                    "type" => $desiredSkillValue["type"],
+                ];
             } else {
-                $stringDesiredSkillValue[] = ['skillname' => $desiredSkillValue];
+                $stringDesiredSkillValue[] = ["skillname" => $desiredSkillValue["value"]];
             }
         }
 
-
-        $skillId = $integerDesiredSkillValue;
-        $user->desiredskills()->sync($skillId, false);
+        foreach ($integerDesiredSkillValue as $dv) {
+            if ($dv["type"] === "child") {
+                $dskillId = $dv["id"];
+                $user->desiredskills()->sync($dskillId, false);
+            }
+            if ($dv["type"] === "tag") {
+                $dtagSkillId = $dv["id"];
+                $user->desiredtagskills()->sync($dtagSkillId, false);
+            }
+        }
 
         $idTag = [];
         foreach ($stringDesiredSkillValue as $arrayValue) {
