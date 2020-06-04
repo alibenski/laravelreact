@@ -24,8 +24,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { Collapse } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 
 const drawerWidth = 200;
 
@@ -130,14 +129,9 @@ export default function ClippedDrawer({ handleLogout }) {
                     primary="Search"
                     icon={<SearchIcon />}
                 />
-                <ListItemLink
-                    to="/"
-                    primary="How-to"
-                    icon={<HelpOutlineIcon />}
-                />
                 <ListItem button onClick={handleClick}>
                     <ListItemIcon>
-                        <InboxIcon />
+                        <AccountTreeIcon />
                     </ListItemIcon>
                     <ListItemText primary="Projects" />
                     {open ? <ExpandLess /> : <ExpandMore />}
@@ -147,17 +141,27 @@ export default function ClippedDrawer({ handleLogout }) {
                         <div className={classes.nested}>
                             <ListItemLink
                                 to="/create-project"
-                                primary="Create Project"
+                                primary="Create"
                                 icon={<CreateIcon />}
                             />
                             <ListItemLink
                                 to="/view-projects"
-                                primary="View Projects"
+                                primary="Search"
+                                icon={<SearchIcon />}
+                            />
+                            <ListItemLink
+                                to="/view-projects"
+                                primary="View My Projects"
                                 icon={<GroupWorkIcon />}
                             />
                         </div>
                     </List>
                 </Collapse>
+                <ListItemLink
+                    to="/"
+                    primary="How-to"
+                    icon={<HelpOutlineIcon />}
+                />
             </List>
             <Divider />
         </div>
