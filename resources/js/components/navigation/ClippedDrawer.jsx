@@ -21,6 +21,11 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import CreateIcon from '@material-ui/icons/Create';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { Collapse } from '@material-ui/core';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 
 const drawerWidth = 200;
 
@@ -50,12 +55,19 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         color: 'black'
-    }
+    },
+    nested: {
+        paddingLeft: theme.spacing(2),
+    },
 }));
 
 export default function ClippedDrawer({ handleLogout }) {
     const classes = useStyles();
     const history = useHistory();
+    const [open, setOpen] = React.useState(true);
+    const handleClick = () => {
+        setOpen(!open);
+    };
 
     function ListItemLink(props) {
         const { icon, primary, to } = props;
@@ -114,16 +126,6 @@ export default function ClippedDrawer({ handleLogout }) {
                     icon={<AccountBoxIcon />}
                 />
                 <ListItemLink
-                    to="/create-project"
-                    primary="Create Project"
-                    icon={<CreateIcon />}
-                />
-                <ListItemLink
-                    to="/view-projects"
-                    primary="View Projects"
-                    icon={<GroupWorkIcon />}
-                />
-                <ListItemLink
                     to="/skill-index"
                     primary="Search"
                     icon={<SearchIcon />}
@@ -133,18 +135,31 @@ export default function ClippedDrawer({ handleLogout }) {
                     primary="How-to"
                     icon={<HelpOutlineIcon />}
                 />
+                <ListItem button onClick={handleClick}>
+                    <ListItemIcon>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Projects" />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <div className={classes.nested}>
+                            <ListItemLink
+                                to="/create-project"
+                                primary="Create Project"
+                                icon={<CreateIcon />}
+                            />
+                            <ListItemLink
+                                to="/view-projects"
+                                primary="View Projects"
+                                icon={<GroupWorkIcon />}
+                            />
+                        </div>
+                    </List>
+                </Collapse>
             </List>
             <Divider />
-            {/* <List>
-                {["S1", "S2", "S3"].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List> */}
         </div>
     );
 

@@ -38,7 +38,7 @@ const SkillMultiSelectSearch = ({ handleSelected }) => {
         <Fragment>
             <CardHeader
                 title="Add Acquired Skills"
-                subheader="Instructions here if needed"
+                subheader=""
             >
             </CardHeader>
             <div className="m-2">

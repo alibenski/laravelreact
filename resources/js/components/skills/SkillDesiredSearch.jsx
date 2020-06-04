@@ -46,7 +46,7 @@ const SkillDesiredSearch = ({ handleSelectedDesired, handleDeleteSkill, details 
         <Fragment>
             <CardHeader
                 title="Skills to Develop"
-                subheader="Instructions here if needed">
+                subheader="">
             </CardHeader>
             <div className="m-2">
                 <CreatableSelect
