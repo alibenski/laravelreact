@@ -14,6 +14,7 @@ import Switch from '@material-ui/core/Switch';
 
 class CreateProjectGroup extends Component {
     advancementValue = "1";
+    projectTitle = "";
     projectOwner = "";
     projectDescription = "";
     currentTeam = "";
@@ -35,10 +36,13 @@ class CreateProjectGroup extends Component {
         this.handleQuerySkill = this.handleQuerySkill.bind(this);
     }
 
+
     handleQuerySkill(properties) {
+        const token = localStorage.userToken;
 
         let $request = {
             state: this.state,
+            projectTitle: this.projectTitle,
             projectOwner: this.projectOwner,
             projectDescription: this.projectDescription,
             currentTeam: this.currentTeam,
@@ -54,8 +58,16 @@ class CreateProjectGroup extends Component {
         console.log($request);
 
         axios
-            .post("api/project", $request)
-            .then(response => { })
+            .post("api/project", $request,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        Accept: "application/json"
+                    }
+                })
+            .then(response => {
+                console.log(response)
+            })
             .catch(errors => {
                 console.log(errors);
             });
@@ -86,10 +98,21 @@ class CreateProjectGroup extends Component {
                             variant="outlined"
                             required
                             fullWidth
+                            id="projectTitle"
+                            label="Project Title"
+                            name="projectTitle"
+                            autoFocus
+                            onChange={e => (this.projectTitle = e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
                             id="projectOwner"
                             label="Project owner"
                             name="projectOwner"
-                            autoFocus
                             onChange={e => (this.projectOwner = e.target.value)}
                         />
                     </Grid>

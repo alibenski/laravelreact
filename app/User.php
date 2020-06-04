@@ -13,6 +13,11 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, HasApiTokens;
 
+    public function projects()
+    {
+        return $this->hasMany('App\Project');
+    }
+
     public function parentskills()
     {
         return $this->belongsToMany('App\Parentskill');

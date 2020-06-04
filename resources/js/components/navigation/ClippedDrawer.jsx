@@ -146,7 +146,7 @@ export default function ClippedDrawer({ handleLogout }) {
                             />
                             <ListItemLink
                                 to="/view-projects"
-                                primary="Search"
+                                primary="Search Projects"
                                 icon={<SearchIcon />}
                             />
                             <ListItemLink
