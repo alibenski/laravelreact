@@ -77,13 +77,13 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
         setPhone(value);
     };
     const handleCheckBox = event => {
-        setCheckBox({ ...checkbox, [event.target.name]: event.target.checked })
+        setCheckBox({ ...checkbox, [event.target.name]: event.target.checked });
     };
 
-    handleGender(gender)
-    handlePhone(phone)
-    handleCheck(checkbox)
-    handleFields(fields)
+    handleGender(gender);
+    handlePhone(phone);
+    handleCheck(checkbox);
+    handleFields(fields);
 
     return (
         <React.Fragment>
@@ -261,11 +261,20 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
             </Grid>
             <Grid item xs={12} className="row justify-content-center">
                 <Card className={classes.rootSelect}>
+                    <CardHeader
+                        title="Add Acquired Skills"
+                        subheader=""
+                    >
+                    </CardHeader>
                     <SkillMultiSelectSearch handleSelected={handleSelected} />
                 </Card>
             </Grid>
             <Grid item xs={12} className="row justify-content-center">
                 <Card className={classes.rootSelect}>
+                    <CardHeader
+                        title="Add Skills to Develop"
+                        subheader="">
+                    </CardHeader>
                     <SkillDesiredSearch handleSelectedDesired={handleSelectedDesired} handleDeleteSkill={handleDeleteSkill} details={details} />
                 </Card>
             </Grid>

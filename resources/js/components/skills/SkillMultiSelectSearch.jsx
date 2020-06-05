@@ -6,7 +6,7 @@ import CreatableSelect from 'react-select/creatable';
 const SkillMultiSelectSearch = ({ handleSelected }) => {
     const token = localStorage.userToken;
     const [options, setOptions] = useState("");
-    const [selected, setSelected] = useState("")
+    const [selected, setSelected] = useState("");
 
     useEffect(() => {
         loadUser();
@@ -29,18 +29,13 @@ const SkillMultiSelectSearch = ({ handleSelected }) => {
     };
 
     const handleChange = x => {
-        setSelected(x)
-    }
+        setSelected(x);
+    };
 
-    handleSelected(selected)
+    handleSelected(selected);
 
     return (
         <Fragment>
-            <CardHeader
-                title="Add Acquired Skills"
-                subheader=""
-            >
-            </CardHeader>
             <div className="m-2">
                 <CreatableSelect
                     isSearchable
@@ -48,10 +43,9 @@ const SkillMultiSelectSearch = ({ handleSelected }) => {
                     onChange={handleChange}
                     options={options}
                 />
-
             </div>
         </Fragment>
     );
-}
+};
 
 export default SkillMultiSelectSearch;

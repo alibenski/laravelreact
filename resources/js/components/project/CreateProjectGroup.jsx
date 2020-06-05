@@ -11,6 +11,7 @@ import SkillsSelector from "../skills/SkillsSelector";
 import TextField from "@material-ui/core/TextField";
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
+import SkillMultiSelectSearch from "../skills/SkillMultiSelectSearch";
 
 class CreateProjectGroup extends Component {
     advancementValue = "1";
@@ -30,12 +31,16 @@ class CreateProjectGroup extends Component {
         expanded: [],
         disabled: true,
     };
+    selected = [];
 
     constructor(props) {
         super(props);
         this.handleQuerySkill = this.handleQuerySkill.bind(this);
     }
 
+    handleSelected = x => {
+        this.selected = x;
+    };
 
     handleQuerySkill(properties) {
         const token = localStorage.userToken;
@@ -52,7 +57,8 @@ class CreateProjectGroup extends Component {
             contact: this.contact,
             isOnPremiseValue: this.isOnPremiseValue,
             location: this.location,
-            stage: this.advancementValue
+            stage: this.advancementValue,
+            selected: this.selected,
         };
 
         console.log($request);
@@ -155,7 +161,7 @@ class CreateProjectGroup extends Component {
                             label="How far along are you?"
                             placeholder="Tell volunteers about the progress you’ve made"
                             name="tasksDone"
-                            onChange={e => (this.tasksNeeded = e.target.value)}
+                            onChange={e => (this.tasksDone = e.target.value)}
                             InputLabelProps={{
                                 shrink: true
                             }}
@@ -192,7 +198,8 @@ class CreateProjectGroup extends Component {
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <FormLabel component="legend">Skills needed for this project</FormLabel>
-                        <SkillsSelector state={this.state} />
+                        {/* <SkillsSelector state={this.state} /> */}
+                        <SkillMultiSelectSearch handleSelected={this.handleSelected} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField

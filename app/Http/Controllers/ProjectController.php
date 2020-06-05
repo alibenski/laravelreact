@@ -30,16 +30,16 @@ class ProjectController extends Controller
             'tasksDone' => 'required|',
             'peopleNeeded' => 'required|',
             'contact' => 'required|',
+            'selected' => 'required|',
         ));
 
         $userId = Auth::id();
-        DB::transaction(function () use ($request, $userId) {
+        $projectId = 1;
+        if (Project::count() > 0) {
+            $projectId = Project::max('id') + 1;
+        }
 
-            $projectId = 1;
-            if (Project::count() > 0) {
-                $projectId = Project::max('id') + 1;
-            }
-
+        DB::transaction(function () use ($request, $projectId, $userId) {
 
             DB::insert('INSERT INTO projects (id, user_id, title, project_owner, project_description, current_team,
                 remaining_tasks, tasks_done, stage, people_needed, is_on_premise, location, contact, created_at)
@@ -50,12 +50,25 @@ class ProjectController extends Controller
                 $request->isOnPremiseValue, $request->location, $request->contact
             ]);
 
-            foreach ($request->state["checked"] as $skillId) {
+            // foreach ($request->state["checked"] as $skillId) {
 
-                DB::insert('INSERT INTO childskill_project (project_id, childskill_id)
-                    VALUES (?,?)', [$projectId, $skillId]);
-            }
+            //     DB::insert('INSERT INTO childskill_project (project_id, childskill_id)
+            //         VALUES (?,?)', [$projectId, $skillId]);
+            // }
         });
+
+        foreach ($request->selected as $select) {
+            if ($select["type"] === 'child') {
+                $cSkillId = $select["value"];
+                DB::insert('INSERT INTO childskill_project (project_id, childskill_id)
+                    VALUES (?,?)', [$projectId, $cSkillId]);
+            }
+            if ($select["type"] === 'tag') {
+                $tSkillId = $select["value"];
+                DB::insert('INSERT INTO project_tag (project_id, tag_id)
+                    VALUES (?,?)', [$projectId, $tSkillId]);
+            }
+        }
 
         return response()->json($userId);
     }

@@ -7,7 +7,7 @@ import CreatableSelect from 'react-select/creatable';
 const SkillDesiredSearch = ({ handleSelectedDesired, handleDeleteSkill, details }) => {
     const token = localStorage.userToken;
     const [options, setOptions] = useState("");
-    const [selected, setSelected] = useState("")
+    const [selected, setSelected] = useState("");
     const userSkills = details.desiredskills;
     const userTagSkills = details.desiredtagskills;
 
@@ -32,22 +32,18 @@ const SkillDesiredSearch = ({ handleSelectedDesired, handleDeleteSkill, details 
     };
 
     const handleChange = x => {
-        setSelected(x)
-    }
+        setSelected(x);
+    };
 
     const handleClickDeleteSkill = skill => {
         handleDeleteSkill(skill);
-    }
+    };
 
-    handleSelectedDesired(selected)
+    handleSelectedDesired(selected);
 
 
     return (
         <Fragment>
-            <CardHeader
-                title="Skills to Develop"
-                subheader="">
-            </CardHeader>
             <div className="m-2">
                 <CreatableSelect
                     isSearchable
@@ -91,6 +87,6 @@ const SkillDesiredSearch = ({ handleSelectedDesired, handleDeleteSkill, details 
             </CardContent>
         </Fragment>
     );
-}
+};
 
 export default SkillDesiredSearch;
