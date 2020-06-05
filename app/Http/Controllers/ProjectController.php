@@ -21,8 +21,19 @@ class ProjectController extends Controller
 
     public function insertProject(Request $request)
     {
-        $user = Auth::id();
-        DB::transaction(function () use ($request, $user) {
+        $this->validate($request, array(
+            'projectTitle' => 'required|',
+            'projectOwner' => 'required|',
+            'projectDescription' => 'required|',
+            'currentTeam' => 'required|',
+            'tasksNeeded' => 'required|',
+            'tasksDone' => 'required|',
+            'peopleNeeded' => 'required|',
+            'contact' => 'required|',
+        ));
+
+        $userId = Auth::id();
+        DB::transaction(function () use ($request, $userId) {
 
             $projectId = 1;
             if (Project::count() > 0) {
@@ -33,7 +44,7 @@ class ProjectController extends Controller
             DB::insert('INSERT INTO projects (id, user_id, title, project_owner, project_description, current_team,
                 remaining_tasks, tasks_done, stage, people_needed, is_on_premise, location, contact, created_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,now())', [
-                $projectId, $user, $request->projectTitle, $request->projectOwner, $request->projectDescription,
+                $projectId, $userId, $request->projectTitle, $request->projectOwner, $request->projectDescription,
                 $request->currentTeam, $request->tasksNeeded,
                 $request->tasksDone, $request->stage, $request->peopleNeeded,
                 $request->isOnPremiseValue, $request->location, $request->contact
@@ -46,6 +57,6 @@ class ProjectController extends Controller
             }
         });
 
-        return response()->json($user);
+        return response()->json($userId);
     }
 }

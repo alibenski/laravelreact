@@ -53,7 +53,7 @@ class CreateProjectGroup extends Component {
             isOnPremiseValue: this.isOnPremiseValue,
             location: this.location,
             stage: this.advancementValue
-        }
+        };
 
         console.log($request);
 
@@ -66,10 +66,11 @@ class CreateProjectGroup extends Component {
                     }
                 })
             .then(response => {
-                console.log(response)
+                console.log(response);
             })
             .catch(errors => {
-                console.log(errors);
+                console.log(errors.response.data);
+                alert(errors.response.data.message);
             });
     }
 
