@@ -208,7 +208,7 @@ class CreateProjectGroup extends Component {
                             fullWidth
                             type="number"
                             id="peopleNeeded"
-                            label="Number of people needed for this project"
+                            placeholder="Number of people needed for this project"
                             name="peopleNeeded"
                             onChange={e => (this.peopleNeeded = e.target.value)}
                         />
@@ -233,7 +233,7 @@ class CreateProjectGroup extends Component {
                             variant="outlined"
                             fullWidth
                             id="location"
-                            label="Location"
+                            placeholder="Location"
                             name="location"
                             disabled={this.state.disabled}
                             onChange={e => (this.location = e.target.value)}
@@ -241,14 +241,18 @@ class CreateProjectGroup extends Component {
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <TextField
-                            variant="outlined"
+                            variant="standard"
                             required
                             fullWidth
                             multiline
                             id="contact"
-                            label="Contact email address"
+                            label="Contact Email"
+                            placeholder="abc@un.org"
                             name="contact"
                             onChange={e => (this.contact = e.target.value)}
+                            InputLabelProps={{
+                                shrink: true
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
