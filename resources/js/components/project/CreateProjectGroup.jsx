@@ -11,9 +11,14 @@ import SkillsSelector from "../skills/SkillsSelector";
 import TextField from "@material-ui/core/TextField";
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
-import SkillMultiSelectSearch from "../skills/SkillMultiSelectSearch";
+import SkillMultiSelectNoCreate from "../skills/SkillMultiSelectSearch";
 
 class CreateProjectGroup extends Component {
+    constructor(props) {
+        super(props);
+        this.handleQuerySkill = this.handleQuerySkill.bind(this);
+    }
+
     advancementValue = "1";
     projectTitle = "";
     projectOwner = "";
@@ -32,11 +37,6 @@ class CreateProjectGroup extends Component {
         disabled: true,
     };
     selected = [];
-
-    constructor(props) {
-        super(props);
-        this.handleQuerySkill = this.handleQuerySkill.bind(this);
-    }
 
     handleSelected = x => {
         this.selected = x;
@@ -73,6 +73,8 @@ class CreateProjectGroup extends Component {
                 })
             .then(response => {
                 console.log(response);
+                confirm("Project has been saved.");
+                window.location.reload();
             })
             .catch(errors => {
                 console.log(errors.response.data);
@@ -92,8 +94,6 @@ class CreateProjectGroup extends Component {
         this.isOnPremiseValue = e.target.checked;
         this.setState({ disabled: !e.target.checked });
     }
-
-
 
     render() {
         return (
@@ -199,7 +199,7 @@ class CreateProjectGroup extends Component {
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <FormLabel component="legend">Skills needed for this project</FormLabel>
                         {/* <SkillsSelector state={this.state} /> */}
-                        <SkillMultiSelectSearch handleSelected={this.handleSelected} />
+                        <SkillMultiSelectNoCreate handleSelected={this.handleSelected} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
