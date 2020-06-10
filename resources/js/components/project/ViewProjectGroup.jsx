@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -30,169 +30,69 @@ const useStyles = makeStyles({
 
 const ViewProjectGroup = () => {
     const classes = useStyles();
+    const [projects, setProjects] = useState(null);
+
+    useEffect(() => {
+        loadProjects();
+    }, []);
+
+    const loadProjects = () => {
+        const token = localStorage.userToken;
+        axios
+            .get("api/view-project", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            })
+            .then(response => {
+                console.log(response.data["projects"]);
+                setProjects(response.data["projects"]);
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+    };
+
     return (
         <div className="container" style={{ marginLeft: "13rem" }}>
-            <div className="col-md-10">
-                <Card>
-                    <div className="card-header">Coming Soon... Search for Projects</div>
-                    <div className="card-body">
-                        <input disabled
-                            className="col-md-12"
-                        ></input>
-                    </div>
-                    <div className="card-footer">
-                        <button disabled>
-                            Search
-                        </button>
-                    </div>
-                </Card>
+            <div className="col-md-12">
+                <Typography variant="h4" align="center" color="primary" fontWeight="fontWeightBold">View My Projects</Typography>
             </div>
             <div className={classes.sudo}>
                 <Grid container spacing={3}>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoConecta}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        Geneva Project
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoVector}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        Project X
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoVector}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        UN Project
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoVector}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        UN Project
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoVector}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        UN Project
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                    {projects === null ? "" : projects.map(
+                        project => (
+                            <Grid item xs={4} key={project.id}>
+                                <Card className={classes.root}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                            className={classes.media}
+                                            image={logoVector}
+                                            title={project.title}
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                {project.title}
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                {project.project_description}
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions>
+                                        <Button size="small" color="primary">
+                                            See More
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        )
+                    )}
                 </Grid>
             </div>
         </div >
-    )
-}
+    );
+};
 
 export default ViewProjectGroup;

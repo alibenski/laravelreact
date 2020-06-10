@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,14 @@ class ProjectController extends Controller
     public function __construct()
     {
         //
+    }
+
+    public function viewProject()
+    {
+        $userId = Auth::id();
+        $projects = User::where('id', $userId)->with('projects')->first();
+
+        return response()->json($projects);
     }
 
     public function insertProject(Request $request)

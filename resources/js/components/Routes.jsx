@@ -7,6 +7,7 @@ import UserForm from "./form/UserForm";
 import UserProfileGroup from "./profile/UserProfileGroup";
 import CreateProfileGroup from "./profile/CreateProfileGroup";
 import CreateProjectGroup from "./project/CreateProjectGroup";
+import SearchProjectGroup from "./project/SearchProjectGroup";
 import ViewProjectGroup from "./project/ViewProjectGroup";
 import NotFound from "./pages/NotFound";
 import Signup from "./authentication/SignUp";
@@ -43,6 +44,11 @@ export default function Routes() {
                 exact
                 path="/create-project"
                 component={CreateProjectGroup}
+            />
+            <AuthenticatedRoute
+                exact
+                path="/search-projects"
+                component={SearchProjectGroup}
             />
             <AuthenticatedRoute
                 exact

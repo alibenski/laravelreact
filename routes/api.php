@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('show-all-related-skills/{skillName}', ['uses' => 'SkillController@showAllRelatedSkills']);
     $router->get('skill/{skillName}', ['uses' => 'SkillController@searchUserWithSkill']);
 
+    $router->get('view-project', ['uses' => 'ProjectController@viewProject']);
     $router->post('project', ['uses' => 'ProjectController@insertProject']);
 });
 $router->get('skill-index', ['uses' => 'SkillController@skillIndex']);
