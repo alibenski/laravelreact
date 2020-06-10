@@ -11,7 +11,7 @@ import SkillsSelector from "../skills/SkillsSelector";
 import TextField from "@material-ui/core/TextField";
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
-import SkillMultiSelectNoCreate from "../skills/SkillMultiSelectSearch";
+import SkillMultiSelectNoCreate from "../skills/SkillMultiSelectNoCreate";
 
 class CreateProjectGroup extends Component {
     constructor(props) {
