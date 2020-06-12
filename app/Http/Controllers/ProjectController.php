@@ -20,7 +20,7 @@ class ProjectController extends Controller
         //
     }
 
-    public function viewProject()
+    public function viewProjects()
     {
         $userId = Auth::id();
         $projects = User::where('id', $userId)->with('projects')->first();
@@ -80,5 +80,28 @@ class ProjectController extends Controller
         }
 
         return response()->json($userId);
+    }
+
+    public function editProject($id)
+    {
+        $project = Project::where('id', $id)->with('childskills')->with('tagskills')->first();
+        return response()->json($project);
+    }
+
+    public function updateProject(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|',
+            'project_owner' => 'required|',
+            'project_description' => 'required|',
+            'current_team' => 'required|',
+            'remaining_tasks' => 'required|',
+            'tasks_done' => 'required|',
+            'contact' => 'required|',
+        ]);
+
+        $project = Project::find($request->id);
+
+        return response()->json($project);
     }
 }

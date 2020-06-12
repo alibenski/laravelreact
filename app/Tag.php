@@ -18,4 +18,9 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany('App\Project');
+    }
 }

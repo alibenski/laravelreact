@@ -12,7 +12,7 @@ const SkillMultiSelectNoCreate = ({ handleSelected }) => {
 
     const loadUser = () => {
         axios
-            .get("api/get-all-child-skills", {
+            .get("/api/get-all-child-skills", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     Accept: "application/json"

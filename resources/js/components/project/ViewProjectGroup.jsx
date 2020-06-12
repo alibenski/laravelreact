@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory, Link } from "react-router-dom";
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -31,6 +32,7 @@ const useStyles = makeStyles({
 const ViewProjectGroup = () => {
     const classes = useStyles();
     const [projects, setProjects] = useState(null);
+    const history = useHistory();
 
     useEffect(() => {
         loadProjects();
@@ -39,7 +41,7 @@ const ViewProjectGroup = () => {
     const loadProjects = () => {
         const token = localStorage.userToken;
         axios
-            .get("api/view-project", {
+            .get("api/view-projects", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     Accept: "application/json"
@@ -54,9 +56,12 @@ const ViewProjectGroup = () => {
             });
     };
 
+    const handleRedirect = x => {
+        history.push(`edit-project/${x}`);
+    };
     return (
         <div className="container" style={{ marginLeft: "13rem" }}>
-            <div className="col-md-12">
+            <div className="col-md-10">
                 <Typography variant="h4" align="center" color="primary" fontWeight="fontWeightBold">View My Projects</Typography>
             </div>
             <div className={classes.sudo}>
@@ -81,9 +86,7 @@ const ViewProjectGroup = () => {
                                         </CardContent>
                                     </CardActionArea>
                                     <CardActions>
-                                        <Button size="small" color="primary">
-                                            See More
-                                        </Button>
+                                        <Button size="small" color="primary" onClick={x => handleRedirect(project.id)}>See More</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>

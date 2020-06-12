@@ -10,4 +10,14 @@ class Project extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function childskills()
+    {
+        return $this->belongsToMany('App\Childskill');
+    }
+
+    public function tagskills()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
 }
