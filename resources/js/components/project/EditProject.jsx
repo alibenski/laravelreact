@@ -23,8 +23,9 @@ function EditProject() {
     const [fields, handleFieldChange] = useFormFields("");
     const [stage, setStage] = useState("");
     const [pplNeeded, setPplNeeded] = useState("");
-    const [details, setDetails] = useState([]);
     const [selected, setSelected] = useState([]);
+    const [isOnPremise, setIsOnPremise] = useState(false);
+    const [locationPremise, setlocationPremise] = useState("");
 
     useEffect(() => {
         loadProject();
@@ -42,8 +43,13 @@ function EditProject() {
                 console.log(response.data);
                 setProjectDetails(response.data);
                 setStage(String(response.data.stage));
-                setDetails(response.data);
                 setPplNeeded(response.data.people_needed);
+                setlocationPremise(response.data.location);
+                if (response.data.is_on_premise === 1) {
+                    setIsOnPremise(true);
+                } else {
+                    setIsOnPremise(false);
+                }
             })
             .catch(errors => {
                 console.log(errors);
@@ -54,8 +60,12 @@ function EditProject() {
         setSelected(x);
     };
 
-    const [isOnPremise, setIsOnPremise] = useState(false);
-    const handleSwitchChange = () => setIsOnPremise(!isOnPremise);
+    const handleSwitchChange = () => {
+        setIsOnPremise(!isOnPremise);
+        if (!isOnPremise === false) {
+            setlocationPremise("");
+        }
+    };
 
     const handleRadioChange = e => {
         console.log(e.target.value);
@@ -81,29 +91,28 @@ function EditProject() {
             stage: stage,
             people_needed: peopleNeeded.value,
             is_on_premise: isOnPremise,
-            location: locationPremise.value,
+            location: locationPremise,
             contact: contact.value,
             selected: selected,
 
         };
         console.log($request);
-        alert('Not yet functional');
-        setIsLoading(false);
-        // axios
-        //     .post("/api/update-project", $request, {
-        //         headers: {
-        //             Authorization: `Bearer ${token}`,
-        //             Accept: "application/json"
-        //         }
-        //     })
-        //     .then(response => {
-        //         console.log(response);
-        //         setIsLoading(false);
-        //     })
-        //     .catch(errors => {
-        //         alert(errors.response.data.message);
-        //         setIsLoading(false);
-        //     });
+
+        axios
+            .post("/api/update-project", $request, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            })
+            .then(response => {
+                console.log(response);
+                setIsLoading(false);
+            })
+            .catch(errors => {
+                alert(errors.response.data.message);
+                setIsLoading(false);
+            });
     };
 
     const handleDeleteSkill = x => {
@@ -259,7 +268,7 @@ function EditProject() {
                 <Grid item xs={6} sm={6} md={6} lg={6}>
                     <Paper >
                         <Typography variant="h6" align="center" color="secondary" fontWeight="fontWeightBold">Existing Associated Skills</Typography>
-                        {details.childskills ? <UserSkillsComponent handleDeleteSkill={handleDeleteSkill} details={details} /> : ""
+                        {projectDetails.childskills ? <UserSkillsComponent handleDeleteSkill={handleDeleteSkill} details={projectDetails} /> : ""
                         }
                     </Paper>
                 </Grid>
@@ -302,8 +311,8 @@ function EditProject() {
                         name="locationPremise"
                         disabled={!isOnPremise}
                         onChange={handleFieldChange}
-                        placeholder={projectDetails.location}
-                        defaultValue={projectDetails.location}
+                        placeholder={locationPremise}
+                        value={locationPremise}
                         InputLabelProps={{
                             shrink: true
                         }}

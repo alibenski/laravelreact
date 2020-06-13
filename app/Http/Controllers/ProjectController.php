@@ -102,6 +102,12 @@ class ProjectController extends Controller
 
         $project = Project::find($request->id);
 
-        return response()->json($project);
+        // if isOnPremise === false, then set location field to 0
+        // if isOnPremise === true, then set location field to text value
+
+
+
+
+        return response()->json($request->all());
     }
 }
