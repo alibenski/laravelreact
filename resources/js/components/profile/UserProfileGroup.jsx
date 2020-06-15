@@ -3,7 +3,7 @@ import DetailComponent from "./DetailComponent";
 import SkillsSelector from "../skills/SkillsSelector";
 import Grid from "@material-ui/core/Grid";
 import LoaderButton from "../components/LoaderButton";
-import { Container } from "@material-ui/core";
+import { Container, TextField, Card, CardContent } from "@material-ui/core";
 import { onError } from "../libs/errorLib";
 
 const UserProfileGroup = () => {
@@ -28,7 +28,7 @@ const UserProfileGroup = () => {
                 console.log(errors);
             });
     };
-    console.log('details', details)
+    console.log('details', details);
 
     const state = {
         // nodes: [],
@@ -44,36 +44,36 @@ const UserProfileGroup = () => {
         station: []
     };
     const handleSelected = x => {
-        state.selected = x
+        state.selected = x;
     };
     const handleSelectedDesired = x => {
-        state.selectedDesired = x
+        state.selectedDesired = x;
     };
     const handleSelectedOrg = x => {
-        state.organization = x
-    }
+        state.organization = x;
+    };
     const handleSelectedCountry = x => {
-        state.station = x
-    }
+        state.station = x;
+    };
     const handleFields = x => {
-        state.fields = x
+        state.fields = x;
     };
     const handlePhone = x => {
         state.phone = x;
     };
     const handleGender = x => {
-        state.gender = x
+        state.gender = x;
     };
     const handleCheck = x => {
-        state.checkbox = x
-    }
+        state.checkbox = x;
+    };
     const [isLoading, setIsLoading] = useState(false);
     const handleSubmit = () => {
         let $request = {
             state: state
         };
         setIsLoading(true);
-        console.log($request)
+        console.log($request);
         axios
             .post("api/update-user-profile", $request, {
                 headers: {
@@ -110,7 +110,7 @@ const UserProfileGroup = () => {
             .catch(errors => {
                 console.log(errors.response);
             });
-    }
+    };
     return (
         !details.firstname ?
             <div>Loading...</div> :

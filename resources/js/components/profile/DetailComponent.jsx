@@ -60,6 +60,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
         lastname: "",
         email: "",
         dob: "",
+        bio: "",
     });
     const [gender, setGender] = useState(details.gender);
     const [phone, setPhone] = useState(details.phone);
@@ -243,6 +244,20 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
                                     />
                                 </FormGroup>
                             </FormControl>
+                            <FormGroup>
+                                <TextField
+                                    id="bio"
+                                    label="Short Bio"
+                                    placeholder="Describe yourself a little bit more..."
+                                    multiline
+                                    rowsMax={10}
+                                    defaultValue={details.bio}
+                                    // onChange={handleChange}
+                                    className={classes.fields}
+                                    onChange={handleFieldChange}
+                                    variant="filled">
+                                </TextField>
+                            </FormGroup>
                         </form>
                         <br />
                     </CardContent>

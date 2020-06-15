@@ -86,6 +86,7 @@ class UserController extends Controller
             'lastname' => $request->state["fields"]["lastname"],
             'email' => $request->state["fields"]["email"],
             'dob' => $request->state["fields"]["dob"],
+            'bio' => $request->state["fields"]["bio"],
             'shadow' => $request->state["checkbox"]["shadow"],
             'mentor' => $request->state["checkbox"]["mentor"],
             'mentee' => $request->state["checkbox"]["mentee"],
@@ -104,6 +105,11 @@ class UserController extends Controller
         $user->update([
             'name' => $user->firstname . ' ' . $user->lastname
         ]);
+        if (is_null($request->state["fields"]["bio"])) {
+            $user->update([
+                'bio' => null
+            ]);
+        }
 
         $selected = $request->state["selected"];
         $selectedSkills = [];
