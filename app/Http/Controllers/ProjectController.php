@@ -101,13 +101,61 @@ class ProjectController extends Controller
         ]);
 
         $project = Project::find($request->id);
+        $input = array_filter($request->all());
 
-        // if isOnPremise === false, then set location field to 0
-        // if isOnPremise === true, then set location field to text value
+        if ($request->is_on_premise === false) {
+            $project->is_on_premise = 0;
+            $project->location = '0';
+        }
 
+        $project->update($input);
 
+        $selected = $request->selected;
+        $selectedSkills = [];
+        if ($selected) {
+            foreach ($selected as $skill) {
+                if (array_key_exists("type", $skill)) {
+                    $selectedSkills[] = [
+                        'value' => $skill["value"],
+                        'type' => $skill["type"],
+                    ];
+                } else {
+                    $selectedSkills[] = [
+                        'value' => $skill["value"],
+                        'type' => 'tag',
+                    ];
+                }
+            }
+        }
+        $this->updateProjectSkills($project, $selectedSkills);
 
+        return response()->json($input);
+    }
 
-        return response()->json($request->all());
+    public function updateProjectSkills($project, $selectedSkills)
+    {
+        $integerSkillValue = [];
+        $stringSkillValue = [];
+        foreach ($selectedSkills as $skillValue) {
+            if (is_int($skillValue["value"])) {
+                $integerSkillValue[] = [
+                    "id" => $skillValue["value"],
+                    "type" => $skillValue["type"],
+                ];
+            } else {
+                $stringSkillValue[] = ["skillname" => $skillValue["value"]];
+            }
+        }
+
+        foreach ($integerSkillValue as $v) {
+            if ($v["type"] === "child") {
+                $skillId = $v["id"];
+                $project->childskills()->sync($skillId, false);
+            }
+            if ($v["type"] === "tag") {
+                $tagSkillId = $v["id"];
+                $project->tagskills()->sync($tagSkillId, false);
+            }
+        }
     }
 }

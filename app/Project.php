@@ -20,4 +20,14 @@ class Project extends Model
     {
         return $this->belongsToMany('App\Tag');
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'project_owner', 'project_description', 'current_team', 'remaining_tasks', 'tasks_done',
+        'stage', 'people_needed', 'is_on_premise', 'location', 'contact',
+    ];
 }
