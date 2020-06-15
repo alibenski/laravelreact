@@ -67,6 +67,10 @@ function EditProject() {
         }
     };
 
+    const handleTextLocation = e => {
+        setlocationPremise(e.target.value);
+    };
+
     const handleRadioChange = e => {
         console.log(e.target.value);
         setStage(e.target.value);
@@ -310,7 +314,7 @@ function EditProject() {
                         id="locationPremise"
                         name="locationPremise"
                         disabled={!isOnPremise}
-                        onChange={handleFieldChange}
+                        onChange={e => handleTextLocation(e)}
                         placeholder={locationPremise}
                         value={locationPremise}
                         InputLabelProps={{
