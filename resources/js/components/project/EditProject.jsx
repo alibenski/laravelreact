@@ -112,6 +112,17 @@ function EditProject() {
             .then(response => {
                 console.log(response);
                 setIsLoading(false);
+                alert('Project Updated!');
+                setProjectDetails(response.data);
+                setStage(String(response.data.stage));
+                setPplNeeded(response.data.people_needed);
+                setlocationPremise(response.data.location);
+                if (response.data.is_on_premise === 1) {
+                    setIsOnPremise(true);
+                } else {
+                    setIsOnPremise(false);
+                }
+
             })
             .catch(errors => {
                 alert(errors.response.data.message);
@@ -121,18 +132,19 @@ function EditProject() {
 
     const handleDeleteSkill = x => {
         let $request = {
+            id: id,
             skillId: x['0'],
             skillType: x['1']
         };
         axios
-            .post("api/delete-user-skill", $request, {
+            .post("/api/delete-project-skill", $request, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     Accept: "application/json"
                 }
             })
             .then(response => {
-                setDetails(response.data);
+                setProjectDetails(response.data);
             })
             .catch(errors => {
                 console.log(errors.response);

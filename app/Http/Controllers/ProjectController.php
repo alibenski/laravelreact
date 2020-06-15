@@ -129,7 +129,8 @@ class ProjectController extends Controller
         }
         $this->updateProjectSkills($project, $selectedSkills);
 
-        return response()->json($input);
+        $data = Project::where('id', $request->id)->with('childskills')->with('tagskills')->first();
+        return response()->json($data);
     }
 
     public function updateProjectSkills($project, $selectedSkills)
@@ -157,5 +158,20 @@ class ProjectController extends Controller
                 $project->tagskills()->sync($tagSkillId, false);
             }
         }
+    }
+
+    public function deleteProjectSkill(Request $request)
+    {
+        $project = Project::where('id', $request->id)->first();
+        $skillId = $request->skillId;
+        if ($request->skillType === 'cskill') {
+            $project->childskills()->detach($skillId);
+        }
+        if ($request->skillType === 'tskill') {
+            $project->tagskills()->detach($skillId);
+        }
+
+        $data = Project::where('id', $request->id)->with('childskills')->with('tagskills')->first();
+        return response()->json($data);
     }
 }
