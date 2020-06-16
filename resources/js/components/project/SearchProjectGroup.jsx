@@ -92,7 +92,7 @@ const SearchProjectGroup = () => {
                                         {project.title}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        {project.project_description}
+                                        {project.project_description.slice(0, 256)}...
                                     </Typography>
                                     <br />
                                     <Typography>Location: {project.is_on_premise === 1 ? project.location : "Remote"}</Typography>
