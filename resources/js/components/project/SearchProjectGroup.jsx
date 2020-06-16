@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -30,6 +30,36 @@ const useStyles = makeStyles({
 
 const SearchProjectGroup = () => {
     const classes = useStyles();
+    const [projects, setProjects] = useState([]);
+    const stageName = {
+        1: "Not started",
+        2: "Early phase",
+        3: "50%",
+        4: "Finalisation phase",
+        5: "Done",
+        6: "n/a",
+    };
+    useEffect(() => {
+        loadProjects();
+    }, []);
+
+    const loadProjects = () => {
+        const token = localStorage.userToken;
+        axios
+            .get("/api/view-all-projects", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+                setProjects(response.data);
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+    };
     return (
         <div className="container" style={{ marginLeft: "13rem" }}>
             <div className="col-md-10">
@@ -49,146 +79,37 @@ const SearchProjectGroup = () => {
             </div>
             <div className={classes.sudo}>
                 <Grid container spacing={3}>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoConecta}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        Geneva Project
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
+                    {projects ? projects.map(project => (<Grid item xs={4} key={project.id}>
                         <Card className={classes.root}>
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
                                     image={logoVector}
-                                    title="Contemplative Reptile"
+                                    title={project.title}
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
-                                        Project X
+                                        {project.title}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
+                                        {project.project_description}
                                     </Typography>
+                                    <br />
+                                    <Typography>Location: {project.is_on_premise === 1 ? project.location : "Remote"}</Typography>
+                                    <Typography>Stage of Completion: {stageName[project.stage] || stageName["6"]}</Typography>
+                                    <Typography>People needed: {project.people_needed}</Typography>
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Button size="small" color="primary">
+                                {/* <Button size="small" color="primary">
                                     Share
-                                </Button>
+                                </Button> */}
                                 <Button size="small" color="primary">
                                     Learn More
                                 </Button>
                             </CardActions>
                         </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoVector}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        UN Project
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoVector}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        UN Project
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={logoVector}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        UN Project
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                    </Grid>)) : ""}
                 </Grid>
             </div>
         </div >

@@ -20,6 +20,13 @@ class ProjectController extends Controller
         //
     }
 
+    public function viewAllProjects()
+    {
+        $projects = Project::all();
+
+        return response()->json($projects);
+    }
+
     public function viewProjects()
     {
         $userId = Auth::id();
