@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Childskill;
+use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -180,5 +182,51 @@ class ProjectController extends Controller
 
         $data = Project::where('id', $request->id)->with('childskills')->with('tagskills')->first();
         return response()->json($data);
+    }
+
+    public function searchProjectSkill(Request $request)
+    {
+        $queryProjectChildSkill = $this->queryProjectChildSkill($request);
+        $queryProjectTagSkill = $this->queryProjectTagSkill($request);
+
+        $userName = [];
+        foreach ($queryProjectChildSkill as $skill) {
+            foreach ($skill->projects as $user) {
+                $userName[] = $user['id'];
+            }
+        }
+
+        $userName3 = [];
+        foreach ($queryProjectTagSkill as $tskill) {
+            foreach ($tskill->projects as $tuser) {
+                $userName3[] = $tuser['id'];
+            }
+        }
+
+        $userData = [];
+        $userNameMerge = array_merge($userName, $userName3);
+        if (!empty($userNameMerge)) {
+            $userNameUnique = array_unique($userNameMerge);
+            $implodeArray = implode(',', $userNameUnique);
+            $userData = Project::whereIn('id', $userNameUnique)
+                ->orderByRaw(DB::raw("FIELD(id, $implodeArray)"))
+                ->get();
+        }
+
+        return response()->json($userData);
+    }
+
+    public function queryProjectChildSkill(Request $request)
+    {
+        $skillName = $request->skillName;
+        $querySkill = Childskill::search($skillName)->has('projects')->with('projects')->get();
+        return $querySkill;
+    }
+
+    public function queryProjectTagSkill(Request $request)
+    {
+        $skillName = $request->skillName;
+        $queryTagSkill = Tag::search($skillName)->has('projects')->with('projects')->get();
+        return $queryTagSkill;
     }
 }

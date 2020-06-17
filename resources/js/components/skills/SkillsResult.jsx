@@ -31,8 +31,8 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
     let userResult = true;
     const [hover, setHover] = useState(false);
     const hoverOn = () => {
-        setHover(true)
-    }
+        setHover(true);
+    };
 
     if (skillUserRecords.length == 0) {
         userResult = false;

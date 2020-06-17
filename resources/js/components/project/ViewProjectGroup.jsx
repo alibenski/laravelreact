@@ -81,7 +81,7 @@ const ViewProjectGroup = () => {
                                                 {project.title}
                                             </Typography>
                                             <Typography variant="body2" color="textSecondary" component="p">
-                                                {project.project_description}
+                                                {project.project_description.slice(0, 256)}...
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>

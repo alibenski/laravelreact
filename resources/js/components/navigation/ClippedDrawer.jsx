@@ -26,7 +26,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 
-const drawerWidth = 200;
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(2),
     },
+    icon: {
+        minWidth: '40px'
+    }
 }));
 
 export default function ClippedDrawer({ handleLogout }) {
@@ -82,7 +85,7 @@ export default function ClippedDrawer({ handleLogout }) {
             return (
                 <li>
                     <ListItem button>
-                        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+                        {icon ? <ListItemIcon className={classes.icon}>{icon}</ListItemIcon> : null}
                         <ListItemText primary={primary} />
                     </ListItem>
                 </li>
@@ -91,7 +94,7 @@ export default function ClippedDrawer({ handleLogout }) {
         return (
             <li>
                 <ListItem button component={renderLink}>
-                    {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+                    {icon ? <ListItemIcon className={classes.icon}>{icon}</ListItemIcon> : null}
                     <ListItemText primary={primary} />
                 </ListItem>
             </li>
@@ -113,7 +116,7 @@ export default function ClippedDrawer({ handleLogout }) {
                 <li>
                     <a href="https://conecta.ungeneva.org" style={{ textDecoration: 'none' }} className={classes.link}>
                         <ListItem button >
-                            <ListItemIcon><HomeIcon /></ListItemIcon>
+                            <ListItemIcon className={classes.icon}><HomeIcon /></ListItemIcon>
                             <ListItemText primary="Home" />
                         </ListItem>
 
@@ -130,7 +133,7 @@ export default function ClippedDrawer({ handleLogout }) {
                     icon={<SearchIcon />}
                 />
                 <ListItem button onClick={handleClick}>
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.icon}>
                         <AccountTreeIcon />
                     </ListItemIcon>
                     <ListItemText primary="Projects" />
