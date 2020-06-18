@@ -69,13 +69,13 @@ const ViewProjectGroup = () => {
                     {projects === null ? "" : projects.map(
                         project => (
                             <Grid item xs={4} key={project.id}>
-                                <Card className={classes.root}>
+                                <Card className={classes.root} raised>
                                     <CardActionArea>
-                                        <CardMedia
+                                        {/* <CardMedia
                                             className={classes.media}
                                             image={logoVector}
                                             title={project.title}
-                                        />
+                                        /> */}
                                         <CardContent>
                                             <Typography gutterBottom variant="h5" component="h2">
                                                 {project.title}

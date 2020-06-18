@@ -17,6 +17,7 @@ import UnauthenticatedRoute from "./authentication/UnauthenticatedRoute";
 import ForgotPassword from "./authentication/ForgotPassword";
 import ResetPasswordForm from "./authentication/ResetPasswordForm";
 import EditProject from "./project/EditProject";
+import ShowProject from "./project/ShowProject";
 
 export default function Routes() {
     return (
@@ -62,6 +63,11 @@ export default function Routes() {
                 exact
                 path="/edit-project/:id"
                 component={EditProject}
+            />
+            <AuthenticatedRoute
+                exact
+                path="/show-project/:id"
+                component={ShowProject}
             />
             <NotFound />
         </Switch>

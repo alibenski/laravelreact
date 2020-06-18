@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
         margin: 20
     },
     media: {
-        height: 140,
+        height: 210,
     },
     paper: {
         height: 140,
@@ -165,6 +166,11 @@ const SearchProjectGroup = () => {
             });
     };
 
+    const history = useHistory();
+    const handleRedirect = x => {
+        history.push(`show-project/${x}`);
+    };
+
     return (
         <div className="container" style={{ marginLeft: "13rem" }}>
             <div className="col-md-12 mb-4">
@@ -209,7 +215,7 @@ const SearchProjectGroup = () => {
             <div className={classes.sudo}>
                 <Grid container spacing={3}>
                     {projects ? projects.map(project => (<Grid item xs={4} key={project.id}>
-                        <Card className={classes.root}>
+                        <Card className={classes.root} raised>
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
@@ -238,7 +244,7 @@ const SearchProjectGroup = () => {
                                         Connect
                                                         </a>
                                 </Button>
-                                <Button size="small" color="primary">
+                                <Button size="small" color="primary" onClick={x => handleRedirect(project.id)}>
                                     Learn More
                                 </Button>
                             </CardActions>

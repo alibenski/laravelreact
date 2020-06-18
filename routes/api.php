@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('view-all-projects', ['uses' => 'ProjectController@viewAllProjects']);
     $router->get('view-projects', ['uses' => 'ProjectController@viewProjects']);
     $router->get('edit-project/{id}', ['uses' => 'ProjectController@editProject']);
+    $router->get('show-project/{id}', ['uses' => 'ProjectController@showProject']);
     $router->post('project', ['uses' => 'ProjectController@insertProject']);
     $router->post('update-project', ['uses' => 'ProjectController@updateProject']);
     $router->post('delete-project-skill', ['uses' => 'ProjectController@deleteProjectSkill']);

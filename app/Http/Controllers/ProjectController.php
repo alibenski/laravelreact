@@ -91,6 +91,12 @@ class ProjectController extends Controller
         return response()->json($userId);
     }
 
+    public function showProject($id)
+    {
+        $project = Project::where('id', $id)->with('childskills')->with('tagskills')->first();
+        return response()->json($project);
+    }
+
     public function editProject($id)
     {
         $project = Project::where('id', $id)->with('childskills')->with('tagskills')->first();
