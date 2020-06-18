@@ -10,6 +10,7 @@ import CreateProjectGroup from "./project/CreateProjectGroup";
 import SearchProjectGroup from "./project/SearchProjectGroup";
 import ViewProjectGroup from "./project/ViewProjectGroup";
 import NotFound from "./pages/NotFound";
+import GDPR from "./pages/GDPR";
 import Signup from "./authentication/SignUp";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import UnauthenticatedRoute from "./authentication/UnauthenticatedRoute";
@@ -24,6 +25,7 @@ export default function Routes() {
             <UnauthenticatedRoute exact path="/signup" component={Signup} />
             <UnauthenticatedRoute exact path="/forgot-password" component={ForgotPassword} />
             <UnauthenticatedRoute exact path="/reset-password-form" component={ResetPasswordForm} />
+            <UnauthenticatedRoute exact path="/gdpr" component={GDPR} />
             <AuthenticatedRoute exact path="/" component={Home} />
             <AuthenticatedRoute
                 exact

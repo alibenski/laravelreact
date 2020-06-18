@@ -20,6 +20,7 @@ import LoaderButton from "../components/LoaderButton";
 import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
+import { Checkbox } from "@material-ui/core";
 
 export default function Signup() {
     const [fields, handleFieldChange] = useFormFields({
@@ -57,11 +58,17 @@ export default function Signup() {
         }
     }));
 
+    const [checkStatus, setCheckStatus] = useState(false);
+    const handleCheckBox = () => {
+        setCheckStatus(!checkStatus);
+    };
+
     function validateForm() {
         return (
             fields.email.length > 0 &&
             fields.password.length > 0 &&
-            fields.password === fields.confirmPassword
+            fields.password === fields.confirmPassword &&
+            checkStatus === true
         );
     }
 
@@ -312,7 +319,25 @@ export default function Signup() {
                                     defaultValue={fields.confirmPassword}
                                 />
                             </Grid>
+                            <Grid item xs={12} sm={12} className="m-4">
+                                <Link href="/gdpr" target="_blank" variant="body2">
+                                    The Conecta Software and Services Agreement
+                                </Link>
+                            </Grid>
                         </Grid>
+                        <FormControlLabel
+                            className="m-2"
+                            control={
+                                <Checkbox
+                                    checked={checkStatus}
+                                    onChange={handleCheckBox}
+                                    name="checkedB"
+                                    color="primary"
+                                />
+                            }
+                            label="I agree to the Conecta Software and Services Agreement"
+                        />
+
                         <LoaderButton
                             variant="contained"
                             color="default"
