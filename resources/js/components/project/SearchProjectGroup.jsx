@@ -42,6 +42,13 @@ const useStyles = makeStyles(theme => ({
     link: {
         color: '#FFF'
     },
+    buttonFilter: {
+        margin: theme.spacing(2),
+        "&:focus": {
+            background: theme.palette.secondary.main,
+            color: '#FFF',
+        }
+    }
 }));
 
 const SearchProjectGroup = () => {
@@ -93,6 +100,7 @@ const SearchProjectGroup = () => {
             .then(response => {
                 console.log(response.data);
                 setProjects(response.data);
+                getFilters(response.data);
             })
             .catch(errors => {
                 console.log(errors);
@@ -126,6 +134,37 @@ const SearchProjectGroup = () => {
     };
     const linkStyle = hover ? { textDecoration: 'none', color: "#fff" } : {};
 
+    const [filters, setFilters] = useState([]);
+    const getFilters = data => {
+        let arrayFilter = [];
+        data.forEach(element => {
+            arrayFilter.push(element["location"]);
+        });
+        let uniqueFilter = [...new Set(arrayFilter)];
+        setFilters(uniqueFilter);
+    };
+
+    const filterResults = e => {
+        console.log(e.currentTarget.value);
+        let $request = {
+            location: e.currentTarget.value,
+        };
+        axios
+            .post("/api/filter-project-skill", $request, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+                setProjects(response.data);
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+    };
+
     return (
         <div className="container" style={{ marginLeft: "13rem" }}>
             <div className="col-md-12 mb-4">
@@ -137,16 +176,33 @@ const SearchProjectGroup = () => {
             </div>
             {searchResultIsShown &&
                 <div className="col-md-12 mb-4">
-                    <Typography variant="h6">Conecta recommends the following project(s):</Typography>
-                    {projects.length > 0 ? "" : <Typography variant="h6">Sorry No Results</Typography>}
                     <div className="row justify-content-center">
+                        <Typography variant="h6">Conecta recommends the following project(s):</Typography>
+                        {projects.length > 0 ? "" : <Typography variant="h6">Sorry No Results</Typography>}
+                    </div>
+
+                    <div className="row justify-content-center m-2">
                         <Button
                             variant="contained"
                             color="secondary"
                             onClick={refreshPage}
                         >
-                            Reset All
+                            Reset Results
                         </Button>
+                    </div>
+
+                    <div className="row justify-content-center m-4">
+                        {filters ? filters.map((filter, index) => (
+                            <Button
+                                key={index}
+                                variant="outlined"
+                                color="primary"
+                                className={classes.buttonFilter}
+                                onClick={e => filterResults(e)}
+                                value={filter}
+                            >
+                                {filter === '0' ? "Remote" : filter}
+                            </Button>)) : ""}
                     </div>
                 </div>
             }

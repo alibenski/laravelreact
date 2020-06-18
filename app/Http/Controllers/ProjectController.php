@@ -229,4 +229,10 @@ class ProjectController extends Controller
         $queryTagSkill = Tag::search($skillName)->has('projects')->with('projects')->get();
         return $queryTagSkill;
     }
+
+    public function filterProjectSkill(Request $request)
+    {
+        $projects = Project::where('location', $request->location)->get();
+        return response()->json($projects);
+    }
 }
