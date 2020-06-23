@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
     $router->post('update-user-skills', ['uses' => 'UserController@updateUserSkills']);
     $router->post('update-user-profile', ['uses' => 'UserController@updateUserProfile']);
     $router->post('delete-user-skill', ['uses' => 'UserController@deleteUserSkill']);
+    $router->post('store-image', ['uses' => 'UserController@storeImage']);
 
     $router->get('skill-tree', ['uses' => 'SkillController@skillTree']);
     $router->get('show-all-related-skills/{skillName}', ['uses' => 'SkillController@showAllRelatedSkills']);

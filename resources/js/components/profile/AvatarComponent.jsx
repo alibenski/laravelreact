@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
+import { Fragment } from "react";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -18,12 +20,81 @@ const useStyles = makeStyles(theme => ({
     large: {
         width: theme.spacing(7),
         height: theme.spacing(7)
-    }
+    },
+    input: {
+        display: "none"
+    },
 }));
 
 function AvatarComponent() {
     const classes = useStyles();
-    return <Avatar src="/broken-image.jpg" className={classes.large} />;
+    const token = localStorage.userToken;
+    const [image, setImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const [display, setDisplay] = useState(classes.input);
+    const handleUploadClick = e => {
+        console.log(e.target.files[0]);
+        let files = e.target.files;
+        if (!files.length)
+            return;
+        setImagePreview(URL.createObjectURL(files[0]));
+        setDisplay("");
+        createImage(files[0]);
+    };
+
+    const createImage = file => {
+        let reader = new FileReader();
+        reader.onload = e => {
+            setImage(e.target.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const uploadFile = () => {
+        let $request = { file: image };
+        axios
+            .post("/api/store-image", $request, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                },
+                onUploadProgress: progressEvent => {
+                    console.log(Math.round((progressEvent.loaded / progressEvent.total) * 100) + "%");
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+    };
+
+    let imgPreview;
+    if (image) {
+        imgPreview = <Avatar src={imagePreview} className={classes.large} />;
+    }
+    return (
+        <Fragment>
+            <img src="http://laravelreact.local/storage/WI8uxnyuR9.jpeg" alt="test" />
+            <div className="form-group preview">
+                {imgPreview}
+                <Button className={display} onClick={uploadFile}>Save</Button>
+                <Button className={display}>Cancel</Button>
+            </div>
+            <input
+                accept="image/*"
+                className={classes.input}
+                id="image-files"
+                // multiple
+                type="file"
+                onChange={handleUploadClick}
+            />
+            <label htmlFor="image-files">
+                <Avatar src="/broken-image.jpg" className={classes.large} />
+            </label>
+        </Fragment>
+    );
 }
 
 export default AvatarComponent;

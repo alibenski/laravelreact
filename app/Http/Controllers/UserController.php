@@ -7,6 +7,8 @@ use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -263,5 +265,33 @@ class UserController extends Controller
             ->with('organizations')
             ->first();
         return response()->json($data);
+    }
+
+    public function storeImage(Request $request)
+    {
+        // $this->validate($request, [
+        //     'file' => 'mimes:jpg,jpeg,png|max:8000',
+        // ]);
+
+        $image_64 = $request->get('file'); //your base64 encoded data
+
+        $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];   // .jpg .png .pdf
+
+        $replace = substr($image_64, 0, strpos($image_64, ',') + 1);
+
+        // find substring fro replace here eg: data:image/png;base64,
+
+        $image = str_replace($replace, '', $image_64);
+
+        $image = str_replace(' ', '+', $image);
+
+        $imageName = Str::random(10) . '.' . $extension;
+
+        Storage::disk('public')->put($imageName, base64_decode($image));
+
+        // save in database
+
+
+        return response()->json($url);
     }
 }
