@@ -274,7 +274,6 @@ class UserController extends Controller
         // ]);
 
         $image_64 = $request->get('file'); //your base64 encoded data
-
         $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];   // .jpg .png .pdf
 
         $replace = substr($image_64, 0, strpos($image_64, ',') + 1);
@@ -282,16 +281,16 @@ class UserController extends Controller
         // find substring fro replace here eg: data:image/png;base64,
 
         $image = str_replace($replace, '', $image_64);
-
         $image = str_replace(' ', '+', $image);
-
         $imageName = Str::random(10) . '.' . $extension;
 
         Storage::disk('public')->put($imageName, base64_decode($image));
 
         // save in database
+        $userId = Auth::id();
+        $user = User::where('id', $userId)->first();
+        $user->update(['photo' => $imageName]);
 
-
-        return response()->json($url);
+        return response()->json($user);
     }
 }

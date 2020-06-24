@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
@@ -30,8 +30,29 @@ function AvatarComponent() {
     const classes = useStyles();
     const token = localStorage.userToken;
     const [image, setImage] = useState(null);
+    const [avatar, setAvatar] = useState("/broken-image.jpg");
     const [imagePreview, setImagePreview] = useState(null);
     const [display, setDisplay] = useState(classes.input);
+
+    useEffect(() => {
+        loadUser();
+    }, []);
+    const loadUser = () => {
+        axios
+            .get("api/details", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            })
+            .then(response => {
+                setAvatar("/storage/" + response.data.success.photo);
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+    };
+
     const handleUploadClick = e => {
         console.log(e.target.files[0]);
         let files = e.target.files;
@@ -63,11 +84,13 @@ function AvatarComponent() {
                 }
             })
             .then(response => {
-                console.log(response.data);
+                loadUser();
             })
             .catch(errors => {
                 console.log(errors);
             });
+        setImage(null);
+        setDisplay(classes.input);
     };
 
     let imgPreview;
@@ -76,10 +99,9 @@ function AvatarComponent() {
     }
     return (
         <Fragment>
-            <img src="http://laravelreact.local/storage/WI8uxnyuR9.jpeg" alt="test" />
             <div className="form-group preview">
                 {imgPreview}
-                <Button className={display} onClick={uploadFile}>Save</Button>
+                <Button className={display} onClick={uploadFile} color="primary">Save</Button>
                 <Button className={display}>Cancel</Button>
             </div>
             <input
@@ -91,7 +113,7 @@ function AvatarComponent() {
                 onChange={handleUploadClick}
             />
             <label htmlFor="image-files">
-                <Avatar src="/broken-image.jpg" className={classes.large} />
+                <Avatar src={avatar} className={classes.large} />
             </label>
         </Fragment>
     );
