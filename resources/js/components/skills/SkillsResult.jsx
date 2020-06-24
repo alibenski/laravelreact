@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { green } from '@material-ui/core/colors';
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -23,6 +24,11 @@ const useStyles = makeStyles(theme => ({
     },
     link: {
         color: '#FFF'
+    },
+    large: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+        margin: 'auto'
     },
 }));
 
@@ -64,6 +70,7 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                             className={classes.paper}
                                             key={user.id}
                                         >
+                                            <Avatar src={"/storage/" + user.photo} className={classes.large} />
                                             <Typography
                                                 key={user.id}
                                                 className={classes.paper}
