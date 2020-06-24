@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/symlink', function () {
+    Artisan::call('storage:link');
+});
 
 Route::get('/{path}', function () {
     return view('welcome');
