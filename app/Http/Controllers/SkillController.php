@@ -121,6 +121,7 @@ class SkillController extends Controller
                 ->with('childskills')
                 ->with('desiredskills')
                 ->with('tagskills')
+                ->with('desiredtagskills')
                 ->with('stations')
                 ->with('organizations')
                 ->get();
