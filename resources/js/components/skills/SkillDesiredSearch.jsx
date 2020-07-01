@@ -44,7 +44,7 @@ const SkillDesiredSearch = ({ handleSelectedDesired, handleDeleteSkill, details 
 
     return (
         <Fragment>
-            <div className="m-2">
+            <div className="m-2" style={{ width: '400px' }}>
                 <CreatableSelect
                     isSearchable
                     isMulti
