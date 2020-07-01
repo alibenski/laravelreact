@@ -1,6 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import Select from 'react-select';
-import { CardHeader } from '@material-ui/core';
 import CreatableSelect from 'react-select/creatable';
 
 const SkillMultiSelectSearch = ({ handleSelected }) => {
@@ -36,13 +34,15 @@ const SkillMultiSelectSearch = ({ handleSelected }) => {
 
     return (
         <Fragment>
-            <div className="m-2">
-                <CreatableSelect
-                    isSearchable
-                    isMulti
-                    onChange={handleChange}
-                    options={options}
-                />
+            <div className="contain" style={{ width: '400px' }}>
+                <div className="m-2">
+                    <CreatableSelect
+                        isSearchable
+                        isMulti
+                        onChange={handleChange}
+                        options={options}
+                    />
+                </div>
             </div>
         </Fragment>
     );
