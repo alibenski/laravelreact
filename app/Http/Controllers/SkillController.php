@@ -30,7 +30,7 @@ class SkillController extends Controller
 
     public function getAllChildSkills()
     {
-        $skills = Childskill::all();
+        $skills = Childskill::orderBy('skillname', 'asc')->get();
         $data = [];
         foreach ($skills as $skill) {
             $data[] = [
