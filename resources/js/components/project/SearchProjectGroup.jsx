@@ -86,6 +86,7 @@ const SearchProjectGroup = () => {
             });
     };
 
+    const [searchFieldIsShown, setSearchFieldIsShown] = useState(true);
     const handleQueryUser = skillName => {
 
         let $request = {
@@ -100,6 +101,7 @@ const SearchProjectGroup = () => {
             })
             .then(response => {
                 console.log(response.data);
+                setSearchFieldIsShown(false);
                 setProjects(response.data);
                 getFilters(response.data, skillName);
             })
@@ -125,6 +127,7 @@ const SearchProjectGroup = () => {
     };
 
     const refreshPage = () => {
+        setSearchFieldIsShown(true);
         setSearchResultIsShown(false);
         loadProjects();
     };
@@ -136,7 +139,7 @@ const SearchProjectGroup = () => {
     const linkStyle = hover ? { textDecoration: 'none', color: "#fff" } : {};
 
     const [filters, setFilters] = useState([]);
-    const [skill, setSkill] = useState("");
+    const [skill, setSkill] = useState();
     const getFilters = (data, skillName) => {
         let arrayFilter = [];
         data.forEach(element => {
@@ -167,7 +170,9 @@ const SearchProjectGroup = () => {
                 console.log(errors);
             });
     };
-
+    const handleResetFilter = e => {
+        handleQueryUser(e.currentTarget.dataset.skill);
+    };
     const history = useHistory();
     const handleRedirect = x => {
         history.push(`show-project/${x}`);
@@ -175,13 +180,15 @@ const SearchProjectGroup = () => {
 
     return (
         <div className="container" style={{ marginLeft: "13rem" }}>
-            <div className="col-md-12 mb-4">
-                <SkillsSearchUser
-                    handleQueryUser={handleQueryUser}
-                    triggerDisplayState={triggerDisplayState}
-                    keyPress={keyPress}
-                />
-            </div>
+            {searchFieldIsShown &&
+                <div className="col-md-12 mb-4">
+                    <SkillsSearchUser
+                        handleQueryUser={handleQueryUser}
+                        triggerDisplayState={triggerDisplayState}
+                        keyPress={keyPress}
+                    />
+                </div>
+            }
             {searchResultIsShown &&
                 <div className="col-md-12 mb-4">
                     <div className="row justify-content-center">
@@ -200,6 +207,7 @@ const SearchProjectGroup = () => {
                     </div>
 
                     <div className="row justify-content-center m-4">
+                        <Button className={classes.buttonFilter} color="secondary" variant="outlined" onClick={handleResetFilter} data-skill={skill}>Reset Filter</Button>
                         {filters ? filters.map((filter, index) => (
                             <Button
                                 key={index}
