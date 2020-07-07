@@ -101,7 +101,7 @@ const SearchProjectGroup = () => {
             .then(response => {
                 console.log(response.data);
                 setProjects(response.data);
-                getFilters(response.data);
+                getFilters(response.data, skillName);
             })
             .catch(errors => {
                 console.log(errors);
@@ -136,18 +136,20 @@ const SearchProjectGroup = () => {
     const linkStyle = hover ? { textDecoration: 'none', color: "#fff" } : {};
 
     const [filters, setFilters] = useState([]);
-    const getFilters = data => {
+    const [skill, setSkill] = useState("");
+    const getFilters = (data, skillName) => {
         let arrayFilter = [];
         data.forEach(element => {
             arrayFilter.push(element["location"]);
         });
         let uniqueFilter = [...new Set(arrayFilter)];
         setFilters(uniqueFilter);
+        setSkill(skillName);
     };
 
     const filterResults = e => {
-        console.log(e.currentTarget.value);
         let $request = {
+            skillName: e.currentTarget.dataset.skill,
             location: e.currentTarget.value,
         };
         axios
@@ -204,6 +206,7 @@ const SearchProjectGroup = () => {
                                 variant="outlined"
                                 color="primary"
                                 className={classes.buttonFilter}
+                                data-skill={skill}
                                 onClick={e => filterResults(e)}
                                 value={filter}
                             >

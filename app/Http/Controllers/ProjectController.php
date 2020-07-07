@@ -238,7 +238,33 @@ class ProjectController extends Controller
 
     public function filterProjectSkill(Request $request)
     {
-        $projects = Project::where('location', $request->location)->get();
+        $queryProjectChildSkill = $this->queryProjectChildSkill($request);
+        $queryProjectTagSkill = $this->queryProjectTagSkill($request);
+
+        $userName = [];
+        foreach ($queryProjectChildSkill as $skill) {
+            foreach ($skill->projects as $user) {
+                $userName[] = $user['id'];
+            }
+        }
+
+        $userName3 = [];
+        foreach ($queryProjectTagSkill as $tskill) {
+            foreach ($tskill->projects as $tuser) {
+                $userName3[] = $tuser['id'];
+            }
+        }
+
+        $projects = [];
+        $userNameMerge = array_merge($userName, $userName3);
+        if (!empty($userNameMerge)) {
+            $userNameUnique = array_unique($userNameMerge);
+            $implodeArray = implode(',', $userNameUnique);
+            $projects = Project::whereIn('id', $userNameUnique)->where('location', $request->location)
+                ->orderByRaw(DB::raw("FIELD(id, $implodeArray)"))
+                ->get();
+        }
+
         return response()->json($projects);
     }
 }
