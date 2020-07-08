@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Childskill;
 use App\Parentskill;
+use App\Station;
 use App\Tag;
 use App\User;
 use Auth;
@@ -118,6 +119,53 @@ class SkillController extends Controller
             $implodeArray = implode(',', $userNameUnique);
             $userData = User::whereIn('id', $userNameUnique)
                 ->orderByRaw(DB::raw("FIELD(id, $implodeArray)"))
+                ->with('childskills')
+                ->with('desiredskills')
+                ->with('tagskills')
+                ->with('desiredtagskills')
+                ->with('stations')
+                ->with('organizations')
+                ->get();
+        }
+
+        return response()->json($userData);
+    }
+
+    public function filterUserSkill(Request $request)
+    {
+        $querySkill = $this->showAllRelatedSkills($request);
+        $queryTagSkill = $this->queryTagSkill($request);
+        $userName = [];
+        $userName2 = [];
+
+        foreach ($querySkill as $skill) {
+            foreach ($skill->users as $user) {
+                $userName[] = $user['id'];
+            }
+            foreach ($skill->parentskills as $parentskill) {
+                foreach ($parentskill->users as $user) {
+                    $userName2[] = $user['id'];
+                }
+            }
+        }
+
+        $userName3 = [];
+        foreach ($queryTagSkill as $tskill) {
+            foreach ($tskill->users as $tuser) {
+                $userName3[] = $tuser['id'];
+            }
+        }
+
+        $userData = [];
+        $userNameMerge = array_merge($userName, $userName2, $userName3);
+        if (!empty($userNameMerge)) {
+            $userNameUnique = array_unique($userNameMerge);
+            $implodeArray = implode(',', $userNameUnique);
+            $userData = User::whereIn('id', $userNameUnique)
+                ->orderByRaw(DB::raw("FIELD(id, $implodeArray)"))
+                ->whereHas('stations', function ($q) use ($request) {
+                    $q->where('name', $request->location);
+                })
                 ->with('childskills')
                 ->with('desiredskills')
                 ->with('tagskills')

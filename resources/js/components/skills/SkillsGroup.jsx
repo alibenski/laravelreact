@@ -20,7 +20,9 @@ class SkillsGroup extends Component {
             skills: [],
             users: [],
             isLoading: true,
-            searchFieldIsShown: true
+            searchFieldIsShown: true,
+            filters: [],
+            skill: "",
         };
 
         this.handleQuerySkill = this.handleQuerySkill.bind(this);
@@ -28,6 +30,7 @@ class SkillsGroup extends Component {
         this.triggerDisplayState = this.triggerDisplayState.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
         this.keyPress = this.keyPress.bind(this);
+        this.getFilters = this.getFilters.bind(this);
     }
 
     componentDidMount() {
@@ -71,16 +74,31 @@ class SkillsGroup extends Component {
                 }
             })
             .then(response => {
-                console.log(response.data)
+                console.log(response.data);
                 this.setState({
                     users: response.data,
                     isLoading: false
                 });
+                this.getFilters(response.data, skillName);
             })
             .catch(errors => {
                 console.log(errors);
             });
     }
+
+    getFilters(data, skillName) {
+        let arrayFilter = [];
+        data.forEach(element => {
+            if (element["stations"]) {
+                arrayFilter.push(element["stations"]["name"]);
+            }
+        });
+        let uniqueFilter = [...new Set(arrayFilter)];
+        this.setState({
+            filters: uniqueFilter,
+            skill: skillName,
+        });
+    };
 
     triggerDisplayState() {
         this.setState({
@@ -114,6 +132,36 @@ class SkillsGroup extends Component {
     render() {
         let filteredSkills = this.state.skills;
         let filteredUsers = this.state.users;
+        let skill = this.state.skill;
+        let filters = this.state.filters;
+
+        const handleResetFilter = e => {
+            this.handleQueryUser(e.currentTarget.dataset.skill);
+        };
+
+        const filterResults = e => {
+            const token = localStorage.userToken;
+            let $request = {
+                skillName: e.currentTarget.dataset.skill,
+                location: e.currentTarget.value,
+            };
+            axios
+                .post("/api/filter-user-skill", $request, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        Accept: "application/json"
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    this.setState({
+                        users: response.data,
+                    });
+                })
+                .catch(errors => {
+                    console.log(errors);
+                });
+        };
 
         return (
             <div className="container mt-4" style={{ marginLeft: "13rem" }}>
@@ -132,6 +180,10 @@ class SkillsGroup extends Component {
                         )}
                         {this.state.searchResultIsShown && (
                             <SkillsResult
+                                handleResetFilter={handleResetFilter}
+                                skill={skill}
+                                filters={filters}
+                                filterResults={e => filterResults(e)}
                                 skillUserRecords={filteredUsers}
                                 refreshPage={this.refreshPage}
                                 isLoading={this.state.isLoading}

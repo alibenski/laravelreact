@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { green } from '@material-ui/core/colors';
 import { Avatar } from "@material-ui/core";
+import FilterButtons from "../components/FilterButtons";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
+const SkillsResult = ({ skillUserRecords, refreshPage, isLoading, handleResetFilter, skill, filters, filterResults }) => {
     const classes = useStyles();
     let userResult = true;
     const [hover, setHover] = useState(false);
@@ -56,12 +57,13 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading }) => {
                                 refreshPage();
                             }}
                         >
-                            Reset
+                            Reset Search Result
                         </Button>
                     </div>
                     {!userResult && "No result..."}
                     {userResult && (
                         <div className={classes.root}>
+                            <FilterButtons handleResetFilter={handleResetFilter} skill={skill} filters={filters} filterResults={e => filterResults(e)} />
                             <Typography variant="h6" className={classes.paper}>Conecta recommends the following profile(s):</Typography>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
