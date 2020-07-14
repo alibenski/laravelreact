@@ -125,6 +125,7 @@ class SkillController extends Controller
                 ->with('desiredtagskills')
                 ->with('stations')
                 ->with('organizations')
+                ->with('languages')
                 ->get();
         }
 
@@ -172,6 +173,7 @@ class SkillController extends Controller
                 ->with('desiredtagskills')
                 ->with('stations')
                 ->with('organizations')
+                ->with('languages')
                 ->get();
         }
 

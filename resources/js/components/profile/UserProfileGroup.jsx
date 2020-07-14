@@ -41,7 +41,8 @@ const UserProfileGroup = () => {
         selected: [],
         selectedDesired: [],
         organization: [],
-        station: []
+        station: [],
+        language: [],
     };
     const handleSelected = x => {
         state.selected = x;
@@ -66,6 +67,9 @@ const UserProfileGroup = () => {
     };
     const handleCheck = x => {
         state.checkbox = x;
+    };
+    const handleSelectedLanguage = x => {
+        state.language = x;
     };
     const [isLoading, setIsLoading] = useState(false);
     const handleSubmit = () => {
@@ -123,7 +127,7 @@ const UserProfileGroup = () => {
                     spacing={2}
                     className="mt-4">
 
-                    <DetailComponent handleFields={handleFields} handlePhone={handlePhone} handleGender={handleGender} handleCheck={handleCheck} handleSelected={handleSelected} handleSelectedDesired={handleSelectedDesired} handleSelectedOrg={handleSelectedOrg} handleSelectedCountry={handleSelectedCountry} handleDeleteSkill={handleDeleteSkill} details={details} />
+                    <DetailComponent handleFields={handleFields} handlePhone={handlePhone} handleGender={handleGender} handleCheck={handleCheck} handleSelected={handleSelected} handleSelectedDesired={handleSelectedDesired} handleSelectedOrg={handleSelectedOrg} handleSelectedCountry={handleSelectedCountry} handleDeleteSkill={handleDeleteSkill} handleSelectedLanguage={handleSelectedLanguage} details={details} />
                     <br />
                     <Grid item xs={8}>
                         {/* <SkillsSelector state={state} /> */}

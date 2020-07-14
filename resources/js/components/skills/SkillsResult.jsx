@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { green } from '@material-ui/core/colors';
+import { green, blueGrey } from '@material-ui/core/colors';
 import { Avatar } from "@material-ui/core";
 import FilterButtons from "../components/FilterButtons";
 
@@ -97,6 +97,14 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading, handleResetFil
                                                     </Button>
                                                     <p>Organization: {user.organizations ? user.organizations.name : "n/a"}</p>
                                                     <p>Duty Station: {user.stations ? user.stations.name : "n/a"}</p>
+                                                    <p>Working Language(s):<br />
+                                                        {user.languages.length > 0 ? user.languages.map(language => (
+                                                            <span key={language.id} className={classes.role}>
+                                                                <CheckCircleIcon style={{ color: blueGrey[500] }} /> {language.name}
+                                                            </span>
+                                                        )) : "none selected"
+                                                        }
+                                                    </p>
                                                     <p>I want to: {user.shadow ? <span className={classes.role}>
                                                         <CheckCircleIcon style={{ color: green[500] }} /> shadow </span> : ""}
                                                         {user.mentor ? <span className={classes.role}><CheckCircleIcon style={{ color: green[500] }} /> be a mentor </span> : ""}

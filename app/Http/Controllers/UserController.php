@@ -50,6 +50,7 @@ class UserController extends Controller
             ->with('desiredtagskills')
             ->with('stations')
             ->with('organizations')
+            ->with('languages')
             ->first();
         return response()->json(['success' => $userWithSkills], $this->successStatus);
     }
@@ -112,6 +113,8 @@ class UserController extends Controller
                 'bio' => null
             ]);
         }
+        $language = $request->state["language"];
+        $this->updateUserLanguage($user, $language);
 
         $selected = $request->state["selected"];
         $selectedSkills = [];
@@ -159,8 +162,35 @@ class UserController extends Controller
             ->with('desiredtagskills')
             ->with('stations')
             ->with('organizations')
+            ->with('languages')
             ->first();
         return response()->json($userWithSkills);
+    }
+
+    public function updateUserLanguage($user, $language)
+    {
+        $languageArray = [];
+        foreach ($language as $key => $value) {
+            if ($key === "Arabic" && $value === true) {
+                $languageArray[] = 1;
+            }
+            if ($key === "Chinese" && $value === true) {
+                $languageArray[] = 2;
+            }
+            if ($key === "English" && $value === true) {
+                $languageArray[] = 3;
+            }
+            if ($key === "French" && $value === true) {
+                $languageArray[] = 4;
+            }
+            if ($key === "Russian" && $value === true) {
+                $languageArray[] = 5;
+            }
+            if ($key === "Spanish" && $value === true) {
+                $languageArray[] = 6;
+            }
+        }
+        $user->languages()->sync($languageArray);
     }
 
     public function updateUserSkills($user, $selectedSkills)

@@ -58,6 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new VerifyApiEmail); // my notification
     }
 
+    public function languages()
+    {
+        return $this->belongsToMany('App\Language');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

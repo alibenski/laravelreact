@@ -21,6 +21,7 @@ import "react-phone-input-2/lib/material.css";
 import { useFormFields } from "../libs/hooksLib";
 import SelectOrganization from "../components/SelectOrganization";
 import SelectCountries from "../components/SelectCountries";
+import LanguageSelectComponent from "./LanguageSelectComponent";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -53,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected, handleSelectedDesired, handleSelectedOrg, handleSelectedCountry, handleDeleteSkill, details }) => {
+const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck, handleSelected, handleSelectedDesired, handleSelectedOrg, handleSelectedCountry, handleDeleteSkill, handleSelectedLanguage, details }) => {
     const classes = useStyles();
     const [fields, handleFieldChange] = useFormFields({
         firstname: "",
@@ -183,6 +184,7 @@ const DetailComponent = ({ handleFields, handlePhone, handleGender, handleCheck,
 
                             <SelectCountries handleSelectedCountry={handleSelectedCountry} details={details} />
                             <SelectOrganization handleSelectedOrg={handleSelectedOrg} details={details} />
+                            <LanguageSelectComponent handleSelectedLanguage={handleSelectedLanguage} details={details} />
 
                             <FormControl
                                 component="fieldset"
