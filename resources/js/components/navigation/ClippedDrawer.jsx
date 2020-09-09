@@ -25,6 +25,7 @@ import { Collapse } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import FeedbackIcon from '@material-ui/icons/Feedback';
 
 const drawerWidth = 180;
 
@@ -165,6 +166,15 @@ export default function ClippedDrawer({ handleLogout }) {
                     primary="How-to"
                     icon={<HelpOutlineIcon />}
                 />
+                <li>
+                    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=2zWeD09UYE-9zF6kFubccIsigobdGfpMhsZbIx8zkdpUQ09ISUNXVlJXTFZGU0FLSUU3Mk5UUVUzWC4u" style={{ textDecoration: 'none' }} className={classes.link} target="_blank">
+                        <ListItem button >
+                            <ListItemIcon className={classes.icon}><FeedbackIcon /></ListItemIcon>
+                            <ListItemText primary="Feedback" />
+                        </ListItem>
+
+                    </a>
+                </li>
             </List>
             <Divider />
         </div>
