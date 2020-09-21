@@ -293,6 +293,7 @@ class UserController extends Controller
             ->with('desiredtagskills')
             ->with('stations')
             ->with('organizations')
+            ->with('languages')
             ->first();
         return response()->json($data);
     }
