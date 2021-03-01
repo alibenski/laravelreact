@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'conecta@un.org'),
-        'name' => env('MAIL_FROM_NAME', 'Conecta'),
+        'address' => env('MAIL_FROM_ADDRESS', 'conecta@unog.ch'),
+        'name' => env('MAIL_FROM_NAME', 'Conecta DO NOT REPLY'),
     ],
 
     /*

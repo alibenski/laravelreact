@@ -9,6 +9,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { green, blueGrey } from '@material-ui/core/colors';
 import { Avatar } from "@material-ui/core";
 import FilterButtons from "../components/FilterButtons";
+import ConnectNotificationButton from "../components/ConnectNotificationButton";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -87,6 +88,7 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading, handleResetFil
                                                 </span>
                                                 <Typography variant="h6">
                                                     <p>Email: {user.email} </p>
+                                                    <ConnectNotificationButton email={user.email} />
                                                     <Button variant="contained"
                                                         color="primary"
                                                         className="m-2"
