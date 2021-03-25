@@ -88,7 +88,7 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading, handleResetFil
                                                 </span>
                                                 <Typography variant="h6">
                                                     <p>Email: {user.email} </p>
-                                                    <ConnectNotificationButton email={user.email} />
+                                                    {/* <ConnectNotificationButton email={user.email} /> */}
                                                     <Button variant="contained"
                                                         color="primary"
                                                         className="m-2"
@@ -185,8 +185,8 @@ const SkillsResult = ({ skillUserRecords, refreshPage, isLoading, handleResetFil
                     }
                 </React.Fragment >
             ) : (
-                    "Loading..."
-                )}
+                "Loading..."
+            )}
         </div >
     );
 };
