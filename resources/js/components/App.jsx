@@ -40,6 +40,8 @@ const App = () => {
             }
         }
         setIsAuthenticating(false);
+        history.push('/temp');
+        history.goBack();
     }
 
     const checkSession = () => {
@@ -89,8 +91,8 @@ const App = () => {
                     // <TemporaryDrawer handleLogout={handleLogout} />
                     <ClippedDrawer handleLogout={handleLogout} />
                 ) : (
-                        <></>
-                    )}
+                    <></>
+                )}
                 <AppContext.Provider
                     value={{ isAuthenticated, userHasAuthenticated }}
                 >
